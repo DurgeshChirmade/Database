@@ -1,0 +1,10 @@
+Assignment-4
+---------------
+select e.empno,e.ename,e.deptno,d.dname,d.loc from emps e join depts d on e.deptno=d.deptno where e.job="manager";
++-------+-------+--------+------------+----------+
+| empno | ename | deptno | dname      | loc      |
++-------+-------+--------+------------+----------+
+|  7782 | CLARK |     10 | ACCOUNTING | NEW YORK |
+|  7566 | JONES |     20 | RESEARCH   | DALLAS   |
+|  7698 | BLAKE |     30 | SALES      | CHICAGO  |
++-------+-------+--------+------------+----------+

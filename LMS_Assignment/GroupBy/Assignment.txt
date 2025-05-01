@@ -1,0 +1,141 @@
+Section: Grouping Data
+
+Assignment-1
+--------------
+select deptno,sum(sal) from emp group by deptno;
++--------+----------+
+| deptno | sum(sal) |
++--------+----------+
+|     30 |  9685.00 |
+|     20 | 10372.50 |
+|     10 |  8750.00 |
++--------+----------+
+
+select deptno,sum(sal) from emp group by deptno order by deptno;
++--------+----------+
+| deptno | sum(sal) |
++--------+----------+
+|     10 |  8750.00 |
+|     20 | 10372.50 |
+|     30 |  9685.00 |
++--------+----------+
+
+Assignment-2
+---------------
+select deptno,sum(sal) from emp group by deptno having sum(sal)>10000;
++--------+----------+
+| deptno | sum(sal) |
++--------+----------+
+|     20 | 10372.50 |
++--------+----------+
+
+select deptno,sum(sal) from emp where sum(sal)>10000 group by deptno;
+ERROR 1111 (HY000): Invalid use of group function
+
+Assignment-3
+-------------
+select job,deptno,sum(sal) total_salary from emp where deptno != 30 group by job,deptno having sum(sal)>=6000;
++---------+--------+--------------+
+| job     | deptno | total_salary |
++---------+--------+--------------+
+| ANALYST |     20 |      6000.00 |
++---------+--------+--------------+
+
+select job,deptno,sum(sal) total_salary from emp where deptno != 30 group by job,deptno having sum(sal)>3000;
++-----------+--------+--------------+
+| job       | deptno | total_salary |
++-----------+--------+--------------+
+| MANAGER   |     20 |      3272.50 |
+| ANALYST   |     20 |      6000.00 |
+| PRESIDENT |     10 |      5000.00 |
++-----------+--------+--------------+
+
+Assignment-4
+--------------
+select job,max(sal) "MAX_SALARY" from emp where job IN("manager","clerk","salesman") and deptno IN(10,20) group by job order by max(sal) desc;
++---------+------------+
+| job     | MAX_SALARY |
++---------+------------+
+| MANAGER |    3272.50 |
+| CLERK   |    1300.00 |
++---------+------------+
+
+Assignment-5
+-------------
+select job,deptno,count(deptno) "count_Dept" from emp group by job,deptno having sum(sal)>3000;
++-----------+--------+------------+
+| job       | deptno | count_Dept |
++-----------+--------+------------+
+| SALESMAN  |     30 |          4 |
+| MANAGER   |     20 |          1 |
+| ANALYST   |     20 |          2 |
+| PRESIDENT |     10 |          1 |
++-----------+--------+------------+
+
+Assignment-6
+--------------
+select deptno,count(deptno) count from emp group by deptno having count(deptno)>4;
++--------+-------+
+| deptno | count |
++--------+-------+
+|     30 |     6 |
++--------+-------+
+
+Assignment-7
+--------------
+select *,case when comm is null then "need improvement" when comm<500 then "OK" when comm>=500 and comm<1000 then "Good Excellent" when comm>=1000 then "Excellent" end performance from emp;
++-------+--------+-----------+------+------------+---------+---------+--------+------------------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO | performance      |
++-------+--------+-----------+------+------------+---------+---------+--------+------------------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1760.00 |  300.00 |     30 | OK               |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1375.00 |  500.00 |     30 | Good Excellent   |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 3272.50 |    NULL |     20 | need improvement |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 | Excellent        |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 | need improvement |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 | need improvement |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 | need improvement |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 | need improvement |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 | OK               |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 | need improvement |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 | need improvement |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 | need improvement |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 | need improvement |
++-------+--------+-----------+------+------------+---------+---------+--------+------------------+
+
+*** Assignment-8
+--------------
+select sum(sal),min(sal) from emp where job="manager";
++----------+----------+
+| sum(sal) | min(sal) |
++----------+----------+
+|  8572.50 |  2450.00 |
++----------+----------+
+
+select sum(sal),min(sal) from emp where job="manager" group by sum(sal);
+ERROR 1056 (42000): Can't group on 'sum(sal)'
+
+Assignment-9
+--------------
+select deptno,sum(sal) "Total Salary" from emp where job="clerk" group by deptno having count(*)>2;
+Empty set (0.00 sec)
+---> this gives empty set because each deptno has only 1 clerk
+
+select job,deptno,sum(sal) "Total Salary",count(job) count from emp where job="clerk" group by deptno order by deptno;
++-------+--------+--------------+-------+
+| job   | deptno | Total Salary | count |
++-------+--------+--------------+-------+
+| CLERK |     10 |      1300.00 |     1 |
+| CLERK |     20 |      1100.00 |     1 |
+| CLERK |     30 |       950.00 |     1 |
++-------+--------+--------------+-------+
+
+Assignment-10
+---------------
+select deptno,count(*) count from emp where sal>1500 group by deptno order by deptno;
++--------+-------+
+| deptno | count |
++--------+-------+
+|     10 |     2 |
+|     20 |     3 |
+|     30 |     2 |
++--------+-------+

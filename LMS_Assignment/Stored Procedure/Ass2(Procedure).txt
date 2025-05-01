@@ -1,0 +1,21 @@
+Assignment-2
+--------------
+delimiter //
+create procedure second_proc(inout a decimal(7,2))
+begin
+	select avg(sal) into a
+	from emps
+	where deptno=a;
+end //
+delimiter ;
+
+set @p=20;
+call second_proc(@p);
+select @p;
+
++---------+
+| @p      |
++---------+
+| 3479.17 |
++---------+
+1 row in set (0.00 sec)

@@ -1,0 +1,10 @@
+Assignment-8
+-------------
+select p.pid,p.pname,p.qty,p.price,s.sid,s.sname,s.city from product p left join salesmans s on p.sid=s.sid where p.price>50;
++-----+-------------+------+--------+------+-------+----------+
+| pid | pname       | qty  | price  | sid  | sname | city     |
++-----+-------------+------+--------+------+-------+----------+
+| 124 | dairy milk  |   40 |  60.00 |   14 | Arnav | Amravati |
+| 125 | pringles    |   40 |  60.00 |   14 | Arnav | Amravati |
+| 213 | Sketch Pens |   56 | 150.00 |   11 | Rahul | Pune     |
++-----+-------------+------+--------+------+-------+----------+

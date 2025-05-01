@@ -1,0 +1,23 @@
+Assignment-3
+--------------
+db.movie.updateOne({name:'kahani'},{$set:{price:400},$inc:{rating:2}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+knowit> db.movie.find({name:'kahani'})
+[
+  {
+    _id: ObjectId('5aaa31a2639395f86922a87e'),
+    name: 'kahani',
+    actor: [ 'aaaa', 'bbbb', 'karan', 'karri', 'vidya' ],
+    ticket_no: 420,
+    price: 400,
+    ac7tors: [ 'bbbb' ],
+    rating: 10,
+    lastmodified: ISODate('2019-04-07T11:25:40.634Z')
+  }
+]

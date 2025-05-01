@@ -1,0 +1,77 @@
+assignment 1
+
+1.display all movies with rating=4
+db.movie.find({rating:4},{}).pretty()
+
+2.display all movies with rating=3 and price=200
+db.movie.find({rating:3,price:200},{}).pretty()
+
+3.display all movies with rating>3 and price=540
+db.movie.find({rating:{$gt:3},price:540},{}).pretty()
+ 
+4.display all movies with rating>3 and price>300
+db.movie.find({rating:{$gt:3},price:{$gt:300}},{}).pretty()
+
+5.display all movies with price > 200 and < 400
+db.movie.find({price:{$gt:200},price:{$lt:400}},{}).pretty()
+or
+db.movie.find({price:{$gt:200,$lt:400}},{}).pretty()
+
+
+6.display all movies with price = 200 or 540 400
+db.movie.find({price:{$in:[200,540,400]}})
+
+7.display all movies with price not = 200 nor 540  nor 400
+db.movie.find({price:{$nin:[200,540,400]}}).pretty()
+
+8.display count of  movies with price not = 200 nor 540  nor 400
+db.movie.find({price:{$nin:[200,540,400]}}).count()
+
+9.display all movies with rating=4 or price>300
+db.movie.find({rating:4,price:{$gt:300}}).pretty()
+
+10.display all movies with price not > 200 and < 400
+db.movie.find({price:{$not:{$gt:200,$lt:400}}}).pretty()
+
+11.display all movies with rating is odd
+db.movie.find({rating:{$not:{$mod:[2,0]}}})
+or
+db.movie.find({rating:{$mod:[2,1]}})
+12.display all movies in which amitabh has acted
+13.display all movies in which amitabh has acted display in ascending order of price
+
+14. Display all movies which contains 3  actors. 
+> db.movie.find({actor:{$size:3}}).pretty()
+
+15.display all movies in which amitabh has acted display only 1st document
+> db.movie.findOne({actor:/^[Aa]mitabh/})
+
+16.Display all movies where name starts with digit and ends with s.
+ 
+17.display top 2 rating movies in which amitabh has acted    
+
+18.to display all movies with number of actors=3
+
+19.Display top 5 highest rating movies.
+
+20. Display  lowest 3 rating movies.
+
+22. Display all movies ending with digits.
+  -    db.movie.find({name:/.*\d$/},{_id:0}).pretty()
+
+23. Display all movies with rating 4 and price > 300
+  ---- db.movie.find()
+
+25. Display all movies in which  Amitabh is an actor and entry in the array is at first index position.
+> db.movie.find({'actor.0':/^[Aa]mitabh/}).pretty()
+
+
+
+ 
+============================================
+
+
+
+
+
+

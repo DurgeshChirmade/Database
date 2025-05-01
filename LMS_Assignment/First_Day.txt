@@ -1,0 +1,828 @@
+LMS Section-Create,insert & basic select clause
+-----------------------------------------------
+
+Assignment-1 
+----------------
+mysql> create database knowit;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use knowit;
+Database changed
+mysql> create table Vehicle(vid int,vname varchar(20),price int,discount int,milage int,details varchar(100));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_knowit |
++------------------+
+| vehicle          |
++------------------+
+1 row in set (0.02 sec)
+
+mysql> insert into vehicle values (1,"Activa",80000,10,35,"Two wheeler.Sturdy.Milage 30 km.");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into vehicle values (2,"Santro",95000,20,20,"Product of Hyandai.");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into vehicle values (3,"Yamaha",160000,5,70,"Sturdy and good milage.");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into vehicle values (4,"i-10",300000,8,18,"Good small car."),(5,"Harrier",2500000,10,25,"Good milage car.");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into vehicle values (6,"Hero Splendor",75000,9,65,"Best bike."),(7,"Royal Enfild",190000,5,40,"a royal bike.");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from vehicle;
++------+---------------+---------+----------+--------+----------------------------------+
+| vid  | vname         | price   | discount | milage | details                          |
++------+---------------+---------+----------+--------+----------------------------------+
+|    1 | Activa        |   80000 |       10 |     35 | Two wheeler.Sturdy.Milage 30 km. |
+|    2 | Santro        |   95000 |       20 |     20 | Product of Hyandai.              |
+|    3 | Yamaha        |  160000 |        5 |     70 | Sturdy and good milage.          |
+|    4 | i-10          |  300000 |        8 |     18 | Good small car.                  |
+|    5 | Harrier       | 2500000 |       10 |     25 | Good milage car.                 |
+|    6 | Hero Splendor |   75000 |        9 |     65 | Best bike.                       |
+|    7 | Royal Enfild  |  190000 |        5 |     40 | a royal bike.                    |
++------+---------------+---------+----------+--------+----------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> create table Customer(custid int,cname varchar(20),location varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into customer values(1,"Nilima","Pimpri"),(2,"Ganesh","Pune"),(3,"Kishor","Kothrud"),;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into customer values(1,"Nilima","Pimpri"),(2,"Ganesh","Pune"),(3,"Kishor","Kothrud"),(4,"Priya","Aundh");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++--------+--------+----------+
+| custid | cname  | location |
++--------+--------+----------+
+|      1 | Nilima | Pimpri   |
+|      2 | Ganesh | Pune     |
+|      3 | Kishor | Kothrud  |
+|      4 | Priya  | Aundh    |
++--------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_knowit |
++------------------+
+| customer         |
+| vehicle          |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table Salesman(sid int,sname varchar(20),city varchar(20),experience int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into salesman values(10,"Rajesh","mumbai",5),(11,"Seema","Pune",8),(12,"Shailesh","Nagpur",7),(13,"Rakhi","Pune",2);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman;
++------+----------+--------+------------+
+| sid  | sname    | city   | experience |
++------+----------+--------+------------+
+|   10 | Rajesh   | mumbai |          5 |
+|   11 | Seema    | Pune   |          8 |
+|   12 | Shailesh | Nagpur |          7 |
+|   13 | Rakhi    | Pune   |          2 |
++------+----------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_knowit |
++------------------+
+| customer         |
+| salesman         |
+| vehicle          |
++------------------+
+3 rows in set (0.00 sec)
+=====================================================
+
+Assignment-2
+--------------
+select vid as Vehicle_id,vname as vehicle_name,price,discount,details from vehicle;
++------------+---------------+---------+----------+----------------------------------+
+| Vehicle_id | vehicle_name  | price   | discount | details                          |
++------------+---------------+---------+----------+----------------------------------+
+|          1 | Activa        |   80000 |       10 | Two wheeler.Sturdy.Milage 30 km. |
+|          2 | Santro        |   95000 |       20 | Product of Hyandai.              |
+|          3 | Yamaha        |  160000 |        5 | Sturdy and good milage.          |
+|          4 | i-10          |  300000 |        8 | Good small car.                  |
+|          5 | Harrier       | 2500000 |       10 | Good milage car.                 |
+|          6 | Hero Splendor |   75000 |        9 | Best bike.                       |
+|          7 | Royal Enfild  |  190000 |        5 | a royal bike.                    |
++------------+---------------+---------+----------+----------------------------------+
+
+Assignment-3
+--------------
+select sname from salesman where city="Pune";
++-------+
+| sname |
++-------+
+| Seema |
+| Rakhi |
++-------+
+
+Assignment-4
+----------------
+delete from customer where location="Pimpri";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++--------+--------+----------+
+| custid | cname  | location |
++--------+--------+----------+
+|      2 | Ganesh | Pune     |
+|      3 | Kishor | Kothrud  |
+|      4 | Priya  | Aundh    |
++--------+--------+----------+
+
+Assignment-5
+--------------
+ insert into customer values (5,'Geeta','Pimpri'),(6,'Raj','Aundh'),(7,'Yash','Aundh');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++--------+--------+----------+
+| custid | cname  | location |
++--------+--------+----------+
+|      2 | Ganesh | Pune     |
+|      3 | Kishor | Kothrud  |
+|      4 | Priya  | Aundh    |
+|      5 | Geeta  | Pimpri   |
+|      6 | Raj    | Aundh    |
+|      7 | Yash   | Aundh    |
++--------+--------+----------+
+
+Assignment-6
+-------------
+delete from customer where location='Aundh' and cname='Priya';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++--------+--------+----------+
+| custid | cname  | location |
++--------+--------+----------+
+|      2 | Ganesh | Pune     |
+|      3 | Kishor | Kothrud  |
+|      5 | Geeta  | Pimpri   |
+|      6 | Raj    | Aundh    |
+|      7 | Yash   | Aundh    |
++--------+--------+----------+
+
+Assignment-7
+--------------
+select * from vehicle where vname='Royal Enfild';
++------+--------------+--------+----------+--------+---------------+
+| vid  | vname        | price  | discount | milage | details       |
++------+--------------+--------+----------+--------+---------------+
+|    7 | Royal Enfild | 190000 |        5 |     40 | a royal bike. |
++------+--------------+--------+----------+--------+---------------+
+
+Assignement-8
+---------------
+ select * from vehicle where vname='Activa' or vname='Yamaha' or vname='Hero Splendor' or vname="Royal Enfild";
++------+---------------+--------+----------+--------+----------------------------------+
+| vid  | vname         | price  | discount | milage | details                          |
++------+---------------+--------+----------+--------+----------------------------------+
+|    1 | Activa        |  80000 |       10 |     35 | Two wheeler.Sturdy.Milage 30 km. |
+|    3 | Yamaha        | 160000 |        5 |     70 | Sturdy and good milage.          |
+|    6 | Hero Splendor |  75000 |        9 |     65 | Best bike.                       |
+|    7 | Royal Enfild  | 190000 |        5 |     40 | a royal bike.                    |
++------+---------------+--------+----------+--------+----------------------------------+
+
+Assignment-9
+--------------
+ update vehicle set price=80000 where price=75000;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from vehicle;
++------+---------------+---------+----------+--------+----------------------------------+
+| vid  | vname         | price   | discount | milage | details                          |
++------+---------------+---------+----------+--------+----------------------------------+
+|    1 | Activa        |   80000 |       10 |     35 | Two wheeler.Sturdy.Milage 30 km. |
+|    2 | Santro        |   95000 |       20 |     20 | Product of Hyandai.              |
+|    3 | Yamaha        |  160000 |        5 |     70 | Sturdy and good milage.          |
+|    4 | i-10          |  300000 |        8 |     18 | Good small car.                  |
+|    5 | Harrier       | 2500000 |       10 |     25 | Good milage car.                 |
+|    6 | Hero Splendor |   80000 |        9 |     65 | Best bike.                       |
+|    7 | Royal Enfild  |  190000 |        5 |     40 | a royal bike.                    |
++------+---------------+---------+----------+--------+----------------------------------+
+
+Assignment-10
+----------------
+create table customer1 as select * from customer;
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer1;
++--------+--------+----------+
+| custid | cname  | location |
++--------+--------+----------+
+|      2 | Ganesh | Pune     |
+|      3 | Kishor | Kothrud  |
+|      5 | Geeta  | Pimpri   |
+|      6 | Raj    | Aundh    |
+|      7 | Yash   | Aundh    |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> create table salesman1 as select * from salesman;
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman1;
++------+----------+--------+------------+
+| sid  | sname    | city   | experience |
++------+----------+--------+------------+
+|   10 | Rajesh   | mumbai |          5 |
+|   11 | Seema    | Pune   |          8 |
+|   12 | Shailesh | Nagpur |          7 |
+|   13 | Rakhi    | Pune   |          2 |
++------+----------+--------+------------+
+
+
+Assignment-11
+-----------------
+select * from vehicle where vname='i-10';
++------+-------+--------+----------+--------+-----------------+
+| vid  | vname | price  | discount | milage | details         |
++------+-------+--------+----------+--------+-----------------+
+|    4 | i-10  | 300000 |        8 |     18 | Good small car. |
++------+-------+--------+----------+--------+-----------------+
+
+Assignment-12
+--------------
+select vid,vname,price,details,price-discount "total price" from vehicle;
++------+---------------+---------+----------------------------------+-------------+
+| vid  | vname         | price   | details                          | total price |
++------+---------------+---------+----------------------------------+-------------+
+|    1 | Activa        |   80000 | Two wheeler.Sturdy.Milage 30 km. |       79990 |
+|    2 | Santro        |   95000 | Product of Hyandai.              |       94980 |
+|    3 | Yamaha        |  160000 | Sturdy and good milage.          |      159995 |
+|    4 | i-10          |  300000 | Good small car.                  |      299992 |
+|    5 | Harrier       | 2500000 | Good milage car.                 |     2499990 |
+|    6 | Hero Splendor |   75000 | Best bike.                       |       74991 |
+|    7 | Royal Enfild  |  190000 | a royal bike.                    |      189995 |
++------+---------------+---------+----------------------------------+-------------+
+
+Assignemnt-13
+----------------
+select * from vehicle where price<100000;
++------+---------------+-------+----------+--------+----------------------------------+
+| vid  | vname         | price | discount | milage | details                          |
++------+---------------+-------+----------+--------+----------------------------------+
+|    1 | Activa        | 80000 |       10 |     35 | Two wheeler.Sturdy.Milage 30 km. |
+|    2 | Santro        | 95000 |       20 |     20 | Product of Hyandai.              |
+|    6 | Hero Splendor | 75000 |        9 |     65 | Best bike.                       |
++------+---------------+-------+----------+--------+----------------------------------+
+
+Assignment-14
+------------------
+select * from salesman where experience>5;
++------+----------+--------+------------+
+| sid  | sname    | city   | experience |
++------+----------+--------+------------+
+|   11 | Seema    | Pune   |          8 |
+|   12 | Shailesh | Nagpur |          7 |
++------+----------+--------+------------+
+
+Assignment-15
+---------------
+drop table salesman1;
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> select * from salesman1;
+Empty set (0.00 sec)
+
+
+Assignment-16
+---------------
+create table employee(eno int,ename varchar(20),basic int,incentive int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into employee values(1,"Rajesh",20000,1500),(2,"Sarita",25000,1000),(3,"Meera",15000,3000),(4,"Jitesh",30000,500),(5,"Ramesh",12000,3000);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    3 | Meera  | 15000 |      3000 |
+|    4 | Jitesh | 30000 |       500 |
+|    5 | Ramesh | 12000 |      3000 |
++------+--------+-------+-----------+
+
+Q.1
+select * from employee where basic>15000;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    4 | Jitesh | 30000 |       500 |
++------+--------+-------+-----------+
+
+Q.2
+update employee set incentive=1000 where ename="Jitesh";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    3 | Meera  | 15000 |      3000 |
+|    4 | Jitesh | 30000 |      1000 |
+|    5 | Ramesh | 12000 |      3000 |
++------+--------+-------+-----------+
+
+Q.3
+update employee set basic=basic+(basic*5)/100 where basic<20000;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    3 | Meera  | 15750 |      3000 |
+|    4 | Jitesh | 30000 |      1000 |
+|    5 | Ramesh | 12600 |      3000 |
++------+--------+-------+-----------+
+
+Q.4
+insert into employee values(20,"Ajay",16000,null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    3 | Meera  | 15750 |      3000 |
+|    4 | Jitesh | 30000 |      1000 |
+|    5 | Ramesh | 12600 |      3000 |
+|   20 | Ajay   | 16000 |      NULL |
++------+--------+-------+-----------+
+
+Q.5
+delete from employee where ename="Meera";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    4 | Jitesh | 30000 |      1000 |
+|    5 | Ramesh | 12600 |      3000 |
+|   20 | Ajay   | 16000 |      NULL |
++------+--------+-------+-----------+
+
+Q.6
+ update employee set basic=60000 where ename="Ramesh";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    4 | Jitesh | 30000 |      1000 |
+|    5 | Ramesh | 60000 |      3000 |
+|   20 | Ajay   | 16000 |      NULL |
++------+--------+-------+-----------+
+
+
+=========================================================================================
+
+LMS Section-Select clause in details
+--------------------------------------
+Assignment-1
+---------------
+select vid as Vehicle_id,vname as vehicle_name,price,discount,details from vehicle;
++------------+---------------+---------+----------+----------------------------------+
+| Vehicle_id | vehicle_name  | price   | discount | details                          |
++------------+---------------+---------+----------+----------------------------------+
+|          1 | Activa        |   80000 |       10 | Two wheeler.Sturdy.Milage 30 km. |
+|          2 | Santro        |   95000 |       20 | Product of Hyandai.              |
+|          3 | Yamaha        |  160000 |        5 | Sturdy and good milage.          |
+|          4 | i-10          |  300000 |        8 | Good small car.                  |
+|          5 | Harrier       | 2500000 |       10 | Good milage car.                 |
+|          6 | Hero Splendor |   75000 |        9 | Best bike.                       |
+|          7 | Royal Enfild  |  190000 |        5 | a royal bike.                    |
++------------+---------------+---------+----------+----------------------------------+
+
+Assignment-2
+--------------
+create table customer1 as select * from customer;
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer1;
++--------+--------+----------+
+| custid | cname  | location |
++--------+--------+----------+
+|      2 | Ganesh | Pune     |
+|      3 | Kishor | Kothrud  |
+|      5 | Geeta  | Pimpri   |
+|      6 | Raj    | Aundh    |
+|      7 | Yash   | Aundh    |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> create table salesman1 as select * from salesman;
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman1;
++------+----------+--------+------------+
+| sid  | sname    | city   | experience |
++------+----------+--------+------------+
+|   10 | Rajesh   | mumbai |          5 |
+|   11 | Seema    | Pune   |          8 |
+|   12 | Shailesh | Nagpur |          7 |
+|   13 | Rakhi    | Pune   |          2 |
++------+----------+--------+------------+
+
+Assignment-3
+---------------
+select * from emp where sal>2000 and comm>200;
+Empty set (0.00 sec)
+
+Assignment-4
+-------------
+ select * from emp where job="Clerk" or sal>2000;
++-------+--------+-----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+-----------+------+------------+---------+------+--------+
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 | NULL |     10 |
++-------+--------+-----------+------+------------+---------+------+--------+
+
+Assignment-5
+--------------
+select * from emp where sal=1250 or sal=1100;
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
++-------+--------+----------+------+------------+---------+---------+--------+
+
+Assignment-6
+---------------
+select * from emp where sal>1250 and sal<2850;
++-------+--------+----------+------+------------+---------+--------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM   | DEPTNO |
++-------+--------+----------+------+------------+---------+--------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600.00 | 300.00 |     30 |
+|  7782 | CLARK  | MANAGER  | 7839 | 1981-06-09 | 2450.00 |   NULL |     10 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 |   0.00 |     30 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300.00 |   NULL |     10 |
++-------+--------+----------+------+------------+---------+--------+--------+
+
+Assignment-7
+---------------
+select ename,sal,deptno from emp where deptno=20;
++-------+---------+--------+
+| ename | sal     | deptno |
++-------+---------+--------+
+| JONES | 2975.00 |     20 |
+| SCOTT | 3000.00 |     20 |
+| ADAMS | 1100.00 |     20 |
+| FORD  | 3000.00 |     20 |
++-------+---------+--------+
+
+Assignment-8
+---------------
+select * from emp where hiredate>'1981-06-09';
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+Assignment-9
+--------------
+select empno,ename,sal,comm,comm+sal "Total Salary" from emp;
++-------+--------+---------+---------+--------------+
+| empno | ename  | sal     | comm    | Total Salary |
++-------+--------+---------+---------+--------------+
+|  7499 | ALLEN  | 1600.00 |  300.00 |      1900.00 |
+|  7521 | WARD   | 1250.00 |  500.00 |      1750.00 |
+|  7566 | JONES  | 2975.00 |    NULL |         NULL |
+|  7654 | MARTIN | 1250.00 | 1400.00 |      2650.00 |
+|  7698 | BLAKE  | 2850.00 |    NULL |         NULL |
+|  7782 | CLARK  | 2450.00 |    NULL |         NULL |
+|  7788 | SCOTT  | 3000.00 |    NULL |         NULL |
+|  7839 | KING   | 5000.00 |    NULL |         NULL |
+|  7844 | TURNER | 1500.00 |    0.00 |      1500.00 |
+|  7876 | ADAMS  | 1100.00 |    NULL |         NULL |
+|  7900 | JAMES  |  950.00 |    NULL |         NULL |
+|  7902 | FORD   | 3000.00 |    NULL |         NULL |
+|  7934 | MILLER | 1300.00 |    NULL |         NULL |
++-------+--------+---------+---------+--------------+
+
+Assignment-10
+--------------
+select * from emp where sal>2000 or (job='clark' or job='salesman');
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+Assignment-11
+----------------
+ select * from emp where deptno IN(20,30) and comm is NULL;
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7900 | JAMES | CLERK   | 7698 | 1981-12-03 |  950.00 | NULL |     30 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+Assignment-12
+-----------------
+ select * from emp where deptno IN (10,30) or hiredate=1982;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+Assignment-13
+-----------------
+select empno,ename,sal,sal+(sal*0.2) "new sal" from emp;
++-------+--------+---------+----------+
+| empno | ename  | sal     | new sal  |
++-------+--------+---------+----------+
+|  7499 | ALLEN  | 1600.00 | 1920.000 |
+|  7521 | WARD   | 1250.00 | 1500.000 |
+|  7566 | JONES  | 2975.00 | 3570.000 |
+|  7654 | MARTIN | 1250.00 | 1500.000 |
+|  7698 | BLAKE  | 2850.00 | 3420.000 |
+|  7782 | CLARK  | 2450.00 | 2940.000 |
+|  7788 | SCOTT  | 3000.00 | 3600.000 |
+|  7839 | KING   | 5000.00 | 6000.000 |
+|  7844 | TURNER | 1500.00 | 1800.000 |
+|  7876 | ADAMS  | 1100.00 | 1320.000 |
+|  7900 | JAMES  |  950.00 | 1140.000 |
+|  7902 | FORD   | 3000.00 | 3600.000 |
+|  7934 | MILLER | 1300.00 | 1560.000 |
++-------+--------+---------+----------+
+
+Assignment-14
+----------------
+create table emp10 as select * from emp where 1=2;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp10;
+Empty set (0.00 sec)
+
+Assignment-15
+----------------
+insert into emp10 values(8013,"AJAY","MANAGER",null,'1982-02-24',4500.24,NULL,20);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from emp10;
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  8013 | AJAY  | MANAGER | NULL | 1982-02-24 | 4500.24 | NULL |     20 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+
+Assignment-16
+---------------
+select * from emp where mgr is not NULL;
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER  | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER  | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+----------+------+------------+---------+---------+--------+
+
+Assignment-17
+--------------
+create table dept10 as select * from dept;
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept10;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
++--------+------------+----------+
+
+Assignment-18
+----------------
+update emp100 set sal=sal+((sal+ifnull(comm,0))*(15/100));
+Query OK, 13 rows affected (0.04 sec)
+Rows matched: 13  Changed: 13  Warnings: 0
+
+mysql> select * from emp100;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1885.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1512.50 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 3421.25 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1647.50 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 3277.50 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2817.50 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3450.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5750.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1725.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1265.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 | 1092.50 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3450.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1495.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+update emp100 set mgr=777 where deptno=10;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from emp100;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1885.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1512.50 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 3421.25 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1647.50 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 3277.50 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   |  777 | 1981-06-09 | 2817.50 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3450.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT |  777 | 1981-11-17 | 5750.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1725.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1265.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 | 1092.50 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3450.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     |  777 | 1982-01-23 | 1495.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+UPDATE emp100 
+SET sal = sal + ((sal + IFNULL(comm, 0)) * 0.15),
+    mgr = CASE WHEN deptno = 10 THEN 777 ELSE mgr END;
+
+
+Assignment-19
+---------------
+ select * from emp where hiredate between '1981-01-01' and '1983-01-01';
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+Assignment-20
+---------------
+select empno,ename,deptno from emp where empno=7698;
++-------+-------+--------+
+| empno | ename | deptno |
++-------+-------+--------+
+|  7698 | BLAKE |     30 |
++-------+-------+--------+
+
+Assignment-21
+----------------
+select* from emp where job="MANAGER" and deptno=10;
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7782 | CLARK | MANAGER | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+Assignment-22
+------------------
+select distinct job from emp;
++-----------+
+| job       |
++-----------+
+| SALESMAN  |
+| MANAGER   |
+| ANALYST   |
+| PRESIDENT |
+| CLERK     |
++-----------+
+
+Assignment-23
+----------------
+select distinct deptno from emp;
++--------+
+| deptno |
++--------+
+|     30 |
+|     20 |
+|     10 |
++--------+
+
+Assignment-24
+--------------
+select *, case when comm is null then 'Need Improvement' when comm<500 then "OK" when comm>=500 and comm<1000 then "GOOD" when comm>=1000 then 'Excellent' end performance from emp;
++-------+--------+-----------+------+------------+---------+---------+--------+------------------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO | performance      |
++-------+--------+-----------+------+------------+---------+---------+--------+------------------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 | OK               |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 | GOOD             |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 | Need Improvement |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 | Excellent        |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 | Need Improvement |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 | Need Improvement |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 | Need Improvement |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 | Need Improvement |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 | OK               |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 | Need Improvement |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 | Need Improvement |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 | Need Improvement |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 | Need Improvement |
++-------+--------+-----------+------+------------+---------+---------+--------+------------------+

@@ -1,0 +1,310 @@
+create database knowit;
+
+show databases;
+
+use knowit;
+
+show tables;
+student(prn,name,per,passing_date)
+create table student
+(prn int,
+ name varchar(15),
+ per float(5,2),
+ passing_date date 
+);
+
+describe student;
+
+insert into student
+values(1234,'Raj',78.90,'2022-11-11') ;
+insert into student
+values(2345,'Rajesh',70.20,'2023-12-21') ;
+insert into student
+values(3456,'Suresh',90.20,null) ;
+
+insert into student
+values(null,'Geeta',91.45,null),
+      (7891,'Seeta',null,null),
+      (2356,'Tina',93.12,'2022-11-11');
+
+arithmetic operators
+---------------------
+>, <, <=, >=, =, !=, <>
+
+-display all stdents with per>90
+select * 
+from student
+where per>90;
+
+using column alias
+------------------
+-increase marks by 5
+select name,per,per+5
+from student;
+ 
+using column alias
+
+select name, per percentage,per+5 "Total Marks"
+from student;
+
+-------------------------------------
+and or operators
+
+-display emps earning sal>1500 in deptno 10
+select * 
+from emp
+where sal>1500 and deptno=10;
+-------------------------
+in,not,is,between..and
+
+-display all emps from dept 10 or 20
+select * 
+from emp
+where deptno=10 or deptno=20;
+
+mysql> select *
+    -> from emp
+    -> where deptno=10 or deptno=20;
++-------+--------+-----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+-----------+------+------------+---------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 | NULL |     20 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 | NULL |     10 |
++-------+--------+-----------+------+------------+---------+------+--------+
+8 rows in set (0.00 sec)
+
+select * 
+from emp
+where deptno in(10,20);
+
+select * 
+from emp
+where job in('clerk','salesman');
+
+mysql> select *
+    -> from emp
+    -> where job in('clerk','salesman');
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7369 | SMITH  | CLERK    | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK    | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+----------+------+------------+---------+---------+--------+
+8 rows in set (0.00 sec)
+
+select * 
+from emp
+where job not in('clerk','salesman');
+
+is operator
+---------
+-specifically used with null values
+
+select * from emp
+where comm is null; 
+
+mysql> select * from emp
+    -> where comm is null;
++-------+--------+-----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+-----------+------+------------+---------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 | NULL |     20 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 | NULL |     10 |
++-------+--------+-----------+------+------------+---------+------+--------+
+10 rows in set (0.00 sec)
+
+
+select * from emp
+where comm is not null; 
+mysql> select * from emp
+    -> where comm is not null;
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
++-------+--------+----------+------+------------+---------+---------+--------+
+4 rows in set (0.00 sec)
+
+between..and
+--disp all earning sal in the range 1500 and 3000
+select *
+from emp
+where sal>=1500 and sal <=3000;
+
+select *
+from emp
+where sal between 1500 and 3000;
+
+select *
+from emp
+where sal not between 1500 and 3000;
+
+---------------------------------------
+
+distinct clause
+--supress repeating entries in the table
+
+-disp all deptnos in which emps are working
+select distinct deptno
+from emp;
+
+mysql> select distinct job from emp;
++-----------+
+| job       |
++-----------+
+| CLERK     |
+| SALESMAN  |
+| MANAGER   |
+| ANALYST   |
+| PRESIDENT |
++-----------+
+5 rows in set (0.00 sec)
+
+select distinct deptno,job
+from emp;
+
+mysql> select distinct deptno,job
+    -> from emp;
++--------+-----------+
+| deptno | job       |
++--------+-----------+
+|     20 | CLERK     |
+|     30 | SALESMAN  |
+|     20 | MANAGER   |
+|     30 | MANAGER   |
+|     10 | MANAGER   |
+|     20 | ANALYST   |
+|     10 | PRESIDENT |
+|     30 | CLERK     |
+|     10 | CLERK     |
++--------+-----------+
+9 rows in set (0.00 sec)
+-----------------------------
+limit clause
+
+-display 3 rows from emp table
+select *
+from emp
+limit 5;
+
+select *
+from emp
+limit 3,4;
+
+select *
+from emp
+limit 6,5;
+
+select *  ------------ 4
+from emp     ----------- 1
+where deptno=10 -------- 2
+limit 3;        --------- 3
+
+select *
+from emp
+limit 6 offset 5;
+
+select *
+from emp
+limit 6 offset 3;
+---------------------
+
+sorting 
+
+order by clause
+-sort the data
+
+SELECT column_list
+FROM table_name
+WHERE condi on column
+ORDER BY column_name
+LIMIT ;
+
+select ename,sal
+from emp
+order by sal;
+
+select ename,deptno,sal
+from emp
+order by sal desc;
+
+select ename,deptno,sal
+from emp
+order by deptno,sal;
+
+select ename,deptno,sal
+from emp
+order by deptno,sal desc;
+
+select ename,deptno,sal
+from emp
+order by deptno desc,sal asc;
+
+mysql> select ename,deptno,sal
+    -> from emp
+    -> order by deptno desc,sal asc;
++--------+--------+---------+
+| ename  | deptno | sal     |
++--------+--------+---------+
+| JAMES  |     30 |  950.00 |
+| WARD   |     30 | 1250.00 |
+| MARTIN |     30 | 1250.00 |
+| TURNER |     30 | 1500.00 |
+| ALLEN  |     30 | 1600.00 |
+| BLAKE  |     30 | 2850.00 |
+| SMITH  |     20 |  800.00 |
+| ADAMS  |     20 | 1100.00 |
+| JONES  |     20 | 2975.00 |
+| SCOTT  |     20 | 3000.00 |
+| FORD   |     20 | 3000.00 |
+| MILLER |     10 | 1300.00 |
+| CLARK  |     10 | 2450.00 |
+| KING   |     10 | 5000.00 |
++--------+--------+---------+
+14 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

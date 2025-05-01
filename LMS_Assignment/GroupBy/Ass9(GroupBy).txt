@@ -1,0 +1,14 @@
+Assignment-9
+--------------
+select deptno,sum(sal) "Total Salary" from emp where job="clerk" group by deptno having count(*)>2;
+Empty set (0.00 sec)
+---> this gives empty set because each deptno has only 1 clerk
+
+select job,deptno,sum(sal) "Total Salary",count(job) count from emp where job="clerk" group by deptno order by deptno;
++-------+--------+--------------+-------+
+| job   | deptno | Total Salary | count |
++-------+--------+--------------+-------+
+| CLERK |     10 |      1300.00 |     1 |
+| CLERK |     20 |      1100.00 |     1 |
+| CLERK |     30 |       950.00 |     1 |
++-------+--------+--------------+-------+

@@ -1,0 +1,140 @@
+Assignment-9
+----------------
+1.
+create table faculty(fid int,fname varchar(20) not null,sp_skill1 varchar(30),sp_kill varchar(30),constraint pk_fid primary key(fid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc faculty;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| fid       | int         | NO   | PRI | NULL    |       |
+| fname     | varchar(20) | NO   |     | NULL    |       |
+| sp_skill1 | varchar(30) | YES  |     | NULL    |       |
+| sp_kill   | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> insert into faculty values(10,"Amol","Database","Java"),(11,"Asha","Java","MySQL"),(12,"Kiran","CPP","database"),(13,"Seeta","MySQL","database");
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from faculty;
++-----+-------+-----------+----------+
+| fid | fname | sp_skill1 | sp_kill  |
++-----+-------+-----------+----------+
+|  10 | Amol  | Database  | Java     |
+|  11 | Asha  | Java      | MySQL    |
+|  12 | Kiran | CPP       | database |
+|  13 | Seeta | MySQL     | database |
++-----+-------+-----------+----------+
+
+2.
+create table room(rid int,rname varchar(15) not null,rloc varchar(20),constraint pk_rid primary key(rid));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc room;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rid   | int         | NO   | PRI | NULL    |       |
+| rname | varchar(15) | NO   |     | NULL    |       |
+| rloc  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into room values(100,"Jasmin","1st floor"),(101,"Rose","2nd floor"),(105,"Lotus","1st floor"),(103,"Mogra","1st floor");
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from room;
++-----+--------+-----------+
+| rid | rname  | rloc      |
++-----+--------+-----------+
+| 100 | Jasmin | 1st floor |
+| 101 | Rose   | 2nd floor |
+| 103 | Mogra  | 1st floor |
+| 105 | Lotus  | 1st floor |
++-----+--------+-----------+
+
+3.
+create table courses (cid int,cname varchar(15) not null,rid int,fid int,constraint pk_cid primary key(cid),constraint fk_rid foreign key(rid) references room(rid),constraint fk_fid foreign key(fid) references faculty(fid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into courses values(121,"DBDA",100,10),(131,"DAC",101,null),(141,"DTISS",null,null),(151,"DOIT",105,12);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from courses;
++-----+-------+------+------+
+| cid | cname | rid  | fid  |
++-----+-------+------+------+
+| 121 | DBDA  |  100 |   10 |
+| 131 | DAC   |  101 | NULL |
+| 141 | DTISS | NULL | NULL |
+| 151 | DOIT  |  105 |   12 |
++-----+-------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> desc courses;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | int         | NO   | PRI | NULL    |       |
+| cname | varchar(15) | NO   |     | NULL    |       |
+| rid   | int         | YES  | MUL | NULL    |       |
+| fid   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Q.1
+select * from room where rid not in (select distinct rid from courses where rid is not null);
++-----+-------+-----------+
+| rid | rname | rloc      |
++-----+-------+-----------+
+| 103 | Mogra | 1st floor |
++-----+-------+-----------+
+
+Q.2
+select r.rid,r.rname,r.rloc, 
+case when c.rid is not null then "Allocated" 
+	 else "not allocated" end allocation_status 
+from room r 
+left join courses c 
+on c.rid=r.rid;
++-----+--------+-----------+-------------------+
+| rid | rname  | rloc      | allocation_status |
++-----+--------+-----------+-------------------+
+| 100 | Jasmin | 1st floor | Allocated         |
+| 101 | Rose   | 2nd floor | Allocated         |
+| 103 | Mogra  | 1st floor | not allocated     |
+| 105 | Lotus  | 1st floor | Allocated         |
++-----+--------+-----------+-------------------+
+
+Q.3
+select c.cname,f.fname from courses c join faculty f on c.fid=f.fid where f.sp_kill='database';
++-------+-------+
+| cname | fname |
++-------+-------+
+| DOIT  | Kiran |
++-------+-------+
+
+Q.4
+select c.cid,c.cname,c.rid,c.fid,r.rid,r.rname,r.rloc,f.fid,f.fname,f.sp_skill1,f.sp_kill from courses c join room r on c.rid=r.rid join faculty f on c.fid=f.fid;
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| cid | cname | rid  | fid  | rid | rname  | rloc      | fid | fname | sp_skill1 | sp_kill  |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| 121 | DBDA  |  100 |   10 | 100 | Jasmin | 1st floor |  10 | Amol  | Database  | Java     |
+| 151 | DOIT  |  105 |   12 | 105 | Lotus  | 1st floor |  12 | Kiran | CPP       | database |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+
+do this using where clause like --> 
+select c.cid,c.cname,c.rid,c.fid,r.rid,r.rname,r.rloc,f.fid,f.fname,f.sp_skill1,f.sp_kill from courses c,faculty f,room r where c.rid=r.rid and c.fid=f.fid;
+
+select c.cid,c.cname,c.rid,c.fid,r.rid,r.rname,r.rloc,f.fid,f.fname,f.sp_skill1,f.sp_kill from courses c,faculty f,room r where c.rid=r.rid and c.fid=f.fid;
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| cid | cname | rid  | fid  | rid | rname  | rloc      | fid | fname | sp_skill1 | sp_kill  |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| 121 | DBDA  |  100 |   10 | 100 | Jasmin | 1st floor |  10 | Amol  | Database  | Java     |
+| 151 | DOIT  |  105 |   12 | 105 | Lotus  | 1st floor |  12 | Kiran | CPP       | database |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+

@@ -1,0 +1,4 @@
+Assignment-6
+---------------
+insert into new_emp_v20 values(222,'Raj',40,'Analyst');
+ERROR 1369 (HY000): CHECK OPTION failed 'knowit.new_emp_v20'

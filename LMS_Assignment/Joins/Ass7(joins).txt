@@ -1,0 +1,26 @@
+Assignment-7
+-------------
+create table Products(pid int,pname varchar(20),sid int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into products values(1,"Pen",2),(2,"Pencil",3),(3,"Eraser",2),(4,"Sketch Pens",1);
+
+select * from products;
++------+-------------+------+
+| pid  | pname       | sid  |
++------+-------------+------+
+|    1 | Pen         |    2 |
+|    2 | Pencil      |    3 |
+|    3 | Eraser      |    2 |
+|    4 | Sketch Pens |    1 |
++------+-------------+------+
+
+select p.pid,p.pname,p.sid,s.pname "sample name" from products p join products s on p.sid=s.pid order by pid;
++------+-------------+------+-------------+
+| pid  | pname       | sid  | sample name |
++------+-------------+------+-------------+
+|    1 | Pen         |    2 | Pencil      |
+|    2 | Pencil      |    3 | Eraser      |
+|    3 | Eraser      |    2 | Pencil      |
+|    4 | Sketch Pens |    1 | Pen         |
++------+-------------+------+-------------+

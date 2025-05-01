@@ -1,0 +1,779 @@
+numeric functions
+-----------------
+
+--round(1987.126,2)
+
+insert into emp(empno,sal)
+values(111,12000.19),
+      (112,20000.24),
+      (113,25000.88);
+
+mysql> select round(1987.126,1);
++-------------------+
+| round(1987.126,1) |
++-------------------+
+|            1987.1 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(1987.125,2);
++-------------------+
+| round(1987.125,2) |
++-------------------+
+|           1987.13 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(1987.124,2);
++-------------------+
+| round(1987.124,2) |
++-------------------+
+|           1987.12 |
++-------------------+
+1 row in set (0.00 sec)
+
+--truncate(no,digits after decimal)
+
+select truncate(12356.756235,2);
+
+mysql> select truncate(12356.756235,2);
++--------------------------+
+| truncate(12356.756235,2) |
++--------------------------+
+|                 12356.75 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select truncate(12356.756235,3);
++--------------------------+
+| truncate(12356.756235,3) |
++--------------------------+
+|                12356.756 |
++--------------------------+
+1 row in set (0.00 sec)
+
+-- ceil(no)
+mysql> select ceil(167.23)
+    -> ;
++--------------+
+| ceil(167.23) |
++--------------+
+|          168 |
++--------------+
+1 row in set (0.02 sec)
+
+--floor(no)
+mysql> select floor(167.23);
++---------------+
+| floor(167.23) |
++---------------+
+|           167 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select ceil(167.23);
++--------------+
+| ceil(167.23) |
++--------------+
+|          168 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(167.99);
++---------------+
+| floor(167.99) |
++---------------+
+|           167 |
++---------------+
+1 row in set (0.00 sec)
+
+--abs()
+mysql> select abs(-6);
++---------+
+| abs(-6) |
++---------+
+|       6 |
++---------+
+1 row in set (0.02 sec)
+
+--power(m,n)
+mysql> select power(2,3);
++------------+
+| power(2,3) |
++------------+
+|          8 |
++------------+
+1 row in set (0.02 sec)
+
+mysql> select power(2,-3);
++-------------+
+| power(2,-3) |
++-------------+
+|       0.125 |
++-------------+
+1 row in set (0.00 sec)
+
+---sqrt(no)
+mysql> select sqrt(64);
++----------+
+| sqrt(64) |
++----------+
+|        8 |
++----------+
+1 row in set (0.03 sec)
+
+mysql> select sqrt(-64);
++-----------+
+| sqrt(-64) |
++-----------+
+|      NULL |
++-----------+
+1 row in set (0.00 sec)
+
+--mod(m,n)
+mysql> select mod(6,3);
++----------+
+| mod(6,3) |
++----------+
+|        0 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> select mod(5,3);
++----------+
+| mod(5,3) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+
+string functions
+------------------
+
+--length(sttr)
+
+select length(ename) from emp;
++--------+---------------+
+| ename  | length(ename) |
++--------+---------------+
+| SMITH  |             5 |
+| ALLEN  |             5 |
+| WARD   |             4 |
+| JONES  |             5 |
+| MARTIN |             6 |
+| BLAKE  |             5 |
+| CLARK  |             5 |
+| SCOTT  |             5 |
+| KING   |             4 |
+| TURNER |             6 |
+| ADAMS  |             5 |
+| JAMES  |             5 |
+| FORD   |             4 |
+| MILLER |             6 |
+| NULL   |          NULL |
+| NULL   |          NULL |
+| NULL   |          NULL |
++--------+---------------+
+
+--lower(str)
+select ename,lower(ename) from emp;
+
+select lower("ROHAN");
+
+mysql> select lower("ROHAN");
++----------------+
+| lower("ROHAN") |
++----------------+
+| rohan          |
++----------------+
+1 row in set (0.02 sec)
+
+mysql> select ename,lower(ename) from emp;
++--------+--------------+
+| ename  | lower(ename) |
++--------+--------------+
+| SMITH  | smith        |
+| ALLEN  | allen        |
+| WARD   | ward         |
+| JONES  | jones        |
+| MARTIN | martin       |
+| BLAKE  | blake        |
+| CLARK  | clark        |
+| SCOTT  | scott        |
+| KING   | king         |
+| TURNER | turner       |
+| ADAMS  | adams        |
+| JAMES  | james        |
+| FORD   | ford         |
+| MILLER | miller       |
+| NULL   | NULL         |
+| NULL   | NULL         |
+| NULL   | NULL         |
++--------+--------------+
+17 rows in set (0.00 sec)
+
+--upper(str)
+mysql> select upper("rohan");
++----------------+
+| upper("rohan") |
++----------------+
+| ROHAN          |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select upper("RoHan");
++----------------+
+| upper("RoHan") |
++----------------+
+| ROHAN          |
++----------------+
+1 row in set (0.00 sec)
+
+
+select ename,upper(lower(ename)) from emp;
+
+--ASCII(str)
+select ascii("Abhay");
+select ascii("abhay");
+mysql> select ascii("Abhay");
++----------------+
+| ascii("Abhay") |
++----------------+
+|             65 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select ascii("abhay");
++----------------+
+| ascii("abhay") |
++----------------+
+|             97 |
++----------------+
+1 row in set (0.00 sec)
+mysql> select ename,ascii(ename) from emp;
++--------+--------------+
+| ename  | ascii(ename) |
++--------+--------------+
+| SMITH  |           83 |
+| ALLEN  |           65 |
+| WARD   |           87 |
+| JONES  |           74 |
+| MARTIN |           77 |
+| BLAKE  |           66 |
+| CLARK  |           67 |
+| SCOTT  |           83 |
+| KING   |           75 |
+| TURNER |           84 |
+| ADAMS  |           65 |
+| JAMES  |           74 |
+| FORD   |           70 |
+| MILLER |           77 |
+| NULL   |         NULL |
+| NULL   |         NULL |
+| NULL   |         NULL |
++--------+--------------+
+17 rows in set (0.00 sec)
+
+--concat(str1,str2,str3...)
+select concat(ename,deptno) 
+from emp;
+
+mysql> select concat(ename,deptno)
+    -> from emp;
++----------------------+
+| concat(ename,deptno) |
++----------------------+
+| SMITH20              |
+| ALLEN30              |
+| WARD30               |
+| JONES20              |
+| MARTIN30             |
+| BLAKE30              |
+| CLARK10              |
+| SCOTT20              |
+| KING10               |
+| TURNER30             |
+| ADAMS20              |
+| JAMES30              |
+| FORD20               |
+| MILLER10             |
+| NULL                 |
+| NULL                 |
+| NULL                 |
++----------------------+
+17 rows in set (0.03 sec)
+
+select concat(ename,':',deptno,':',job) from emp;
+mysql> select concat(ename,':',deptno,':',job) from emp;
++----------------------------------+
+| concat(ename,':',deptno,':',job) |
++----------------------------------+
+| SMITH:20:CLERK                   |
+| ALLEN:30:SALESMAN                |
+| WARD:30:SALESMAN                 |
+| JONES:20:MANAGER                 |
+| MARTIN:30:SALESMAN               |
+| BLAKE:30:MANAGER                 |
+| CLARK:10:MANAGER                 |
+| SCOTT:20:ANALYST                 |
+| KING:10:PRESIDENT                |
+| TURNER:30:SALESMAN               |
+| ADAMS:20:CLERK                   |
+| JAMES:30:CLERK                   |
+| FORD:20:ANALYST                  |
+| MILLER:10:CLERK                  |
+| NULL                             |
+| NULL                             |
+| NULL                             |
++----------------------------------+
+17 rows in set (0.00 sec)
+
+--concat_ws(separator,str1,str2...)
+
+select concat_ws(':',ename,deptno,job) from emp;
+mysql> select concat_ws(':',ename,deptno,job) from emp;
++---------------------------------+
+| concat_ws(':',ename,deptno,job) |
++---------------------------------+
+| SMITH:20:CLERK                  |
+| ALLEN:30:SALESMAN               |
+| WARD:30:SALESMAN                |
+| JONES:20:MANAGER                |
+| MARTIN:30:SALESMAN              |
+| BLAKE:30:MANAGER                |
+| CLARK:10:MANAGER                |
+| SCOTT:20:ANALYST                |
+| KING:10:PRESIDENT               |
+| TURNER:30:SALESMAN              |
+| ADAMS:20:CLERK                  |
+| JAMES:30:CLERK                  |
+| FORD:20:ANALYST                 |
+| MILLER:10:CLERK                 |
+|                                 |
+|                                 |
+|                                 |
++---------------------------------+
+17 rows in set (0.00 sec)
+
+--format(no,place)
+
+select format(12345.345,2)
+
+
+--reverse(str)
+
+--substr(str,pos,len)
+
+select substr(ename,2,3) from emp;
+
+mysql> select ename,substr(ename,-2,1) from emp;
++--------+--------------------+
+| ename  | substr(ename,-2,1) |
++--------+--------------------+
+| SMITH  | T                  |
+| ALLEN  | E                  |
+| WARD   | R                  |
+| JONES  | E                  |
+| MARTIN | I                  |
+| BLAKE  | K                  |
+| CLARK  | R                  |
+| SCOTT  | T                  |
+| KING   | N                  |
+| TURNER | E                  |
+| ADAMS  | M                  |
+| JAMES  | E                  |
+| FORD   | R                  |
+| MILLER | E                  |
+| NULL   | NULL               |
+| NULL   | NULL               |
+| NULL   | NULL               |
++--------+--------------------+
+17 rows in set (0.00 sec)
+
+mysql> select ename,substr(ename,-2,2) from emp;
++--------+--------------------+
+| ename  | substr(ename,-2,2) |
++--------+--------------------+
+| SMITH  | TH                 |
+| ALLEN  | EN                 |
+| WARD   | RD                 |
+| JONES  | ES                 |
+| MARTIN | IN                 |
+| BLAKE  | KE                 |
+| CLARK  | RK                 |
+| SCOTT  | TT                 |
+| KING   | NG                 |
+| TURNER | ER                 |
+| ADAMS  | MS                 |
+| JAMES  | ES                 |
+| FORD   | RD                 |
+| MILLER | ER                 |
+| NULL   | NULL               |
+| NULL   | NULL               |
+| NULL   | NULL               |
++--------+--------------------+
+17 rows in set (0.00 sec)
+
+
+---generate email
+
+first 2 letter ---name
+last 2 letter -- job
+. in the middle
+@knowit.com
+
+SM.RK@knowit.com
+
+select ename,job,concat(substr(ename,1,2),'.',substr(job,-2,2),'@knowit.com') 
+as email from emp;
+
++--------+-----------+------------------+
+| ename  | job       | email            |
++--------+-----------+------------------+
+| SMITH  | CLERK     | SM.RK@knowit.com |
+| ALLEN  | SALESMAN  | AL.AN@knowit.com |
+| WARD   | SALESMAN  | WA.AN@knowit.com |
+| JONES  | MANAGER   | JO.ER@knowit.com |
+| MARTIN | SALESMAN  | MA.AN@knowit.com |
+| BLAKE  | MANAGER   | BL.ER@knowit.com |
+| CLARK  | MANAGER   | CL.ER@knowit.com |
+| SCOTT  | ANALYST   | SC.ST@knowit.com |
+| KING   | PRESIDENT | KI.NT@knowit.com |
+| TURNER | SALESMAN  | TU.AN@knowit.com |
+| ADAMS  | CLERK     | AD.RK@knowit.com |
+| JAMES  | CLERK     | JA.RK@knowit.com |
+| FORD   | ANALYST   | FO.ST@knowit.com |
+| MILLER | CLERK     | MI.RK@knowit.com |
+| NULL   | NULL      | NULL             |
+| NULL   | NULL      | NULL             |
+| NULL   | NULL      | NULL             |
++--------+-----------+------------------+
+17 rows in set (0.00 sec)
+
+select ename,job,concat(lower(substr(ename,1,2)),'.',lower(substr(job,-2,2)),'@knowit.com') 
+as email from emp;
+
+select ename,job,lower(concat(substr(ename,1,2),'.',substr(job,-2,2),'@knowit.com')) 
+as email from emp;
+
+mysql> select lpad(ename,8,'*') from emp;
++-------------------+
+| lpad(ename,8,'*') |
++-------------------+
+| ***SMITH          |
+| ***ALLEN          |
+| ****WARD          |
+| ***JONES          |
+| **MARTIN          |
+| ***BLAKE          |
+| ***CLARK          |
+| ***SCOTT          |
+| ****KING          |
+| **TURNER          |
+| ***ADAMS          |
+| ***JAMES          |
+| ****FORD          |
+| **MILLER          |
+| NULL              |
+| NULL              |
+| NULL              |
++-------------------+
+17 rows in set (0.01 sec)
+
+mysql> select rpad(ename,8,'*') from emp;
++-------------------+
+| rpad(ename,8,'*') |
++-------------------+
+| SMITH***          |
+| ALLEN***          |
+| WARD****          |
+| JONES***          |
+| MARTIN**          |
+| BLAKE***          |
+| CLARK***          |
+| SCOTT***          |
+| KING****          |
+| TURNER**          |
+| ADAMS***          |
+| JAMES***          |
+| FORD****          |
+| MILLER**          |
+| NULL              |
+| NULL              |
+| NULL              |
++-------------------+
+17 rows in set (0.00 sec)
+
+mysql> select ename,hiredate,date_format(hiredate,"%d/%m/%y") from emp;
++------------+------------+----------------------------------+
+| ename      | hiredate   | date_format(hiredate,"%d/%m/%y") |
++------------+------------+----------------------------------+
+| SMITH      | 1980-12-17 | 17/12/80                         |
+| ALLEN      | 1981-02-20 | 20/02/81                         |
+| WARD       | 1981-02-22 | 22/02/81                         |
+| JONES      | 1981-04-02 | 02/04/81                         |
+| MARTIN     | 1981-09-28 | 28/09/81                         |
+| BLAKE      | 1981-05-01 | 01/05/81                         |
+| CLARK      | 1981-09-06 | 06/09/81                         |
+| SCOTT      | 1982-12-09 | 09/12/82                         |
+| KING       | 1981-11-17 | 17/11/81                         |
+| TURNER     | 1981-09-08 | 08/09/81                         |
+| ADAMS      | 1983-01-12 | 12/01/83                         |
+| JAMES      | 1981-12-03 | 03/12/81                         |
+| FORD       | 1981-12-03 | 03/12/81                         |
+| MILLER     | 1982-01-23 | 23/01/82                         |
+| Ajay       | NULL       | NULL                             |
+|     Akshay | NULL       | NULL                             |
+|    Uma     | NULL       | NULL                             |
++------------+------------+----------------------------------+
+17 rows in set (0.00 sec)
+
+mysql> select ename,hiredate,date_format(hiredate,"%d/%m/%D") from emp;
++------------+------------+----------------------------------+
+| ename      | hiredate   | date_format(hiredate,"%d/%m/%D") |
++------------+------------+----------------------------------+
+| SMITH      | 1980-12-17 | 17/12/17th                       |
+| ALLEN      | 1981-02-20 | 20/02/20th                       |
+| WARD       | 1981-02-22 | 22/02/22nd                       |
+| JONES      | 1981-04-02 | 02/04/2nd                        |
+| MARTIN     | 1981-09-28 | 28/09/28th                       |
+| BLAKE      | 1981-05-01 | 01/05/1st                        |
+| CLARK      | 1981-09-06 | 06/09/6th                        |
+| SCOTT      | 1982-12-09 | 09/12/9th                        |
+| KING       | 1981-11-17 | 17/11/17th                       |
+| TURNER     | 1981-09-08 | 08/09/8th                        |
+| ADAMS      | 1983-01-12 | 12/01/12th                       |
+| JAMES      | 1981-12-03 | 03/12/3rd                        |
+| FORD       | 1981-12-03 | 03/12/3rd                        |
+| MILLER     | 1982-01-23 | 23/01/23rd                       |
+| Ajay       | NULL       | NULL                             |
+|     Akshay | NULL       | NULL                             |
+|    Uma     | NULL       | NULL                             |
++------------+------------+----------------------------------+
+17 rows in set (0.00 sec)
+
+mysql> select ename,hiredate,floor(datediff(curdate(),hiredate)/365) from emp
+    -> where floor(datediff(curdate(),hiredate)/365)>=43;
++--------+------------+-----------------------------------------+
+| ename  | hiredate   | floor(datediff(curdate(),hiredate)/365) |
++--------+------------+-----------------------------------------+
+| SMITH  | 1980-12-17 |                                      44 |
+| ALLEN  | 1981-02-20 |                                      44 |
+| WARD   | 1981-02-22 |                                      44 |
+| JONES  | 1981-04-02 |                                      43 |
+| MARTIN | 1981-09-28 |                                      43 |
+| BLAKE  | 1981-05-01 |                                      43 |
+| CLARK  | 1981-09-06 |                                      43 |
+| KING   | 1981-11-17 |                                      43 |
+| TURNER | 1981-09-08 |                                      43 |
+| JAMES  | 1981-12-03 |                                      43 |
+| FORD   | 1981-12-03 |                                      43 |
+| MILLER | 1982-01-23 |                                      43 |
++--------+------------+-----------------------------------------+
+12 rows in set (0.01 sec)
+
+mysql> select curtime();
++-----------+
+| curtime() |
++-----------+
+| 19:32:10  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select date(now());
++-------------+
+| date(now()) |
++-------------+
+| 2025-03-03  |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select extract(month from curdate());
++-------------------------------+
+| extract(month from curdate()) |
++-------------------------------+
+|                             3 |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select extract(day from curdate());
++-----------------------------+
+| extract(day from curdate()) |
++-----------------------------+
+|                           3 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select extract(year from curdate());
++------------------------------+
+| extract(year from curdate()) |
++------------------------------+
+|                         2025 |
++------------------------------+
+1 row in set (0.00 sec)
+
+select sum(sal)
+from emp;
+
+mysql> select sum(sal)
+    -> from emp;
++----------+
+| sum(sal) |
++----------+
+| 86026.31 |
++----------+
+1 row in set (0.04 sec)
+
+mysql> select min(sal)
+    -> from emp;
++----------+
+| min(sal) |
++----------+
+|   800.00 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> select ename,min(sal)
+    -> from emp;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'knowit.emp.ENAME'; this is incompatible with sql_mode=only_full_group_by
+mysql>
+
+
+mysql> select min(sal)
+    -> from emp
+    -> where deptno=20;
++----------+
+| min(sal) |
++----------+
+|   800.00 |
++----------+
+1 row in set (0.00 sec)
+
+select deptno,min(sal)
+from emp
+where deptno=20;
+
+select deptno,avg(sal)
+from emp
+where job='salesman';
+
+mysql> select count(*)
+    -> from emp;
++----------+
+| count(*) |
++----------+
+|       17 |
++----------+
+1 row in set (0.06 sec)
+
+
+insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)
+values(null,null,null,null,null,null,null,null);
+
+
+select count(*)
+from emp
+where deptno=30;
+
+
+empn,ename,deptno,dname
+
+select e.empno,e.ename,e.deptno,d.deptno,d.dname
+from emp e,dept d;
+
+
+select e.empno,e.ename,e.deptno,d.dname,e.sal,s.grade
+from emp e,dept d, salgrade s
+where e.deptno=d.deptno and e.sal between s.losal and s.hisal ;
+
+
+create table t1
+(
+id int,
+cname varchar(15)
+);
+
+insert into t1
+values(1,'pune'),
+      (2,'mumbai'),
+      (3,'chennai');
+
+create table t2
+(
+id int,
+cname varchar(15)
+);
+
+insert into t2
+values(1,'pune'),
+      (2,'amritsar'),
+      (4,'hydrabad');
+
+select *
+from t1
+union
+select * 
+from t2;
+
+mysql> select * from t1;
++------+---------+
+| id   | cname   |
++------+---------+
+|    1 | pune    |
+|    2 | mumbai  |
+|    3 | chennai |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from t2;
++------+----------+
+| id   | cname    |
++------+----------+
+|    1 | pune     |
+|    2 | amritsar |
+|    4 | hydrabad |
++------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select *
+    -> from t1
+    -> union
+    -> select *
+    -> from t2;
++------+----------+
+| id   | cname    |
++------+----------+
+|    1 | pune     |
+|    2 | mumbai   |
+|    3 | chennai  |
+|    2 | amritsar |
+|    4 | hydrabad |
++------+----------+
+
+
+select *
+from t2
+union all
+select * 
+from t1;
+
+select *
+from t2
+intersect
+select * 
+from t1;
+
+
+select *
+from t2
+except
+select * 
+from t1;
+
+
+
+
+
+
+

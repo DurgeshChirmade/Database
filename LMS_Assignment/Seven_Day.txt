@@ -1,0 +1,285 @@
+Section: Indexing Data in RDBMS
+
+Assignment-1
+-------------
+alter table empls add constraint pk_empno primary key(empno);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+desc empls;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| EMPNO    | int          | NO   | PRI | NULL    |       |
+| ENAME    | varchar(15)  | YES  |     | NULL    |       |
+| JOB      | varchar(9)   | YES  |     | NULL    |       |
+| MGR      | int          | YES  |     | NULL    |       |
+| HIREDATE | date         | YES  |     | NULL    |       |
+| SAL      | decimal(7,2) | YES  |     | NULL    |       |
+| COMM     | decimal(7,2) | YES  |     | NULL    |       |
+| DEPTNO   | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+show index from empls;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| empls |          0 | PRIMARY  |            1 | EMPNO       | A         |          14 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+
+Assignment-2
+--------------
+create index deptno_idx on empls(deptno);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from empls;
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| empls |          0 | PRIMARY    |            1 | EMPNO       | A         |          14 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| empls |          1 | deptno_idx |            1 | DEPTNO      | A         |           3 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+
+
+Section: Views in RDBMS
+
+Assignment-1
+---------------
+create view emp_view 
+as 
+	select empno,ename,deptno,sal,comm
+	from emps;
+
+select * from emp_view;
++-------+--------+--------+---------+---------+
+| empno | ename  | deptno | sal     | comm    |
++-------+--------+--------+---------+---------+
+|  7369 | SMITH  |     20 |  800.00 |    NULL |
+|  7499 | ALLEN  |     30 | 1600.00 |  300.00 |
+|  7521 | WARD   |     30 | 1250.00 |  500.00 |
+|  7566 | JONES  |     20 | 2975.00 |    NULL |
+|  7654 | MARTIN |     30 | 1250.00 | 1400.00 |
+|  7698 | BLAKE  |     30 | 2850.00 |    NULL |
+|  7782 | CLARK  |     10 | 2450.00 |    NULL |
+|  7788 | SCOTT  |     20 | 3000.00 |    NULL |
+|  7839 | KING   |     10 | 5000.00 |    NULL |
+|  7844 | TURNER |     30 | 1500.00 |    0.00 |
+|  7876 | ADAMS  |     20 | 1100.00 |    NULL |
+|  7900 | JAMES  |     30 |  950.00 |    NULL |
+|  7902 | FORD   |     20 | 3000.00 |    NULL |
+|  7934 | MILLER |     10 | 1300.00 |    NULL |
++-------+--------+--------+---------+---------+
+
+Assignment-2
+---------------
+create view emp_view 
+as 
+	select empno,ename,deptno,sal,comm
+	from emps;
+
+insert into emp_view values(1111,"Geeta",20,10000,300);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp_view;
++-------+--------+--------+----------+---------+
+| empno | ename  | deptno | sal      | comm    |
++-------+--------+--------+----------+---------+
+|  7369 | SMITH  |     20 |   800.00 |    NULL |
+|  7499 | ALLEN  |     30 |  1600.00 |  300.00 |
+|  7521 | WARD   |     30 |  1250.00 |  500.00 |
+|  7566 | JONES  |     20 |  2975.00 |    NULL |
+|  7654 | MARTIN |     30 |  1250.00 | 1400.00 |
+|  7698 | BLAKE  |     30 |  2850.00 |    NULL |
+|  7782 | CLARK  |     10 |  2450.00 |    NULL |
+|  7788 | SCOTT  |     20 |  3000.00 |    NULL |
+|  7839 | KING   |     10 |  5000.00 |    NULL |
+|  7844 | TURNER |     30 |  1500.00 |    0.00 |
+|  7876 | ADAMS  |     20 |  1100.00 |    NULL |
+|  7900 | JAMES  |     30 |   950.00 |    NULL |
+|  7902 | FORD   |     20 |  3000.00 |    NULL |
+|  7934 | MILLER |     10 |  1300.00 |    NULL |
+|  1111 | Geeta  |     20 | 10000.00 |  300.00 |
++-------+--------+--------+----------+---------+
+
+select * from emps;
++-------+--------+-----------+------+------------+----------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL      | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+----------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |   800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 |  1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 |  1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 |  2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 |  1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 |  2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 |  2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 |  3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 |  5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 |  1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 |  1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |   950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 |  3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 |  1300.00 |    NULL |     10 |
+|  1111 | Geeta  | NULL      | NULL | NULL       | 10000.00 |  300.00 |     20 |
++-------+--------+-----------+------+------------+----------+---------+--------+
+
+
+Assignment-3
+--------------
+create view emp_v20 
+as
+	select empno,ename,deptno,job
+	from emps 
+	where deptno=20;
+
+select * from emp_v20;
++-------+-------+--------+---------+
+| empno | ename | deptno | job     |
++-------+-------+--------+---------+
+|  7369 | SMITH |     20 | CLERK   |
+|  7566 | JONES |     20 | MANAGER |
+|  7788 | SCOTT |     20 | ANALYST |
+|  7876 | ADAMS |     20 | CLERK   |
+|  7902 | FORD  |     20 | ANALYST |
+|  1111 | Geeta |     20 | NULL    |
++-------+-------+--------+---------+
+
+
+Assignment-4
+--------------
+create view emp_v20 
+as
+	select empno,ename,deptno,job
+	from emps 
+	where deptno=20;
+
+insert into emp_v20 values(2222,"Raj",40,"Analyst");
+
+select * from emp_v20;
++-------+-------+--------+---------+
+| empno | ename | deptno | job     |
++-------+-------+--------+---------+
+|  7369 | SMITH |     20 | CLERK   |
+|  7566 | JONES |     20 | MANAGER |
+|  7788 | SCOTT |     20 | ANALYST |
+|  7876 | ADAMS |     20 | CLERK   |
+|  7902 | FORD  |     20 | ANALYST |
+|  1111 | Geeta |     20 | NULL    |
++-------+-------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emps;
++-------+--------+-----------+------+------------+----------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL      | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+----------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |   800.00 |    NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 |  1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 |  1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 |  2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 |  1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 |  2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 |  2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 |  3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 |  5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 |  1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 |  1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |   950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 |  3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 |  1300.00 |    NULL |     10 |
+|  1111 | Geeta  | NULL      | NULL | NULL       | 10000.00 |  300.00 |     20 |
+|  2222 | Raj    | Analyst   | NULL | NULL       |     NULL |    NULL |     40 |
++-------+--------+-----------+------+------------+----------+---------+--------+
+
+Assignment-5
+--------------
+create view new_emp_v20
+as
+	select empno,ename,deptno,job
+	from emps
+	where deptno=20
+	with check option;
+
+select * from new_emp_v20;
++-------+-------+--------+---------+
+| empno | ename | deptno | job     |
++-------+-------+--------+---------+
+|  7369 | SMITH |     20 | CLERK   |
+|  7566 | JONES |     20 | MANAGER |
+|  7788 | SCOTT |     20 | ANALYST |
+|  7876 | ADAMS |     20 | CLERK   |
+|  7902 | FORD  |     20 | ANALYST |
+|  1111 | Geeta |     20 | NULL    |
++-------+-------+--------+---------+
+
+using WITH CHECK OPTION clause to ensure that any INSERT or UPDATE done through the view will only allow deptno = 20
+
+INSERT INTO new_emp_v20 (empno, ename, deptno, job)
+    -> VALUES (3333, 'Ajay', 20, 'manager');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO new_emp_v20 (empno, ename, deptno, job)
+    -> insert into new_emp_v20(3333,'Ajay',10,'manager');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into new_emp_v20(3333,'Ajay',10,'manager')' at line 2
+
+Assignment-6
+---------------
+insert into new_emp_v20 values(222,'Raj',40,'Analyst');
+ERROR 1369 (HY000): CHECK OPTION failed 'knowit.new_emp_v20'
+
+
+Assignment-7
+----------------
+SHOW FULL TABLES
+    -> WHERE TABLE_TYPE = 'VIEW';
++------------------+------------+
+| Tables_in_knowit | Table_type |
++------------------+------------+
+| emp_v20          | VIEW       |
+| emp_view         | VIEW       |
+| new_emp_v20      | VIEW       |
++------------------+------------+
+
+
+Assignment-8
+-----------------
+create or replace view show_details
+as
+	select e.empno,e.ename,d.deptno,d.dname
+	from emps e
+	join depts d
+	on e.deptno=d.deptno;
+
+select * from show_details order by empno;
+
+select * from show_details order by empno;
++-------+--------+--------+------------+
+| empno | ename  | deptno | dname      |
++-------+--------+--------+------------+
+|  1111 | Geeta  |     20 | RESEARCH   |
+|  2222 | Raj    |     40 | OPERATIONS |
+|  3333 | Ajay   |     20 | RESEARCH   |
+|  7369 | SMITH  |     20 | RESEARCH   |
+|  7499 | ALLEN  |     30 | SALES      |
+|  7521 | WARD   |     30 | SALES      |
+|  7566 | JONES  |     20 | RESEARCH   |
+|  7654 | MARTIN |     30 | SALES      |
+|  7698 | BLAKE  |     30 | SALES      |
+|  7782 | CLARK  |     10 | ACCOUNTING |
+|  7788 | SCOTT  |     20 | RESEARCH   |
+|  7839 | KING   |     10 | ACCOUNTING |
+|  7844 | TURNER |     30 | SALES      |
+|  7876 | ADAMS  |     20 | RESEARCH   |
+|  7900 | JAMES  |     30 | SALES      |
+|  7902 | FORD   |     20 | RESEARCH   |
+|  7934 | MILLER |     10 | ACCOUNTING |
++-------+--------+--------+------------+
+
+create view show_details
+    -> as
+    ->  select e.empno,e.ename,e.deptno,d.deptno,d.dname
+    ->  from emp e
+    ->  join dept d
+    ->  on e.deptno=d.deptno;
+ERROR 1060 (42S21): Duplicate column name 'deptno'
+
+

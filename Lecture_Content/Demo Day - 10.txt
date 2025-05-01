@@ -1,0 +1,120 @@
+>show dbs
+>db.createCollection("mycollection")
+>show collections
+>db.emp.insert({empno:111,ename:'Ajit',deptno:20})
+>db.emp.find()
+
+>db.emp.insertMany([{empno:222,ename:'Amit',deptno:10},{eno:223,ename:'Smita'},{eno:224,ename:'Geeta'}])
+
+syntax
+find({query},{projection})
+--display all ename
+db.emp.find({},{ename:1,_id:0})
+db.emp.find({deptno:20},{ename:1})
+
+test> db.movie.find().limit(5)
+
+test> db.movie.find().limit(5).skip(2)
+
+test> db.movie.find().sort({rating:-1}) desc ord
+test> db.movie.find().sort({rating:1}) asc ord
+
+--top 3 rated movies
+db.movie.find({},{name:1,rating:1,_id:0}).sort({rating:-1}).limit(3)
+
+
+regular expressions
+-------------------
+^ beginning
+$ end
+\d digit
+[0-9]
+[a-zA-Z]
+. single letter
+.* set of letter
+// pattern
+
+.--all movie names starting with digit
+
+db.movie.find({name:/^[0-9].*/} )
+
+db.movie.find({actor:'amitabh'},{name:1,actor:1,_id:0})
+db.movie.find({actor:'Amitabh'},{name:1,actor:1,_id:0})
+
+db.movie.find({actor:/[Aa]mitabh/},{name:1,actor:1,_id:0})
+
+ 
+command to import JSON file
+1. run 3rd cmd
+2. give following command
+
+>mongoimport --db database_name --collection collection_name --file "path\file_name.json"
+
+e.g
+>mongoimport --db knowit --collection movie --file "C:\Users\admin\Desktop\CDAC ACTS DBT\movie.json" 
+
+
+capped collection
+-----------------
+>db.createCollection("collection name",{capped:true,max:4,size:2134})
+>db.createCollection("student",{capped:true,max:2,size:1234})
+
+db.student.insertMany([{roll:1,name:'Sameer'},{roll:2,name:'Geeta'}])
+
+db.student.insertMany([{roll:3,name:'Raj'}])
+
+update rating to 4 if rating >4
+db.movie.update({name:'sholay'},{$min:{rating:4}}))
+
+update rating to 5 if rating <5
+db.movie.updateMany({},{$max:{rating:5}}) 
+
+deleting document in the collection
+--------------------------------------
+db.movie.deleteOne({name:'sholay'})
+db.movie.deleteMany({name:'sholay'})
+
+db.emp.deleteOne({deptno:20})
+db.emp.deleteMany({deptno:20})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$min
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

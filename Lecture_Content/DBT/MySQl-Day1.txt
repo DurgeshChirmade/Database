@@ -1,0 +1,50 @@
+create table student
+(roll int,
+ name varchar(20),
+ dob date,
+ per float(5,2),
+);
+
+insert into student
+values(1,'Seema','2024-11-14',78.00);
+insert into student(roll,name)
+values(2,'Ajay');
+insert into student
+values(3,'sameer','2004-2-2',89),
+      (4,'Geeta','2001-12-26',56);
+
+delete
+from student
+where name='sameer';
+
+
+create table new_emp
+as
+  select * from emp;
+
+create table new_emp1
+as
+  select empno,ename,sal 
+  from emp;
+
+create table new_emp2
+as
+  select *
+  from emp
+  where 2=3;
+
+select empno,ename,sal,sal+(sal*0.05)
+from emp;
+
+select empno,ename,sal,sal+(sal*0.05) as "Revised Sal"
+from emp;
+
+update new_emp1
+set sal=18000
+where ename='smith';
+
+
+
+
+
+ 

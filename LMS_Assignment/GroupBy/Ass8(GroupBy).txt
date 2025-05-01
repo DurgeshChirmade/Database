@@ -1,0 +1,11 @@
+*** Assignment-8
+--------------
+select sum(sal),min(sal) from emp where job="manager";
++----------+----------+
+| sum(sal) | min(sal) |
++----------+----------+
+|  8572.50 |  2450.00 |
++----------+----------+
+
+select sum(sal),min(sal) from emp where job="manager" group by sum(sal);
+ERROR 1056 (42000): Can't group on 'sum(sal)'

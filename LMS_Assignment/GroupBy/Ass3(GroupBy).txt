@@ -1,0 +1,17 @@
+Assignment-3
+-------------
+select job,deptno,sum(sal) total_salary from emp where deptno != 30 group by job,deptno having sum(sal)>=6000;
++---------+--------+--------------+
+| job     | deptno | total_salary |
++---------+--------+--------------+
+| ANALYST |     20 |      6000.00 |
++---------+--------+--------------+
+
+select job,deptno,sum(sal) total_salary from emp where deptno != 30 group by job,deptno having sum(sal)>3000;
++-----------+--------+--------------+
+| job       | deptno | total_salary |
++-----------+--------+--------------+
+| MANAGER   |     20 |      3272.50 |
+| ANALYST   |     20 |      6000.00 |
+| PRESIDENT |     10 |      5000.00 |
++-----------+--------+--------------+

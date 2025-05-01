@@ -1,0 +1,10 @@
+Assignment-2
+--------------
+select p.pid,p.pname,p.price,p.qty from product p join salesmans s on p.sid=s.sid where s.sname='Kirti';
++-----+--------+-------+------+
+| pid | pname  | price | qty  |
++-----+--------+-------+------+
+| 123 | lays   | 30.00 |   30 |
+| 134 | nachos | 50.00 |   50 |
++-----+--------+-------+------+
+

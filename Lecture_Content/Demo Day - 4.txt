@@ -1,0 +1,340 @@
+-count()
+-set operators
+-truncate
+-alter clause
+-constraint
+ 
+create table t1
+(id int,
+ city varchar(20)
+);
+insert into t1
+values(1,'pune'),
+      (2,'nagpur'),
+      (3,'delhi'),
+       (4,'shimla'),
+       (5,'hydrabad');
+
+create table t2
+(id int,
+ city varchar(20)
+);
+ 
+insert into t2
+values(10,'pune'),
+      (20,'udaypur'),
+      (3,'delhi'),
+       (4,'shimla'),
+       (5,'ranchi');
+
+union operator
+--------------
+select *
+from t1
+union 
+select *
+from t2; 
+mysql> select *
+    -> from t1
+    -> union
+    -> select *
+    -> from t2;
++------+----------+
+| id   | city     |
++------+----------+
+|    1 | pune     |
+|    2 | nagpur   |
+|    3 | delhi    |
+|    4 | shimla   |
+|    5 | hydrabad |
+|   10 | pune     |
+|   20 | udaypur  |
+|    5 | ranchi   |
++------+----------+
+8 rows in set (0.01 sec)
+
+union all
+----------
+select *
+from t1
+union all
+select *
+from t2; 
+
+mysql> select *
+    -> from t1
+    -> union all
+    -> select *
+    -> from t2;
++------+----------+
+| id   | city     |
++------+----------+
+|    1 | pune     |
+|    2 | nagpur   |
+|    3 | delhi    |
+|    4 | shimla   |
+|    5 | hydrabad |
+|   10 | pune     |
+|   20 | udaypur  |
+|    3 | delhi    |
+|    4 | shimla   |
+|    5 | ranchi   |
++------+----------+
+10 rows in set (0.00 sec)
+
+select *
+from t1
+intersect
+select *
+from t2; 
+
+mysql> select *
+    -> from t1
+    -> intersect
+    -> select *
+    -> from t2;
++------+--------+
+| id   | city   |
++------+--------+
+|    3 | delhi  |
+|    4 | shimla |
++------+--------+
+2 rows in set (0.00 sec)
+
+except operator
+---------------
+select *
+from t1
+except
+select *
+from t2; 
+
+mysql> select *
+    -> from t1
+    -> except
+    -> select *
+    -> from t2;
++------+----------+
+| id   | city     |
++------+----------+
+|    5 | hydrabad |
+|    1 | pune     |
+|    2 | nagpur   |
++------+----------+
+3 rows in set (0.00 sec)
+
+select *
+from t2
+except
+select *
+from t1; 
+mysql> select *
+    -> from t2
+    -> except
+    -> select *
+    -> from t1;
++------+---------+
+| id   | city    |
++------+---------+
+|    5 | ranchi  |
+|   10 | pune    |
+|   20 | udaypur |
++------+---------+
+3 rows in set (0.00 sec)
+
+delete
+from emp;
+
+truncate
+-DDL
+-will delete all rows from table,no where clause
+-we cannot rollback the data
+
+delete
+-DML
+-where clause can be used
+-rollback
+
+
+truncate table table_name;
+=============================
+
+constraints in RDBMS
+
+1. unique
+2. not null
+3. check
+4. default
+
+create table employee
+(eno int unique not null,
+ ename varchar(15) not null,
+ deptno int default 10,
+ sal int check (sal>20000)
+);
+
+insert into employee
+values(1,'Raj',20,30000);
+
+insert into employee
+values(11,'Sumeet',null,30000);
+
+insert into employee
+values(12,'Sujay',30,20000);
+
+insert into employee
+values(15,'Ajay',default,50000);
+--------------------------------------
+
+Primary Key
+-----------
+only one PK for table
+emp(eno,ename,deptno,adhar_no,pass_port)
+    ---              -------  ---------
+eno uniq nn
+adhar_no unique nn
+pass_port unique nn
+
+eno int primary key
+
+create table employee1
+(eno int primary key,
+ ename varchar(20) not null,
+ deptno int not null,
+ adnr_no varchar(12) unique not null,
+ pass_port varchar(12) unique not null
+);
+
+insert into employee1
+values(1,'Ajay',30,111111,787878);
+insert into employee1
+values(2,'Ajay',30,111111,787878);
+
+insert into employee1
+values(2,'Ajay',30,211111,887878);
+
+key - column in the table which identifies the row
+primary key - column is a key and it is unique +
+ not null
+
+auto_increment
+--------------------
+create table student      
+(roll int auto_increment ,
+ sname varchar(15) not null,
+ per float(5,2) check(per>=35),
+ city varchar(15) default 'Pune',
+ constraint pk_roll primary key(roll)
+);
+
+ 
+insert into student(sname,per,city)
+values('Sumit',89.00,'Nashik');
+
+insert into student(sname,per,city) 
+values('Sagar',78.00,'nagpur');
+
+insert into student(sname,per,city)
+values('Smita',null,null);
+ 
+
+Foreign Key constraint
+-----------------------
+Key which is PRIMARY KEY in another table is called as FK.
+referential integrity
+
+dept(deptno,dname)------- pk deptno
+bae table
+emp(empno,ename,deptno,sal)-----pk empno
+			        fk deptno
+dependent table
+
+
+cat(cid,cname) -----pk cid
+base table
+
+product(pid,pname,cid) -----pk pid
+		            fk cid
+dependent table
+
+author(aid,aname,email) ----- pk aid
+base tale
+book(bno,bname,aid) ------ pk bno
+                           fk aid
+dependent table
+
+select b.bno, b.bname, a.aid,a.aname,a.email
+from book b,author a
+where a.aid=b.aid;
+
+
+
+cat(cid,cname)
+product(pid,pname,cid)
+
+create table cat
+(cid int auto_increment,
+ cname varchar(15),
+ constraint pk_cid primary key(cid)
+);
+insert into cat(cname)
+values('Stationary'),('Food'),('Electronics');
+
+create table product
+(pid int auto_increment,
+ pname varchar(15),
+ cid int,
+ constraint pk_pid primary key(pid),
+ constraint fk_cid foreign key(cid) references cat(cid)
+ );
+
+insert into product(pname,cid)
+values('Pen',1),('Dairy Milk',2);
+
+insert into product(pname,cid)
+values('Pencil',1),('Mobile',3),('Lays',2),('crayons',1);
+
+mysql> delete from cat where cid=1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`knowit`.`product`, CONSTRAINT `fk_cid` FOREIGN KEY (`cid`) REFERENCES `cat` (`cid`))
+
+insert into cat(cname)
+values('Clothes')
+
+
+mysql> update cat
+    -> set cid =10 where cid=1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`knowit`.`product`, CONSTRAINT `fk_cid` FOREIGN KEY (`cid`) REFERENCES `cat` (`cid`))
+
+create table try
+as
+  select * from product;
+=========================================
+count()
+
+select count(*)
+from emp;
+
+select count(comm)
+from emp;
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

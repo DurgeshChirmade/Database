@@ -1,0 +1,64 @@
+Assignment-1
+-------------
+delimiter //
+create procedure first_cursor()
+begin
+	declare a int;
+	declare b varchar(15);
+	declare c varchar(15);
+	declare d int;
+	declare e date;
+	declare f decimal(7,2);
+	declare g decimal(7,2);
+	declare h int;
+	declare i varchar(15);
+	declare flag int default 0;
+	declare cur cursor for
+		select e.empno,e.ename,e.job,e.mgr,e.hiredate,e.sal,e.comm,e.deptno,d.dname
+		from emp e
+		join dept d
+		on e.deptno=d.deptno
+		where e.deptno=20;
+	declare continue handler for NOT FOUND
+		set flag=1;
+	open cur;
+	print:loop
+		fetch cur into a,b,c,d,e,f,g,h,i;
+
+		if flag=1
+		then
+			leave print;
+		end if;
+		select a,b,c,d,e,f,g,h,i;
+	end loop print;
+	close cur;
+end //
+delimiter;
+
+call first_cursor;
++------+-------+---------+------+------------+---------+------+------+----------+
+| a    | b     | c       | d    | e          | f       | g    | h    | i        |
++------+-------+---------+------+------------+---------+------+------+----------+
+| 7566 | JONES | MANAGER | 7839 | 1981-04-02 | 3272.50 | NULL |   20 | RESEARCH |
++------+-------+---------+------+------------+---------+------+------+----------+
+1 row in set (0.00 sec)
+
++------+-------+---------+------+------------+---------+------+------+----------+
+| a    | b     | c       | d    | e          | f       | g    | h    | i        |
++------+-------+---------+------+------------+---------+------+------+----------+
+| 7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000.00 | NULL |   20 | RESEARCH |
++------+-------+---------+------+------------+---------+------+------+----------+
+1 row in set (0.01 sec)
+
++------+-------+-------+------+------------+---------+------+------+----------+
+| a    | b     | c     | d    | e          | f       | g    | h    | i        |
++------+-------+-------+------+------------+---------+------+------+----------+
+| 7876 | ADAMS | CLERK | 7788 | 1983-01-12 | 1100.00 | NULL |   20 | RESEARCH |
++------+-------+-------+------+------------+---------+------+------+----------+
+1 row in set (0.02 sec)
+
++------+------+---------+------+------------+---------+------+------+----------+
+| a    | b    | c       | d    | e          | f       | g    | h    | i        |
++------+------+---------+------+------------+---------+------+------+----------+
+| 7902 | FORD | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |   20 | RESEARCH |
++------+------+---------+------+------------+---------+------+------+----------+

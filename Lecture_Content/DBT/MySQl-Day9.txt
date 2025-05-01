@@ -1,0 +1,58 @@
+select empno,ename,avg(sal)
+from emp;
+
+over()
+-------
+select empno,ename,deptno,sal,avg(sal) over(partition by deptno) 'avg sal',
+max(sal) over(partition by deptno) 'max sal'
+from emp;
+
+row_number()
+-------------
+select ename,deptno,sal,row_number() over()'row number'
+from emp;
+
+select ename,deptno,sal,job,row_number() over(partition by job)'row number'
+from emp;
+
+select ename,deptno,sal,job,row_number() over(partition by job)'row number'
+from emp
+where job='manager';
+
+mysql> select ename,deptno,sal,job,row_number() over(partition by deptno)'row number'
+    -> from emp
+    -> where job='clerk';
++--------+--------+---------+-------+------------+
+| ename  | deptno | sal     | job   | row number |
++--------+--------+---------+-------+------------+
+| MILLER |     10 | 1300.00 | CLERK |          1 |
+| SMITH  |     20 |  800.00 | CLERK |          1 |
+| ADAMS  |     20 | 1100.00 | CLERK |          2 |
+| JAMES  |     30 |  950.00 | CLERK |          1 |
++--------+--------+---------+-------+------------+
+4 rows in set (0.00 sec)
+
+
+rank()
+------
+select ename,deptno,sal,job,rank() over(partition by job order by sal) rnk
+from emp;
+
+select ename,deptno,sal,job,rank() over(partition by job order by sal desc) rnk
+from emp;
+
+dens_rank()
+--------
+select ename,deptno,sal,job,rank() over(partition by job order by sal) rnk,dense_rank() over(partition by job order by sal) drnk
+from emp;
+
+lag()
+-----
+select ename,deptno,sal,job,lag(sal) over(partition by job) 'prev sal'
+from emp;
+
+lead()
+------
+select ename,deptno,sal,job,lead(sal) over(partition by job) 'next sal'
+from emp;
+

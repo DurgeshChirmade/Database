@@ -1,0 +1,17 @@
+Assignment-1
+--------------
+delimiter //
+create procedure first_proc()
+begin
+	select avg(sal)
+	from emps;
+end //
+delimiter ;
+
+call first_proc;
++-------------+
+| avg(sal)    |
++-------------+
+| 2601.666667 |
++-------------+
+1 row in set (0.05 sec)

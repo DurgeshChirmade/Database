@@ -1,0 +1,37 @@
+Assignment-3
+---------------
+create table order_master(oid int primary key auto_increment,pname varchar(20),qty int,price int);
+
+create table order_log(oid int,odate date,amt int);
+
+insert into order_master values(101,"pen",20,40);
+
+delimiter //
+create trigger third_trigger
+after insert
+on order_master
+for each row
+begin
+	insert into order_log(oid,odate,amt)
+	values(new.oid,curdate(),new.price*new.qty);
+end //
+delimiter ;
+
+insert into order_master values(102,"pencil",10,30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from order_master;
++-----+--------+------+-------+
+| oid | pname  | qty  | price |
++-----+--------+------+-------+
+| 101 | pen    |   20 |    40 |
+| 102 | pencil |   10 |    30 |
++-----+--------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from order_log;
++------+------------+------+
+| oid  | odate      | amt  |
++------+------------+------+
+|  102 | 2025-04-10 |  300 |
++------+------------+------+

@@ -1,0 +1,291 @@
+--display all name wit A
+
+select * from emp
+where ename like 'A%';
+
+^ : first letter
+$ : last letter
+. : single letter
+* : multiple letters
+[] : set of chars
+| : or
+
+{n}:
+{m.n}:
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^A');
++-------+-------+----------+------+------------+---------+--------+--------+
+| EMPNO | ENAME | JOB      | MGR  | HIREDATE   | SAL     | COMM   | DEPTNO |
++-------+-------+----------+------+------------+---------+--------+--------+
+|  7499 | ALLEN | SALESMAN | 7698 | 1981-02-20 | 1600.00 | 300.00 |     30 |
+|  7876 | ADAMS | CLERK    | 7788 | 1983-01-12 | 1100.00 |   NULL |     20 |
++-------+-------+----------+------+------------+---------+--------+--------+
+2 rows in set (0.07 sec)
+
+---Ending with N
+
+select *
+from emp
+where ename like '%N'
+
+select *
+from emp
+where REGEXP_LIKE(ename,'.*N$');
+
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
++-------+--------+----------+------+------------+---------+---------+--------+
+2 rows in set (0.00 sec)
+
+select *
+from emp
+where REGEXP_LIKE(ename,'.*N$');
+
+--start with A and end with S
+select *
+from emp
+where  ename LIKE 'A%S' ;
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^A.*S$');
+
+select *
+from emp
+where REGEXP_LIKE(ename,'.*');
+
+--n acan come anywhere
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^.*l.*$');
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^.*A.*$');
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^[ABC]');
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^[AMF]');
+
+----not starting with AMF
+select *
+from emp
+where REGEXP_LIKE(ename,'^[^AMF]');
+
+--start with M, L at third pos and R at end
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^M.L.*R$');
+
+---starts with A ends with N or starts with M and ends with R or
+  starts with S amd ends with H
+
+select *
+from emp
+where REGEXP_LIKE(ename,'^A.*N$|^M.*R$|^S.*H$');
+----------------------
+
+Truncate
+
+truncate table new_emp1;
+
+insert into new_emp1
+values(111,'abcd',30000);
+-------------------------------
+
+limit caluse
+
+select * from emp
+limit 3;
+
+mysql>  select * from emp
+    -> limit 6,4;
++-------+--------+-----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+-----------+------+------------+---------+------+--------+
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450.00 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
++-------+--------+-----------+------+------------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+select * from emp
+limit 3 offset 4;
+
+
+mysql>  select * from emp
+    -> limit 4 offset 6;
++-------+--------+-----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+-----------+------+------------+---------+------+--------+
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450.00 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
++-------+--------+-----------+------+------------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+ --------------------------------
+
+distinct clause
+
+select deptno from emp;
+
+mysql> select distinct deptno from emp;
++--------+
+| deptno |
++--------+
+|     20 |
+|     30 |
+|     10 |
++--------+
+3 rows in set (0.02 sec)
+
+mysql> select distinct deptno,job  from emp;
++--------+-----------+
+| deptno | job       |
++--------+-----------+
+|     20 | CLERK     |
+|     30 | SALESMAN  |
+|     20 | MANAGER   |
+|     30 | MANAGER   |
+|     10 | MANAGER   |
+|     20 | ANALYST   |
+|     10 | PRESIDENT |
+|     30 | CLERK     |
+|     10 | CLERK     |
++--------+-----------+
+9 rows in set (0.00 sec)
+
+--------------------------
+case 
+
+comm>500 "excellent perfo"
+100 to 500 "can do better"
+0 last chance to prove
+else poor performance
+
+
+ 
+
+mysql> select empno,ename,job,comm,case when comm>500 then "excellent perfo"
+    ->                                  when comm>=100 and comm<=500 then "can do better"
+    ->                                  when comm=0 then "last chance"
+    ->                                  else "poor performance"
+    ->                             end as Performance
+    -> from emp;
++-------+--------+-----------+---------+------------------+
+| empno | ename  | job       | comm    | Performance      |
++-------+--------+-----------+---------+------------------+
+|  7369 | SMITH  | CLERK     |    NULL | poor performance |
+|  7499 | ALLEN  | SALESMAN  |  300.00 | can do better    |
+|  7521 | WARD   | SALESMAN  |  500.00 | can do better    |
+|  7566 | JONES  | MANAGER   |    NULL | poor performance |
+|  7654 | MARTIN | SALESMAN  | 1400.00 | excellent perfo  |
+|  7698 | BLAKE  | MANAGER   |    NULL | poor performance |
+|  7782 | CLARK  | MANAGER   |    NULL | poor performance |
+|  7788 | SCOTT  | ANALYST   |    NULL | poor performance |
+|  7839 | KING   | PRESIDENT |    NULL | poor performance |
+|  7844 | TURNER | SALESMAN  |    0.00 | last chance      |
+|  7876 | ADAMS  | CLERK     |    NULL | poor performance |
+|  7900 | JAMES  | CLERK     |    NULL | poor performance |
+|  7902 | FORD   | ANALYST   |    NULL | poor performance |
+|  7934 | MILLER | CLERK     |    NULL | poor performance |
++-------+--------+-----------+---------+------------------+
+14 rows in set (0.00 sec)
+
+-----------------------------
+
+order by - will sort the data
+
+select * 
+from emp 
+order by sal;
+
+mysql> select *
+    -> from emp
+    -> order by sal;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-09-06 | 2450.00 |    NULL |     10 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+14 rows in set (0.00 sec)
+
+
+select * 
+from emp 
+order by sal desc;      
+
+
+asc - ascending
+desc - descending
+
+top 3 employess with max sal
+-------------------
+select * 
+from emp
+order by sal desc
+limit 3;
+ 
+select * 
+from emp
+order by sal asc, ename desc;
+
+select *
+from emp
+order by job desc, deptno asc;
+
+-------------------------------------
+
+100+null =null
+
+select empno,ename,deptno,sal,comm,sal+comm as "Total Sal"
+from emp;
+
+ifnull(column_name,value to be replaced)
+
+comm  is null   = 0
+ifnull(comm,0)
+
+sal+comm
+
+sal+ifnull(comm,0)
+
+select empno,ename,sal,comm,sal+ifnull(comm,0) as "Total Sal"
+from emp;
+
+
+insert into new_emp(empno,ename,sal,comm,deptno)
+values(1111,'abcd',null,290,70);
+
+select empno,ename,sal,comm,ifnull(sal,5000)+ifnull(comm,0)  as "Total Sal"
+from new_emp;
+
+
+

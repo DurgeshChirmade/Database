@@ -1,0 +1,492 @@
+section: Alter Clause
+
+Assignment-1
+--------------
+select * from employee;
++------+--------+-------+-----------+
+| eno  | ename  | basic | incentive |
++------+--------+-------+-----------+
+|    1 | Rajesh | 20000 |      1500 |
+|    2 | Sarita | 25000 |      1000 |
+|    4 | Jitesh | 30000 |      1000 |
+|    5 | Ramesh | 60000 |      3000 |
+|   20 | Ajay   | 16000 |      NULL |
++------+--------+-------+-----------+
+
+Q.1
+alter table employee add job varchar(12);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+------+
+| eno  | ename  | basic | incentive | job  |
++------+--------+-------+-----------+------+
+|    1 | Rajesh | 20000 |      1500 | NULL |
+|    2 | Sarita | 25000 |      1000 | NULL |
+|    4 | Jitesh | 30000 |      1000 | NULL |
+|    5 | Ramesh | 60000 |      3000 | NULL |
+|   20 | Ajay   | 16000 |      NULL | NULL |
++------+--------+-------+-----------+------+
+
+Q.2
+update employee set job="clerk" where ename="Ramesh";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+-------+
+| eno  | ename  | basic | incentive | job   |
++------+--------+-------+-----------+-------+
+|    1 | Rajesh | 20000 |      1500 | NULL  |
+|    2 | Sarita | 25000 |      1000 | NULL  |
+|    4 | Jitesh | 30000 |      1000 | NULL  |
+|    5 | Ramesh | 60000 |      3000 | clerk |
+|   20 | Ajay   | 16000 |      NULL | NULL  |
++------+--------+-------+-----------+-------+
+
+Q.3
+update employee set job="Analyst" where ename="Sarita" or ename="Jitesh";
+
+
+Q.4
+update employee set job="Manager" where job is null;
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++------+--------+-------+-----------+---------+
+| eno  | ename  | basic | incentive | job     |
++------+--------+-------+-----------+---------+
+|    1 | Rajesh | 20000 |      1500 | Manager |
+|    2 | Sarita | 25000 |      1000 | Analyst |
+|    4 | Jitesh | 30000 |      1000 | Analyst |
+|    5 | Ramesh | 60000 |      3000 | clerk   |
+|   20 | Ajay   | 16000 |      NULL | Manager |
++------+--------+-------+-----------+---------+
+
+Assignment-2
+---------------
+alter table cust_vehicle change column tid transaction_id int,modify column custid int not null,modify column vid int not null,modify column sid int not null,add constraint buyprice check (buyprice>0) ;
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+alter table cust_vehicle add constraint pk_tid primary key(transaction_id);
+
+mysql> select * from cust_vehicle;
++----------------+--------+-----+-----+----------+
+| transaction_id | custid | vid | sid | buyprice |
++----------------+--------+-----+-----+----------+
+|              1 |      1 |   1 |  10 |    75000 |
+|              2 |      1 |   2 |  10 |    79000 |
+|              3 |      2 |   3 |  11 |    80000 |
+|              4 |      3 |   3 |  11 |    75000 |
+|              5 |      3 |   2 |  10 |   800000 |
++----------------+--------+-----+-----+----------+
+5 rows in set (0.00 sec)
+
+mysql> describe cust_vehicle;
++----------------+------+------+-----+---------+-------+
+| Field          | Type | Null | Key | Default | Extra |
++----------------+------+------+-----+---------+-------+
+| transaction_id | int  | YES  |     | NULL    |       |
+| custid         | int  | NO   |     | NULL    |       |
+| vid            | int  | NO   |     | NULL    |       |
+| sid            | int  | NO   |     | NULL    |       |
+| buyprice       | int  | YES  |     | NULL    |       |
++----------------+------+------+-----+---------+-------+
+
+describe cust_vehicle;
++----------------+------+------+-----+---------+-------+
+| Field          | Type | Null | Key | Default | Extra |
++----------------+------+------+-----+---------+-------+
+| transaction_id | int  | NO   | PRI | NULL    |       |
+| custid         | int  | NO   |     | NULL    |       |
+| vid            | int  | NO   |     | NULL    |       |
+| sid            | int  | NO   |     | NULL    |       |
+| buyprice       | int  | YES  |     | NULL    |       |
++----------------+------+------+-----+---------+-------+
+
+Q.1
+alter table cust_vehicle add rating int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe cust_vehicle;
++----------------+------+------+-----+---------+-------+
+| Field          | Type | Null | Key | Default | Extra |
++----------------+------+------+-----+---------+-------+
+| transaction_id | int  | NO   | PRI | NULL    |       |
+| custid         | int  | NO   |     | NULL    |       |
+| vid            | int  | NO   |     | NULL    |       |
+| sid            | int  | NO   |     | NULL    |       |
+| buyprice       | int  | YES  |     | NULL    |       |
+| rating         | int  | YES  |     | NULL    |       |
++----------------+------+------+-----+---------+-------+
+
+Q.2
+update cust_vehicle set buyprice=790000 where transaction_id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from cust_vehicle;
++----------------+--------+-----+-----+----------+--------+
+| transaction_id | custid | vid | sid | buyprice | rating |
++----------------+--------+-----+-----+----------+--------+
+|              1 |      1 |   1 |  10 |    75000 |   NULL |
+|              2 |      1 |   2 |  10 |   790000 |   NULL |
+|              3 |      2 |   3 |  11 |    80000 |   NULL |
+|              4 |      3 |   3 |  11 |    75000 |   NULL |
+|              5 |      3 |   2 |  10 |   800000 |   NULL |
++----------------+--------+-----+-----+----------+--------+
+
+update cust_vehicle set rating=5 where buyprice>90000;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from cust_vehicle;
++----------------+--------+-----+-----+----------+--------+
+| transaction_id | custid | vid | sid | buyprice | rating |
++----------------+--------+-----+-----+----------+--------+
+|              1 |      1 |   1 |  10 |    75000 |   NULL |
+|              2 |      1 |   2 |  10 |   790000 |      5 |
+|              3 |      2 |   3 |  11 |    80000 |   NULL |
+|              4 |      3 |   3 |  11 |    75000 |   NULL |
+|              5 |      3 |   2 |  10 |   800000 |      5 |
++----------------+--------+-----+-----+----------+--------+
+
+
+section: constraints in RDBMS 
+
+Assignment-1
+--------------
+create table course(cid int,cname varchar(20) unique not null,fees int default 5000, constraint pk_cid primary key(cid));
+
+describe course;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | int         | NO   | PRI | NULL    |       |
+| cname | varchar(20) | NO   | UNI | NULL    |       |
+| fees  | int         | YES  |     | 5000    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+create table trainer(tid int,tname varchar(20) not null,cid int,salary int default 20000,experience int check (experience>=10), constraint pk_tid primary key(tid),constraint fk_cid foreign key(cid) references course(cid) on delete set null)
+    -> ;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc trainer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| tid        | int         | NO   | PRI | NULL    |       |
+| tname      | varchar(20) | NO   |     | NULL    |       |
+| cid        | int         | YES  | MUL | NULL    |       |
+| salary     | int         | YES  |     | 20000   |       |
+| experience | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+insert into course values(1,"Core Java",7000),(2,"Linux",8000),(3,"Data Structure",10000),(4,"Python",12000),(5,"Dot Net",null);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from course;
++-----+----------------+-------+
+| cid | cname          | fees  |
++-----+----------------+-------+
+|   1 | Core Java      |  7000 |
+|   2 | Linux          |  8000 |
+|   3 | Data Structure | 10000 |
+|   4 | Python         | 12000 |
+|   5 | Dot Net        |  NULL |
++-----+----------------+-------+
+
+insert into trainer values(1,"Amit",2,12000,13),(2,"Rajan",1,13000,15),(3,"Shruti",2,14000,17),(4,"Arti",2,15500,14),(5,"Sameer",3,11500,12),(6,"Sanjay",null,14500,18),(7,"Soha",null,13300,19);
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from trainer;
++-----+--------+------+--------+------------+
+| tid | tname  | cid  | salary | experience |
++-----+--------+------+--------+------------+
+|   1 | Amit   |    2 |  12000 |         13 |
+|   2 | Rajan  |    1 |  13000 |         15 |
+|   3 | Shruti |    2 |  14000 |         17 |
+|   4 | Arti   |    2 |  15500 |         14 |
+|   5 | Sameer |    3 |  11500 |         12 |
+|   6 | Sanjay | NULL |  14500 |         18 |
+|   7 | Soha   | NULL |  13300 |         19 |
++-----+--------+------+--------+------------+
+
+insert into trainer values(2,"Mahesh",null,16000,12),(8,"Meena",3,25000,11),(9,null,2,30000,10),(10,"Soham",2,35000,8),(11,"Anil",3,null,11);
+ERROR 1062 (23000): Duplicate entry '2' for key 'trainer.PRIMARY'
+
+delete from course where cid=2;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from course;
++-----+----------------+-------+
+| cid | cname          | fees  |
++-----+----------------+-------+
+|   1 | Core Java      |  7000 |
+|   3 | Data Structure | 10000 |
+|   4 | Python         | 12000 |
+|   5 | Dot Net        |  NULL |
++-----+----------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from trainer;
++-----+--------+------+--------+------------+
+| tid | tname  | cid  | salary | experience |
++-----+--------+------+--------+------------+
+|   1 | Amit   | NULL |  12000 |         13 |
+|   2 | Rajan  |    1 |  13000 |         15 |
+|   3 | Shruti | NULL |  14000 |         17 |
+|   4 | Arti   | NULL |  15500 |         14 |
+|   5 | Sameer |    3 |  11500 |         12 |
+|   6 | Sanjay | NULL |  14500 |         18 |
+|   7 | Soha   | NULL |  13300 |         19 |
++-----+--------+------+--------+------------+
+
+drop table trainer;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table trainer(tid int,tname varchar(20) not null,cid int,salary int default 20000,experience int check (experience>=10), constraint pk_tid primary key(tid),constraint fk_cid foreign key(cid) references course(cid) on delete cascade);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc trainer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| tid        | int         | NO   | PRI | NULL    |       |
+| tname      | varchar(20) | NO   |     | NULL    |       |
+| cid        | int         | YES  | MUL | NULL    |       |
+| salary     | int         | YES  |     | 20000   |       |
+| experience | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+select * from trainer;
++-----+--------+------+--------+------------+
+| tid | tname  | cid  | salary | experience |
++-----+--------+------+--------+------------+
+|   1 | Amit   | NULL |  12000 |         13 |
+|   2 | Rajan  |    1 |  13000 |         15 |
+|   3 | Shruti | NULL |  14000 |         17 |
+|   4 | Arti   | NULL |  15500 |         14 |
+|   5 | Sameer |    3 |  11500 |         12 |
+|   6 | Sanjay | NULL |  14500 |         18 |
+|   7 | Soha   | NULL |  13300 |         19 |
++-----+--------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> delete from course where cid=3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from trainer;
++-----+--------+------+--------+------------+
+| tid | tname  | cid  | salary | experience |
++-----+--------+------+--------+------------+
+|   1 | Amit   | NULL |  12000 |         13 |
+|   2 | Rajan  |    1 |  13000 |         15 |
+|   3 | Shruti | NULL |  14000 |         17 |
+|   4 | Arti   | NULL |  15500 |         14 |
+|   6 | Sanjay | NULL |  14500 |         18 |
+|   7 | Soha   | NULL |  13300 |         19 |
++-----+--------+------+--------+------------+
+
+Assignment-2
+--------------
+create table cust_vehicle_new (tid int,custid int,vid int,sid int,buy_price int);
+Query OK, 0 rows affected (0.02 sec)
+
+insert into cust_vehicle values(1,1,1,10,75000),(2,1,2,10,79000),(3,2,3,11,80000),(4,3,3,11,75000),(5,3,2,10,800000);
+
+select * from cust_vehicle_new;
++------+--------+------+------+-----------+
+| tid  | custid | vid  | sid  | buy_price |
++------+--------+------+------+-----------+
+|    1 |      1 |    1 |   10 |     75000 |
+|    2 |      1 |    2 |   10 |     79000 |
+|    3 |      2 |    3 |   11 |     80000 |
+|    4 |      3 |    3 |   11 |     75000 |
+|    5 |      3 |    2 |   10 |    800000 |
++------+--------+------+------+-----------+
+
+alter table cust_vehicle_new change column tid transaction_id int,modify column custid int not null,modify column vid int not null,modify column sid int not null,modify column buy_price int not null,add constraint pk_tid primary key(transaction_id);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc cust_vehicle_new;
++----------------+------+------+-----+---------+-------+
+| Field          | Type | Null | Key | Default | Extra |
++----------------+------+------+-----+---------+-------+
+| transaction_id | int  | NO   | PRI | NULL    |       |
+| custid         | int  | NO   |     | NULL    |       |
+| vid            | int  | NO   |     | NULL    |       |
+| sid            | int  | NO   |     | NULL    |       |
+| buy_price      | int  | NO   |     | NULL    |       |
++----------------+------+------+-----+---------+-------+
+
+Assignment-3
+--------------
+Q.1
+alter table vehicle add constraint pk_vid primary key(vid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc vehicle;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| vid      | int          | NO   | PRI | NULL    |       |
+| vname    | varchar(20)  | YES  |     | NULL    |       |
+| price    | int          | YES  |     | NULL    |       |
+| discount | int          | YES  |     | NULL    |       |
+| milage   | int          | YES  |     | NULL    |       |
+| details  | varchar(100) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+alter table customer add constraint pk_custid primary key(custid);
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| custid   | int         | NO   | PRI | NULL    |       |
+| cname    | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+alter table salesman add constraint pk_sid primary key(sid);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc salesman;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| sid        | int         | NO   | PRI | NULL    |       |
+| sname      | varchar(20) | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| experience | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+Q.2
+select cv.transaction_id,cv.custid,c.custid,c.cname,cv.buy_price from customer c,cust_vehicle_new cv where c.custid=cv.custid;
++----------------+--------+--------+--------+-----------+
+| transaction_id | custid | custid | cname  | buy_price |
++----------------+--------+--------+--------+-----------+
+|              3 |      2 |      2 | Ganesh |     80000 |
+|              4 |      3 |      3 | Kishor |     75000 |
+|              5 |      3 |      3 | Kishor |    800000 |
++----------------+--------+--------+--------+-----------+
+
+Q.3
+select cv.transaction_id,cv.custid,c.custid,c.cname,cv.vid,v.vid,v.vname,cv.sid,s.sid,s.sname,cv.buy_price from vehicle v,customer c,salesman s,cust_vehicle_new cv where c.custid=cv.custid and v.vid=cv.vid and s.sid=cv.sid;
++----------------+--------+--------+--------+-----+-----+--------+-----+-----+--------+-----------+
+| transaction_id | custid | custid | cname  | vid | vid | vname  | sid | sid | sname  | buy_price |
++----------------+--------+--------+--------+-----+-----+--------+-----+-----+--------+-----------+
+|              3 |      2 |      2 | Ganesh |   3 |   3 | Yamaha |  11 |  11 | Seema  |     80000 |
+|              4 |      3 |      3 | Kishor |   3 |   3 | Yamaha |  11 |  11 | Seema  |     75000 |
+|              5 |      3 |      3 | Kishor |   2 |   2 | Santro |  10 |  10 | Rajesh |    800000 |
++----------------+--------+--------+--------+-----+-----+--------+-----+-----+--------+-----------+
+
+Assignment-5
+-----------------
+create table vehicles(Vname varchar(20),Category varchar(50),Price int,discount int,milage int,details varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into vehicles values("Passion","Bike",90000,NULL,50,"For passionate riders");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into vehicles values("Honda City","Car",140000,NULL,20,"Best in Honda world");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into vehicles values("TVS iCube","Electric Scooter",140000,NULL,40,"Best in new world");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from vehicles;
++------------+------------------+--------+----------+--------+-----------------------+
+| Vname      | Category         | Price  | discount | milage | details               |
++------------+------------------+--------+----------+--------+-----------------------+
+| Passion    | Bike             |  90000 |     NULL |     50 | For passionate riders |
+| Honda City | Car              | 140000 |     NULL |     20 | Best in Honda world   |
+| TVS iCube  | Electric Scooter | 140000 |     NULL |     40 | Best in new world     |
++------------+------------------+--------+----------+--------+-----------------------+
+
+Assignment-6
+--------------
+create table dept11 as select * from dept;
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept11;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
++--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> alter table dept11 add constraint pk_deptno primary key(deptno);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dept11;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| DEPTNO | int         | NO   | PRI | NULL    |       |
+| DNAME  | varchar(14) | YES  |     | NULL    |       |
+| LOC    | varchar(13) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+Assignment-7
+--------------
+create table emp110 as select * from emp;
+Query OK, 13 rows affected (0.02 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp110 add constraint pk_empno primary key(empno);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp110;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| EMPNO    | int          | NO   | PRI | NULL    |       |
+| ENAME    | varchar(15)  | YES  |     | NULL    |       |
+| JOB      | varchar(9)   | YES  |     | NULL    |       |
+| MGR      | int          | YES  |     | NULL    |       |
+| HIREDATE | date         | YES  |     | NULL    |       |
+| SAL      | decimal(7,2) | YES  |     | NULL    |       |
+| COMM     | decimal(7,2) | YES  |     | NULL    |       |
+| DEPTNO   | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+alter table emp110 add constraint fk_deptno foreign key(deptno) references dept11(deptno);
+Query OK, 13 rows affected (0.07 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+mysql> desc emp110;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| EMPNO    | int          | NO   | PRI | NULL    |       |
+| ENAME    | varchar(15)  | YES  |     | NULL    |       |
+| JOB      | varchar(9)   | YES  |     | NULL    |       |
+| MGR      | int          | YES  |     | NULL    |       |
+| HIREDATE | date         | YES  |     | NULL    |       |
+| SAL      | decimal(7,2) | YES  |     | NULL    |       |
+| COMM     | decimal(7,2) | YES  |     | NULL    |       |
+| DEPTNO   | int          | YES  | MUL | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+

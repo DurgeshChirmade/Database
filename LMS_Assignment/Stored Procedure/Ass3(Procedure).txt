@@ -1,0 +1,19 @@
+Assignment-3
+--------------
+delimiter //
+create procedure third_procedure(in a int,out b decimal(7,2))
+begin
+	select avg(sal) into b
+	from emps
+	where deptno=a;
+end //
+delimiter ;
+
+set @p=30;
+call third_procedure(@p,@k);
+select @k;
++---------+
+| @k      |
++---------+
+| 1566.67 |
++---------+

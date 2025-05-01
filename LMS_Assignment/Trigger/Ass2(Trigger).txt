@@ -1,0 +1,47 @@
+Assignment-2
+--------------
+create table emp_wage(eno int primary key auto_increment,ename varchar(15),sal int,over_time int);
+
+desc emp_wage;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| eno       | int         | NO   | PRI | NULL    | auto_increment |
+| ename     | varchar(15) | YES  |     | NULL    |                |
+| sal       | int         | YES  |     | NULL    |                |
+| over_time | int         | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+insert into emp_wage(ename,sal,over_time)
+values('sumit',1200,300);
+
+select * from emp_wage;
++-----+-------+------+-----------+
+| eno | ename | sal  | over_time |
++-----+-------+------+-----------+
+|   1 | sumit | 1200 |       300 |
++-----+-------+------+-----------+
+
+delimiter //
+create trigger insert_wage
+before insert
+on emp_wage
+for each row
+begin
+	if new.over_time is null
+	then
+		set new.over_time=400;
+	end if;
+end //
+delimiter ;
+
+insert into emp_wage(ename,sal,over_time)
+values('Geeta',2200,null);
+
+select * from emp_wage;
++-----+-------+------+-----------+
+| eno | ename | sal  | over_time |
++-----+-------+------+-----------+
+|   1 | sumit | 1200 |       300 |
+|   2 | Geeta | 2200 |       400 |
++-----+-------+------+-----------+

@@ -1,0 +1,70 @@
+create table category(
+    -> cid int primary key,
+    -> cname varchar(15) unique not null,
+    -> description varchar(30)
+    -> );
+
+
+ insert into category() values (1,'chip','very crunchy'),
+    -> (2,'chocolate','very chocolaty')
+    -> ,(3,'snacks','yummy'),
+    -> (4,'cold drinks','thanda thanda cool cool');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from category;
++-----+-------------+-------------------------+
+| cid | cname       | description             |
++-----+-------------+-------------------------+
+|   1 | chip        | very crunchy            |
+|   2 | chocolate   | very chocolaty          |
+|   3 | snacks      | yummy                   |
+|   4 | cold drinks | thanda thanda cool cool |
+
+
+mysql> insert into category() values (1,'chip','very crunchy'),
+    -> (2,'chocolate','very chocolaty')
+    -> ,(3,'snacks','yummy'),
+    -> (4,'cold drinks','thanda thanda cool cool');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from category;
++-----+-------------+-------------------------+
+| cid | cname       | description             |
++-----+-------------+-------------------------+
+|   1 | chip        | very crunchy            |
+|   2 | chocolate   | very chocolaty          |
+|   3 | snacks      | yummy                   |
+|   4 | cold drinks | thanda thanda cool cool |
+
+create table product(
+    pid int primary key,
+    pname varchar(20),
+    price float(6,2) default 20.00,
+    qty int check(qty>0),
+    cid int,
+    sid int,
+    constraint fk_cid foreign key(cid) references category(cid) on delete set null,
+    constraint fk_sid foreign key(sid) references salesman1(sid)
+    );
+
+ create table salesman1
+    -> (
+    -> sid int primary key,
+    -> sname varchar(15) unique not null,
+    -> city varchar(15)
+    -> );
+mysql> insert into salesman1() value (11,'rahul','pune'),
+    -> (12,'kirti','mumbai'),
+    -> (13,'prasad','nashik'),
+    -> (14,'arnav','amravati');
+Query OK, 4 rows affected (0.01 sec)
+
+ insert into product() values(123,'lays',30,30.00,1,12),
+    -> (111,'pepsi',40,50.00,4,11),
+    -> (134,'nachos',50,50.00,1,12),
+    -> (124,'dairy milk',40,60.00,2,14),
+    -> (125,'pringles',40,60.00,1,14),
+    -> (213,'sketch pens',56,150.00,null,11),
+    -> (167,'eraser',90,5.00,null,null);

@@ -1,0 +1,13 @@
+Assignment-2
+--------------
+create index deptno_idx on empls(deptno);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from empls;
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| empls |          0 | PRIMARY    |            1 | EMPNO       | A         |          14 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| empls |          1 | deptno_idx |            1 | DEPTNO      | A         |           3 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+

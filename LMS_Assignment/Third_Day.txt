@@ -1,0 +1,1167 @@
+section:- In-built functions in MySQL
+
+Assignment-1
+--------------
+select date_format(hiredate,"%d/%m/%y") "Date" from emp;
++----------+
+| Date     |
++----------+
+| 20/02/81 |
+| 22/02/81 |
+| 02/04/81 |
+| 28/09/81 |
+| 01/05/81 |
+| 09/06/81 |
+| 09/12/82 |
+| 17/11/81 |
+| 08/09/81 |
+| 12/01/83 |
+| 03/12/81 |
+| 03/12/81 |
+| 23/01/82 |
++----------+
+13 rows in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%D/%M/%Y") from emp;
++----------------------------------+
+| date_format(hiredate,"%D/%M/%Y") |
++----------------------------------+
+| 20th/February/1981               |
+| 22nd/February/1981               |
+| 2nd/April/1981                   |
+| 28th/September/1981              |
+| 1st/May/1981                     |
+| 9th/June/1981                    |
+| 9th/December/1982                |
+| 17th/November/1981               |
+| 8th/September/1981               |
+| 12th/January/1983                |
+| 3rd/December/1981                |
+| 3rd/December/1981                |
+| 23rd/January/1982                |
++----------------------------------+
+
+select date_format(hiredate,"%D-%M-%Y") "Date" from emp;
++---------------------+
+| Date                |
++---------------------+
+| 20th-February-1981  |
+| 22nd-February-1981  |
+| 2nd-April-1981      |
+| 28th-September-1981 |
+| 1st-May-1981        |
+| 9th-June-1981       |
+| 9th-December-1982   |
+| 17th-November-1981  |
+| 8th-September-1981  |
+| 12th-January-1983   |
+| 3rd-December-1981   |
+| 3rd-December-1981   |
+| 23rd-January-1982   |
++---------------------+
+
+select date_format(hiredate,"%Y") "Year" from emp;
++------+
+| Year |
++------+
+| 1981 |
+| 1981 |
+| 1981 |
+| 1981 |
+| 1981 |
+| 1981 |
+| 1982 |
+| 1981 |
+| 1981 |
+| 1983 |
+| 1981 |
+| 1981 |
+| 1982 |
++------+
+13 rows in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%M") "Month" from emp;
++-----------+
+| Month     |
++-----------+
+| February  |
+| February  |
+| April     |
+| September |
+| May       |
+| June      |
+| December  |
+| November  |
+| September |
+| January   |
+| December  |
+| December  |
+| January   |
++-----------+
+13 rows in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%D") "Day" from emp;
++------+
+| Day  |
++------+
+| 20th |
+| 22nd |
+| 2nd  |
+| 28th |
+| 1st  |
+| 9th  |
+| 9th  |
+| 17th |
+| 8th  |
+| 12th |
+| 3rd  |
+| 3rd  |
+| 23rd |
++------+
+13 rows in set (0.00 sec)
+
+Assignment-2
+---------------
+select * from emp where mod(sal,3)=0;
++-------+--------+----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+----------+------+------------+---------+------+--------+
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+--------+----------+------+------------+---------+------+--------+
+
+select * from emp where sal%3=0;
++-------+--------+----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+----------+------+------------+---------+------+--------+
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+--------+----------+------+------------+---------+------+--------+
+
+Assignment-3
+-------------
+select concat(ename,"****",sal) "combination" from emp;
++-------------------+
+| combination       |
++-------------------+
+| ALLEN****1600.00  |
+| WARD****1250.00   |
+| JONES****2975.00  |
+| MARTIN****1250.00 |
+| BLAKE****2850.00  |
+| CLARK****2450.00  |
+| SCOTT****3000.00  |
+| KING****5000.00   |
+| TURNER****1500.00 |
+| ADAMS****1100.00  |
+| JAMES****950.00   |
+| FORD****3000.00   |
+| MILLER****1300.00 |
++-------------------+
+
+Assignment-4
+--------------
+select concat(ename,'@mycompany.com') "email" from emp;
++----------------------+
+| email                |
++----------------------+
+| ALLEN@mycompany.com  |
+| WARD@mycompany.com   |
+| JONES@mycompany.com  |
+| MARTIN@mycompany.com |
+| BLAKE@mycompany.com  |
+| CLARK@mycompany.com  |
+| SCOTT@mycompany.com  |
+| KING@mycompany.com   |
+| TURNER@mycompany.com |
+| ADAMS@mycompany.com  |
+| JAMES@mycompany.com  |
+| FORD@mycompany.com   |
+| MILLER@mycompany.com |
++----------------------+
+
+Assignment-5
+-------------
+select concat(ename," ",length(ename)) "NAME" from emp;
++----------+
+| NAME     |
++----------+
+| ALLEN 5  |
+| WARD 4   |
+| JONES 5  |
+| MARTIN 6 |
+| BLAKE 5  |
+| CLARK 5  |
+| SCOTT 5  |
+| KING 4   |
+| TURNER 6 |
+| ADAMS 5  |
+| JAMES 5  |
+| FORD 4   |
+| MILLER 6 |
++----------+
+
+Assignment-6
+----------------
+select concat(substr(ename,1,3),".",substr(job,2,2),"@MyCompany") "email" from emp;
++------------------+
+| email            |
++------------------+
+| ALL.AL@MyCompany |
+| WAR.AL@MyCompany |
+| JON.AN@MyCompany |
+| MAR.AL@MyCompany |
+| BLA.AN@MyCompany |
+| CLA.AN@MyCompany |
+| SCO.NA@MyCompany |
+| KIN.RE@MyCompany |
+| TUR.AL@MyCompany |
+| ADA.LE@MyCompany |
+| JAM.LE@MyCompany |
+| FOR.NA@MyCompany |
+| MIL.LE@MyCompany |
++------------------+
+
+Assignment-7
+---------------
+select concat(upper(substring(ename,1,1)),lower(substring(ename,2,10))," ",upper(substring(job,1,1)),lower(substring(job,2,10))) "NAME" from emp;
++-----------------+
+| NAME            |
++-----------------+
+| Allen Salesman  |
+| Ward Salesman   |
+| Jones Manager   |
+| Martin Salesman |
+| Blake Manager   |
+| Clark Manager   |
+| Scott Analyst   |
+| King President  |
+| Turner Salesman |
+| Adams Clerk     |
+| James Clerk     |
+| Ford Analyst    |
+| Miller Clerk    |
++-----------------+
+
+Assignment-8
+---------------
+select concat(lower(substring(ename,1,3)),upper(substring(ename,4,6))) "NAME" from emp;
++--------+
+| NAME   |
++--------+
+| allEN  |
+| warD   |
+| jonES  |
+| marTIN |
+| blaKE  |
+| claRK  |
+| scoTT  |
+| kinG   |
+| turNER |
+| adaMS  |
+| jamES  |
+| forD   |
+| milLER |
++--------+
+
+Assignment-9
+-------------
+select substr(ename,-3,3) from emp;
++--------------------+
+| substr(ename,-3,3) |
++--------------------+
+| LEN                |
+| ARD                |
+| NES                |
+| TIN                |
+| AKE                |
+| ARK                |
+| OTT                |
+| ING                |
+| NER                |
+| AMS                |
+| MES                |
+| ORD                |
+| LER                |
++--------------------+
+
+Assignment-10
+---------------
+select concat(lower(substr(ename,1,3)),lower(substr(job,-2,2)),"@knowit.com") "email" from emp;
++------------------+
+| email            |
++------------------+
+| allan@knowit.com |
+| waran@knowit.com |
+| joner@knowit.com |
+| maran@knowit.com |
+| blaer@knowit.com |
+| claer@knowit.com |
+| scost@knowit.com |
+| kinnt@knowit.com |
+| turan@knowit.com |
+| adark@knowit.com |
+| jamrk@knowit.com |
+| forst@knowit.com |
+| milrk@knowit.com |
++------------------+
+
+Assignment-11
+----------------
+select *,floor(datediff(curdate(),hiredate)/365) "Experience" from emp where floor(datediff(curdate(),hiredate)/365)>=43;
++-------+--------+-----------+------+------------+---------+---------+--------+------------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO | Experience |
++-------+--------+-----------+------+------------+---------+---------+--------+------------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |         44 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |         44 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |         44 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |         43 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |         43 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |         43 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |         43 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |         43 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |         43 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |         43 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |         43 |
++-------+--------+-----------+------+------------+---------+---------+--------+------------+
+
+Assignment-12
+-----------------
+update emp set sal=sal+(sal*10)/100 where floor(datediff(curdate(),hiredate)/365)>=44;
+Query OK, 3 rows affected (0.04 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+select *,floor(datediff(curdate(),hiredate)/365) "Experience" from emp where floor(datediff(curdate(),hiredate)/365)>=44;
++-------+-------+----------+------+------------+---------+--------+--------+------------+
+| EMPNO | ENAME | JOB      | MGR  | HIREDATE   | SAL     | COMM   | DEPTNO | Experience |
++-------+-------+----------+------+------------+---------+--------+--------+------------+
+|  7499 | ALLEN | SALESMAN | 7698 | 1981-02-20 | 1760.00 | 300.00 |     30 |         44 |
+|  7521 | WARD  | SALESMAN | 7698 | 1981-02-22 | 1375.00 | 500.00 |     30 |         44 |
+|  7566 | JONES | MANAGER  | 7839 | 1981-04-02 | 3272.50 |   NULL |     20 |         44 |
++-------+-------+----------+------+------------+---------+--------+--------+------------+
+
+Assignment-13
+--------------
+select * from emp where sal between 1000 and 3000;
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1760.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1375.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER  | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+----------+------+------------+---------+---------+--------+
+
+Assignment-14
+--------------
+select ename,lpad(ename,10,"*") "L_JOB",job,rpad(job,9,"*") "R_JOB" from emp;
++--------+------------+-----------+-----------+
+| ename  | L_JOB      | job       | R_JOB     |
++--------+------------+-----------+-----------+
+| ALLEN  | *****ALLEN | SALESMAN  | SALESMAN* |
+| WARD   | ******WARD | SALESMAN  | SALESMAN* |
+| JONES  | *****JONES | MANAGER   | MANAGER** |
+| MARTIN | ****MARTIN | SALESMAN  | SALESMAN* |
+| BLAKE  | *****BLAKE | MANAGER   | MANAGER** |
+| CLARK  | *****CLARK | MANAGER   | MANAGER** |
+| SCOTT  | *****SCOTT | ANALYST   | ANALYST** |
+| KING   | ******KING | PRESIDENT | PRESIDENT |
+| TURNER | ****TURNER | SALESMAN  | SALESMAN* |
+| ADAMS  | *****ADAMS | CLERK     | CLERK**** |
+| JAMES  | *****JAMES | CLERK     | CLERK**** |
+| FORD   | ******FORD | ANALYST   | ANALYST** |
+| MILLER | ****MILLER | CLERK     | CLERK**** |
++--------+------------+-----------+-----------+
+
+Assignment-15
+--------------
+select ename,comm,concat("Hello",upper(substr(ename,1,1)),substr(ename,2,10),"!") "NEW" from emp where comm>0;  --> you can use "comm is not null" also.
++--------+---------+--------------+
+| ename  | comm    | NEW          |
++--------+---------+--------------+
+| ALLEN  |  300.00 | HelloALLEN!  |
+| WARD   |  500.00 | HelloWARD!   |
+| MARTIN | 1400.00 | HelloMARTIN! |
++--------+---------+--------------+
+
+Assignment-16
+--------------
+select concat("Hello ",ename) "NAME" from emp;
++--------------+
+| NAME         |
++--------------+
+| Hello ALLEN  |
+| Hello WARD   |
+| Hello JONES  |
+| Hello MARTIN |
+| Hello BLAKE  |
+| Hello CLARK  |
+| Hello SCOTT  |
+| Hello KING   |
+| Hello TURNER |
+| Hello ADAMS  |
+| Hello JAMES  |
+| Hello FORD   |
+| Hello MILLER |
++--------------+
+
+Assignment-17
+---------------
+select concat(upper(ename)," is a ",lower(job)) "NAME" from emp;
++----------------------+
+| NAME                 |
++----------------------+
+| ALLEN is a salesman  |
+| WARD is a salesman   |
+| JONES is a manager   |
+| MARTIN is a salesman |
+| BLAKE is a manager   |
+| CLARK is a manager   |
+| SCOTT is a analyst   |
+| KING is a president  |
+| TURNER is a salesman |
+| ADAMS is a clerk     |
+| JAMES is a clerk     |
+| FORD is a analyst    |
+| MILLER is a clerk    |
++----------------------+
+
+Assignment-18
+----------------
+select concat(empno,",",ename,",",job,",",ifnull(mgr,0),",",hiredate,",",sal,",",ifnull(comm,0),",",deptno) "INFORMATION" from emp;
++---------------------------------------------------------+
+| INFORMATION                                             |
++---------------------------------------------------------+
+| 7499,ALLEN,SALESMAN,7698,1981-02-20,1760.00,300.00,30   |
+| 7521,WARD,SALESMAN,7698,1981-02-22,1375.00,500.00,30    |
+| 7566,JONES,MANAGER,7839,1981-04-02,3272.50,0.00,20      |
+| 7654,MARTIN,SALESMAN,7698,1981-09-28,1250.00,1400.00,30 |
+| 7698,BLAKE,MANAGER,7839,1981-05-01,2850.00,0.00,30      |
+| 7782,CLARK,MANAGER,7839,1981-06-09,2450.00,0.00,10      |
+| 7788,SCOTT,ANALYST,7566,1982-12-09,3000.00,0.00,20      |
+| 7839,KING,PRESIDENT,0,1981-11-17,5000.00,0.00,10        |
+| 7844,TURNER,SALESMAN,7698,1981-09-08,1500.00,0.00,30    |
+| 7876,ADAMS,CLERK,7788,1983-01-12,1100.00,0.00,20        |
+| 7900,JAMES,CLERK,7698,1981-12-03,950.00,0.00,30         |
+| 7902,FORD,ANALYST,7566,1981-12-03,3000.00,0.00,20       |
+| 7934,MILLER,CLERK,7782,1982-01-23,1300.00,0.00,10       |
++---------------------------------------------------------+
+
+Assignment-19
+----------------
+select * from emp where deptno IN (10,30) or date_format(hiredate,"%Y")=1982;
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1760.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1375.00 |  500.00 |     30 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+Assignment-20
+---------------
+select max(sal) "MAX",min(sal) "MIN",sum(sal) "SUM" from emp;
++---------+--------+----------+
+| MAX     | MIN    | SUM      |
++---------+--------+----------+
+| 5000.00 | 950.00 | 28807.50 |
++---------+--------+----------+
+
+Assignment-21
+--------------
+select ename,sal from emp where deptno=10 order by sal desc;
++--------+---------+
+| ename  | sal     |
++--------+---------+
+| KING   | 5000.00 |
+| CLARK  | 2450.00 |
+| MILLER | 1300.00 |
++--------+---------+
+
+Assignment-22
+---------------
+select ename,deptno,hiredate from emp where hiredate between '1981-01-01' and '1983-03-31' order by hiredate;
++--------+--------+------------+
+| ename  | deptno | hiredate   |
++--------+--------+------------+
+| ALLEN  |     30 | 1981-02-20 |
+| WARD   |     30 | 1981-02-22 |
+| JONES  |     20 | 1981-04-02 |
+| BLAKE  |     30 | 1981-05-01 |
+| CLARK  |     10 | 1981-06-09 |
+| TURNER |     30 | 1981-09-08 |
+| MARTIN |     30 | 1981-09-28 |
+| KING   |     10 | 1981-11-17 |
+| JAMES  |     30 | 1981-12-03 |
+| FORD   |     20 | 1981-12-03 |
+| MILLER |     10 | 1982-01-23 |
+| SCOTT  |     20 | 1982-12-09 |
+| ADAMS  |     20 | 1983-01-12 |
++--------+--------+------------+
+
+Assignment-23
+---------------
+select date_format(hiredate,"%d/%m/%y") "Date" from emp;
++----------+
+| Date     |
++----------+
+| 20/02/81 |
+| 22/02/81 |
+| 02/04/81 |
+| 28/09/81 |
+| 01/05/81 |
+| 09/06/81 |
+| 09/12/82 |
+| 17/11/81 |
+| 08/09/81 |
+| 12/01/83 |
+| 03/12/81 |
+| 03/12/81 |
+| 23/01/82 |
++----------+
+13 rows in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%D/%M/%Y") from emp;
++----------------------------------+
+| date_format(hiredate,"%D/%M/%Y") |
++----------------------------------+
+| 20th/February/1981               |
+| 22nd/February/1981               |
+| 2nd/April/1981                   |
+| 28th/September/1981              |
+| 1st/May/1981                     |
+| 9th/June/1981                    |
+| 9th/December/1982                |
+| 17th/November/1981               |
+| 8th/September/1981               |
+| 12th/January/1983                |
+| 3rd/December/1981                |
+| 3rd/December/1981                |
+| 23rd/January/1982                |
++----------------------------------+
+
+select date_format(hiredate,"%D-%M-%Y") "Date" from emp;
++---------------------+
+| Date                |
++---------------------+
+| 20th-February-1981  |
+| 22nd-February-1981  |
+| 2nd-April-1981      |
+| 28th-September-1981 |
+| 1st-May-1981        |
+| 9th-June-1981       |
+| 9th-December-1982   |
+| 17th-November-1981  |
+| 8th-September-1981  |
+| 12th-January-1983   |
+| 3rd-December-1981   |
+| 3rd-December-1981   |
+| 23rd-January-1982   |
++---------------------+
+
+select date_format(hiredate,"%Y") "Year" from emp;
++------+
+| Year |
++------+
+| 1981 |
+| 1981 |
+| 1981 |
+| 1981 |
+| 1981 |
+| 1981 |
+| 1982 |
+| 1981 |
+| 1981 |
+| 1983 |
+| 1981 |
+| 1981 |
+| 1982 |
++------+
+13 rows in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%M") "Month" from emp;
++-----------+
+| Month     |
++-----------+
+| February  |
+| February  |
+| April     |
+| September |
+| May       |
+| June      |
+| December  |
+| November  |
+| September |
+| January   |
+| December  |
+| December  |
+| January   |
++-----------+
+13 rows in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%D") "Day" from emp;
++------+
+| Day  |
++------+
+| 20th |
+| 22nd |
+| 2nd  |
+| 28th |
+| 1st  |
+| 9th  |
+| 9th  |
+| 17th |
+| 8th  |
+| 12th |
+| 3rd  |
+| 3rd  |
+| 23rd |
++------+
+13 rows in set (0.00 sec)
+
+Assignment-24
+---------------
+select count(comm) count from emp where comm>0 and comm is not null;
++-------+
+| count |
++-------+
+|     3 |
++-------+
+
+Assignment-25
+--------------
+select sum(sal) from emp;
++----------+
+| sum(sal) |
++----------+
+| 28807.50 |
++----------+
+
+Assignment-26
+--------------
+select ename,deptno,hiredate from emp where hiredate between '1981-01-01' and '1983-03-31' order by hiredate;
++--------+--------+------------+
+| ename  | deptno | hiredate   |
++--------+--------+------------+
+| ALLEN  |     30 | 1981-02-20 |
+| WARD   |     30 | 1981-02-22 |
+| JONES  |     20 | 1981-04-02 |
+| BLAKE  |     30 | 1981-05-01 |
+| CLARK  |     10 | 1981-06-09 |
+| TURNER |     30 | 1981-09-08 |
+| MARTIN |     30 | 1981-09-28 |
+| KING   |     10 | 1981-11-17 |
+| JAMES  |     30 | 1981-12-03 |
+| FORD   |     20 | 1981-12-03 |
+| MILLER |     10 | 1982-01-23 |
+| SCOTT  |     20 | 1982-12-09 |
+| ADAMS  |     20 | 1983-01-12 |
++--------+--------+------------+
+
+Assignment-27
+---------------
+select * from emp where deptno IN(20,30) and comm is null;
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 3272.50 | NULL |     20 |
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7900 | JAMES | CLERK   | 7698 | 1981-12-03 |  950.00 | NULL |     30 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+Assignment-28
+---------------
+select job,count(job) count_job from emp where job="clerk" and deptno IN(10,20);
++-------+-----------+
+| job   | count_job |
++-------+-----------+
+| CLERK |         2 |
++-------+-----------+
+
+Assignment-29
+---------------
+select * from emp where (job="clerk" or job="analyst") and sal>=1000 and deptno IN(20,30);
+select * from emp where job IN("clerk","analyst") and sal>=1000 and deptno IN(20,30);
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+Assignment-30
+---------------
+select * from emp where sal%3=0;
++-------+--------+----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+----------+------+------------+---------+------+--------+
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+--------+----------+------+------------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp where mod(sal,3)=0;
++-------+--------+----------+------+------------+---------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+--------+----------+------+------------+---------+------+--------+
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 | 0.00 |     30 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+--------+----------+------+------------+---------+------+--------+
+
+Assignment-31
+---------------
+select * from emp where (job="manager" or job="clerk") and sal>=2000 and deptno not IN(10,20);
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7698 | BLAKE | MANAGER | 7839 | 1981-05-01 | 2850.00 | NULL |     30 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+
+Extra assignments on Date and Time functions:-
+
+default date format --> Year-Month-Date;
+
+Assignment-1
+-------------
+select date_format(date_add('2014-09-03',interval -3 MONTH),"%Y-%m-01") "First Day";
++------------+
+| First Day  |
++------------+
+| 2014-06-01 |
++------------+
+
+Assignment-2
+--------------
+select last_day(date_add(curdate(),interval -3 MONTH)) "First Day";
++------------+
+| First Day  |
++------------+
+| 2025-01-31 |
++------------+
+
+Assignment-3
+--------------
+select distinct hiredate from emp where dayofweek(hiredate)=2;
++------------+
+| hiredate   |
++------------+
+| 1981-09-28 |
++------------+
+
+Assignment-4
+-------------
+select date_format(curdate(),'%Y-01-01') "First Day";
++------------+
+| First Day  |
++------------+
+| 2025-01-01 |
++------------+
+
+Assignment-5
+---------------
+select last_day(date_format(curdate(),"%Y-12-31")) "Last Day";
++------------+
+| Last Day   |
++------------+
+| 2025-12-31 |
++------------+
+
+Assignment-6
+--------------
+select floor(datediff(current_date(),"2001-01-01")/365) age;
++------+
+| age  |
++------+
+|   24 |
++------+
+
+Assignment-7
+----------------
+select date_format("2014-09-04","%M %d, %Y") date;
++--------------------+
+| date               |
++--------------------+
+| September 04, 2014 |
++--------------------+
+
+
+Assignment-8
+---------------
+select date_format(curdate(),"%W %M %Y") Date;
++-------------------+
+| Date              |
++-------------------+
+| Sunday April 2025 |
++-------------------+
+
+Assignment-9
+----------------
+select extract(YEAR from curdate()) YEAR;
++------+
+| YEAR |
++------+
+| 2025 |
++------+
+
+Assignment-10
+---------------
+select ename,hiredate from emp where hiredate between '1981-06-01' and '1981-07-30';
++-------+------------+
+| ename | hiredate   |
++-------+------------+
+| CLARK | 1981-06-09 |
++-------+------------+
+
+Assignment-11
+----------------
+select date_format(now(),"%W 0%D %M %Y %H:%i:%S") DATE;
++---------------------------------+
+| DATE                            |
++---------------------------------+
+| Sunday 06th April 2025 14:44:30 |
++---------------------------------+
+
+Assignment-12
+---------------
+select date_format(curdate(),"%d/%m/%Y") date;
++------------+
+| date       |
++------------+
+| 06/04/2025 |
++------------+
+
+Assignment-13
+----------------
+%l → Hour (1..12, no leading zero)
+
+%i → Minutes (00..59)
+
+%p → AM or PM
+
+%b → Abbreviated month name (e.g., Sep)
+
+%e → Day of the month (1..31, no leading zero)
+
+%Y → 4-digit year
+
+
+SELECT DATE_FORMAT('2014-09-05 00:00:00', '%l:%i %p %b %e, %Y') AS formatted_date;
++----------------------+
+| formatted_date       |
++----------------------+
+| 12:00 AM Sep 5, 2014 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%l:%i %p %b %e, %Y") DATE;
++----------------------+
+| DATE                 |
++----------------------+
+| 12:00 AM Apr 6, 2025 |
++----------------------+
+
+Assignment-14
+----------------
+select * from emp where month(hiredate)=06;
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7782 | CLARK | MANAGER | 7839 | 1981-06-09 | 2450.00 | NULL |     10 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+*** Assignment-15
+---------------
+select year(hiredate) year ,count(*) count from emp group by year(hiredate) having count(*)>4;
++------+-------+
+| year | count |
++------+-------+
+| 1981 |    10 |
++------+-------+
+
+Assignment-16
+---------------
+select ename,hiredate from emp where extract(YEAR from hiredate)=1982;
++--------+------------+
+| ename  | hiredate   |
++--------+------------+
+| SCOTT  | 1982-12-09 |
+| MILLER | 1982-01-23 |
++--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select ename,hiredate from emp where YEAR(hiredate)=1982;
++--------+------------+
+| ename  | hiredate   |
++--------+------------+
+| SCOTT  | 1982-12-09 |
+| MILLER | 1982-01-23 |
++--------+------------+
+
+Assignment-17
+---------------
+select *,floor(datediff(curdate(),hiredate)/365) "experience" from emp where floor(datediff(curdate(),hiredate)/365)>43;
++-------+-------+----------+------+------------+---------+--------+--------+------------+
+| EMPNO | ENAME | JOB      | MGR  | HIREDATE   | SAL     | COMM   | DEPTNO | experience |
++-------+-------+----------+------+------------+---------+--------+--------+------------+
+|  7499 | ALLEN | SALESMAN | 7698 | 1981-02-20 | 1760.00 | 300.00 |     30 |         44 |
+|  7521 | WARD  | SALESMAN | 7698 | 1981-02-22 | 1375.00 | 500.00 |     30 |         44 |
+|  7566 | JONES | MANAGER  | 7839 | 1981-04-02 | 3272.50 |   NULL |     20 |         44 |
++-------+-------+----------+------+------------+---------+--------+--------+------------+
+
+Assignment-18
+--------------
+select empno,ename,date_add(hiredate,Interval 1 month) "First_Salary_Date" from emp;
++-------+--------+-------------------+
+| empno | ename  | First_Salary_Date |
++-------+--------+-------------------+
+|  7499 | ALLEN  | 1981-03-20        |
+|  7521 | WARD   | 1981-03-22        |
+|  7566 | JONES  | 1981-05-02        |
+|  7654 | MARTIN | 1981-10-28        |
+|  7698 | BLAKE  | 1981-06-01        |
+|  7782 | CLARK  | 1981-07-09        |
+|  7788 | SCOTT  | 1983-01-09        |
+|  7839 | KING   | 1981-12-17        |
+|  7844 | TURNER | 1981-10-08        |
+|  7876 | ADAMS  | 1983-02-12        |
+|  7900 | JAMES  | 1982-01-03        |
+|  7902 | FORD   | 1982-01-03        |
+|  7934 | MILLER | 1982-02-23        |
++-------+--------+-------------------+
+
+Assignment-19
+-----------------
+select ename,hiredate,floor(datediff(curdate(),hiredate)/365) experience from emp;
++--------+------------+------------+
+| ename  | hiredate   | experience |
++--------+------------+------------+
+| ALLEN  | 1981-02-20 |         44 |
+| WARD   | 1981-02-22 |         44 |
+| JONES  | 1981-04-02 |         44 |
+| MARTIN | 1981-09-28 |         43 |
+| BLAKE  | 1981-05-01 |         43 |
+| CLARK  | 1981-06-09 |         43 |
+| SCOTT  | 1982-12-09 |         42 |
+| KING   | 1981-11-17 |         43 |
+| TURNER | 1981-09-08 |         43 |
+| ADAMS  | 1983-01-12 |         42 |
+| JAMES  | 1981-12-03 |         43 |
+| FORD   | 1981-12-03 |         43 |
+| MILLER | 1982-01-23 |         43 |
++--------+------------+------------+
+
+Assignment-20
+-----------------
+SELECT YEAR(hiredate) AS join_year, COUNT(*) AS employee_count
+    -> FROM emp
+    -> GROUP BY YEAR(hiredate)
+    -> ORDER BY join_year;
++-----------+----------------+
+| join_year | employee_count |
++-----------+----------------+
+|      1981 |             10 |
+|      1982 |              2 |
+|      1983 |              1 |
++-----------+----------------+
+
+====================================================================================================
+
+section:Handling multiple tables
+
+Assignment-1
+---------------
+create table cust_vehicle(tid int,custid int,vid int,sid int,buyprice int);
+
+ insert into cust_vehicle values(1,1,1,10,75000),(2,1,2,10,79000),(3,2,3,11,80000),(4,3,3,11,75000),(5,3,2,10,800000);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from cust_vehicle;
++------+--------+------+------+----------+
+| tid  | custid | vid  | sid  | buyprice |
++------+--------+------+------+----------+
+|    1 |      1 |    1 |   10 |    75000 |
+|    2 |      1 |    2 |   10 |    79000 |
+|    3 |      2 |    3 |   11 |    80000 |
+|    4 |      3 |    3 |   11 |    75000 |
+|    5 |      3 |    2 |   10 |   800000 |
++------+--------+------+------+----------+
+
+select cv.tid,cv.custid,c.cname,cv.buyprice from cust_vehicle cv,customer c where cv.custid=c.custid;
++------+--------+--------+----------+
+| tid  | custid | cname  | buyprice |
++------+--------+--------+----------+
+|    3 |      2 | Ganesh |    80000 |
+|    5 |      3 | Kishor |   800000 |
+|    4 |      3 | Kishor |    75000 |
++------+--------+--------+----------+
+
+Assignment-2
+---------------
+select cv.tid,cv.custid,c.custid,c.cname,cv.vid,v.vid,v.vname,cv.sid,s.sid,s.sname,cv.buyprice from vehicle v,customer c,cust_vehicle cv,salesman s where cv.custid=c.custid and cv.vid=v.vid and cv.sid=s.sid;
++------+--------+--------+--------+------+------+--------+------+------+--------+----------+
+| tid  | custid | custid | cname  | vid  | vid  | vname  | sid  | sid  | sname  | buyprice |
++------+--------+--------+--------+------+------+--------+------+------+--------+----------+
+|    5 |      3 |      3 | Kishor |    2 |    2 | Santro |   10 |   10 | Rajesh |   800000 |
+|    4 |      3 |      3 | Kishor |    3 |    3 | Yamaha |   11 |   11 | Seema  |    75000 |
+|    3 |      2 |      2 | Ganesh |    3 |    3 | Yamaha |   11 |   11 | Seema  |    80000 |
++------+--------+--------+--------+------+------+--------+------+------+--------+----------+
+
+Assignment-3
+--------------
+select e.ename,e.deptno,d.deptno,d.dname,e.sal,e.comm from emp e,dept d where e.deptno=d.deptno;
++--------+--------+--------+------------+---------+---------+
+| ename  | deptno | deptno | dname      | sal     | comm    |
++--------+--------+--------+------------+---------+---------+
+| ALLEN  |     30 |     30 | SALES      | 1760.00 |  300.00 |
+| WARD   |     30 |     30 | SALES      | 1375.00 |  500.00 |
+| JONES  |     20 |     20 | RESEARCH   | 3272.50 |    NULL |
+| MARTIN |     30 |     30 | SALES      | 1250.00 | 1400.00 |
+| BLAKE  |     30 |     30 | SALES      | 2850.00 |    NULL |
+| CLARK  |     10 |     10 | ACCOUNTING | 2450.00 |    NULL |
+| SCOTT  |     20 |     20 | RESEARCH   | 3000.00 |    NULL |
+| KING   |     10 |     10 | ACCOUNTING | 5000.00 |    NULL |
+| TURNER |     30 |     30 | SALES      | 1500.00 |    0.00 |
+| ADAMS  |     20 |     20 | RESEARCH   | 1100.00 |    NULL |
+| JAMES  |     30 |     30 | SALES      |  950.00 |    NULL |
+| FORD   |     20 |     20 | RESEARCH   | 3000.00 |    NULL |
+| MILLER |     10 |     10 | ACCOUNTING | 1300.00 |    NULL |
++--------+--------+--------+------------+---------+---------+
+
+Assignment-4
+--------------
+select e.empno,e.ename,e.sal,e.job,e.deptno,d.deptno,d.dname from emp e,dept d where e.deptno=d.deptno and job IN("clerk","salesman") and sal>200;
++-------+--------+---------+----------+--------+--------+------------+
+| empno | ename  | sal     | job      | deptno | deptno | dname      |
++-------+--------+---------+----------+--------+--------+------------+
+|  7934 | MILLER | 1300.00 | CLERK    |     10 |     10 | ACCOUNTING |
+|  7876 | ADAMS  | 1100.00 | CLERK    |     20 |     20 | RESEARCH   |
+|  7900 | JAMES  |  950.00 | CLERK    |     30 |     30 | SALES      |
+|  7844 | TURNER | 1500.00 | SALESMAN |     30 |     30 | SALES      |
+|  7654 | MARTIN | 1250.00 | SALESMAN |     30 |     30 | SALES      |
+|  7521 | WARD   | 1375.00 | SALESMAN |     30 |     30 | SALES      |
+|  7499 | ALLEN  | 1760.00 | SALESMAN |     30 |     30 | SALES      |
++-------+--------+---------+----------+--------+--------+------------+
+
+Assignment-5
+-------------
+select e.ename,e.deptno,d.deptno,d.dname,e.sal,e.comm from emp e,dept d where e.deptno=d.deptno and e.deptno IN(20,30) and e.comm is null;
++-------+--------+--------+----------+---------+------+
+| ename | deptno | deptno | dname    | sal     | comm |
++-------+--------+--------+----------+---------+------+
+| FORD  |     20 |     20 | RESEARCH | 3000.00 | NULL |
+| ADAMS |     20 |     20 | RESEARCH | 1100.00 | NULL |
+| SCOTT |     20 |     20 | RESEARCH | 3000.00 | NULL |
+| JONES |     20 |     20 | RESEARCH | 3272.50 | NULL |
+| JAMES |     30 |     30 | SALES    |  950.00 | NULL |
+| BLAKE |     30 |     30 | SALES    | 2850.00 | NULL |
++-------+--------+--------+----------+---------+------+
+
+Assignment-6
+--------------
+select d.deptno,d.dname,d.loc,e.job from dept d,emp e where d.deptno=e.deptno and e.job="clerk";
++--------+------------+----------+-------+
+| deptno | dname      | loc      | job   |
++--------+------------+----------+-------+
+|     10 | ACCOUNTING | NEW YORK | CLERK |
+|     20 | RESEARCH   | DALLAS   | CLERK |
+|     30 | SALES      | CHICAGO  | CLERK |
++--------+------------+----------+-------+
+
+Assignment-7
+--------------
+create table t1(id int,city varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table t2(id int,city varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into t1 values(1,"Pune"),(2,"Mumbai"),(3,"Hydrabad"),(4,"Chennai");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into t2 values(1,"Surat"),(2,"Mumbai"),(3,"Hydrabad"),(4,"Chennai");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Set Operators:-
+1.union:- use to combine the result-set of two or more select statements.
+select * from t1 union select * from t2;
++------+----------+
+| id   | city     |
++------+----------+
+|    1 | Pune     |
+|    2 | Mumbai   |
+|    3 | Hydrabad |
+|    4 | Chennai  |
+|    1 | Surat    |
++------+----------+
+
+2.union all:-operator takes duplicate values in the result set.
+select * from t1 union all select * from t2;
++------+----------+
+| id   | city     |
++------+----------+
+|    1 | Pune     |
+|    2 | Mumbai   |
+|    3 | Hydrabad |
+|    4 | Chennai  |
+|    1 | Surat    |
+|    2 | Mumbai   |
+|    3 | Hydrabad |
+|    4 | Chennai  |
++------+----------+
+
+3.intersect:-operator returns rows that are common in both the result set.
+select * from t1 intersect select * from t2;
++------+----------+
+| id   | city     |
++------+----------+
+|    2 | Mumbai   |
+|    3 | Hydrabad |
+|    4 | Chennai  |
++------+----------+
+
+4.except:-operator is used to deduct the result of one query from the result of another.
+It only returns the entries unique to the first query and which do not appear in the second query.
+
+select * from t1 except select * from t2;
++------+------+
+| id   | city |
++------+------+
+|    1 | Pune |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from t2 except select * from t1;
++------+-------+
+| id   | city  |
++------+-------+
+|    1 | Surat |
++------+-------+

@@ -1,0 +1,11 @@
+Assignment-2
+---------------
+select deptno,sum(sal) from emp group by deptno having sum(sal)>10000;
++--------+----------+
+| deptno | sum(sal) |
++--------+----------+
+|     20 | 10372.50 |
++--------+----------+
+
+select deptno,sum(sal) from emp where sum(sal)>10000 group by deptno;
+ERROR 1111 (HY000): Invalid use of group function

@@ -1,0 +1,19 @@
+Assignment-1
+--------------
+select deptno,sum(sal) from emp group by deptno;
++--------+----------+
+| deptno | sum(sal) |
++--------+----------+
+|     30 |  9685.00 |
+|     20 | 10372.50 |
+|     10 |  8750.00 |
++--------+----------+
+
+select deptno,sum(sal) from emp group by deptno order by deptno;
++--------+----------+
+| deptno | sum(sal) |
++--------+----------+
+|     10 |  8750.00 |
+|     20 | 10372.50 |
+|     30 |  9685.00 |
++--------+----------+

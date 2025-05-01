@@ -1,0 +1,290 @@
+-delete
+-update
+-creating copy of table
+- ifnull
+-case statement
+-like operator
+-regular expression
+-data types
+-DDL/DML/TCL transactions
+
+case statement
+---------------
+if manager inc by 2%
+if clerk inc by 7%
+if analyst inc by 5%
+
+select ename,sal,job, case when job='manager' then sal+(sal*0.02)				  when job='clerk' then sal+(sal*0.07)
+                          when job='analyst' then sal+(sal*0.05)  
+                     end inc
+from emp;
+--------------------------------------------------------------------------
+copy table
+create table emp1
+as
+  select * from emp;
+
+create table emp2
+as
+  select * from emp
+  where 1=2;
+
+delete clause
+deletes the row from the table
+
+delete
+from table_name
+[where condi];
+
+create table emp3
+as
+  select * from emp;
+
+delete 
+from emp3;
+
+delete from emp1 where ename='allen';
+
+delete 
+from emp1
+where deptno=10;
+
+========================
+update clause
+-update is used to make changes in the data of the tyable
+
+
+create table emp5
+as
+  select ename,sal,deptno,job,comm
+  from emp;
+
+-change deptno of jones to 40
+update emp5
+set deptno=40
+where ename='jones';
+
+--change deptno to 80 and job to manager for scott
+update emp5
+set deptno=80, job='manager'
+where ename='scott';
+
+update emp5
+set comm=80 
+where comm is null;
+
+update emp5
+set sal=null
+where ename='smith';
+
+--------------------------------
+ifnull()
+
+select ename,sal,comm,sal+comm "total sal"
+from emp;
+
+select ename,sal,comm,sal+ifnull(comm,0) "total sal"
+from emp;
+
+select ename,sal,comm,ifnull(sal,3000)+ifnull(comm,0) "total sal"
+from emp5;
+
+update emp5
+set comm=null
+where comm=80;
+-----------------------------------------------------
+like operator
+used for pattern matching
+% : set of letters
+_ : single letter
+
+-starting with a
+select ename,job,sal
+from emp
+where ename like 'A%';
+
+-ending with n
+select ename,job,sal
+from emp
+where ename like '%n';
+
+-a in between
+select ename,job,sal
+from emp
+where ename like '%a%';
+
+mysql> select ename,job,sal
+    -> from emp
+    -> where ename like '%a%';
++--------+----------+---------+
+| ename  | job      | sal     |
++--------+----------+---------+
+| ALLEN  | SALESMAN | 1600.00 |
+| WARD   | SALESMAN | 1250.00 |
+| MARTIN | SALESMAN | 1250.00 |
+| BLAKE  | MANAGER  | 2850.00 |
+| CLARK  | MANAGER  | 2450.00 |
+| ADAMS  | CLERK    | 1100.00 |
+| JAMES  | CLERK    |  950.00 |
+| nikita | NULL     |    NULL |
++--------+----------+---------+
+8 rows in set (0.00 sec)
+
+--name with 4 letters
+select * 
+from emp
+where ename like '____';
+
+select * 
+from emp
+where ename like 'AD%';
+
+------------------------------------
+REGEXP_LIKE()
+^:first character
+.* : set of characters
+$ : last char
+[] :set
+| : or
+. : single char
+
+
+
+display all names starting with 'a'
+select ename
+from emp
+where regexp_like(ename,'^a.*');
+
+select ename
+from emp
+where regexp_like(ename,'^m.*');
+
+select ename
+from emp
+where regexp_like(ename,'^m');
+
+-name ending with n
+select ename
+from emp
+where regexp_like(ename,'.*n$');
+
+-a can come anywhere
+select ename
+from emp
+where regexp_like(ename,'.*a.*');
+
+-starts with a or m or k
+select ename
+from emp
+where regexp_like(ename,'^[amk].*');
+
+^[amk] --- starts with a or m or k
+
+mysql> select ename
+    -> from emp
+    -> where regexp_like(ename,'^[amk].*');
++--------+
+| ename  |
++--------+
+| ALLEN  |
+| MARTIN |
+| KING   |
+| ADAMS  |
+| MILLER |
++--------+
+select ename
+from emp
+where regexp_like(ename,'^[^amk].*');
+
+-starts with m,and l at 3rd pos and ends with r
+select ename
+from emp
+where regexp_like(ename,'^m.l.*r$');
+
+-l at 2nd pos ending with n
+
+select ename
+from emp
+where regexp_like(ename,'.l.*n$');
+
+-starts with 'a' ends with 'n' or 
+starts with 'm' ends with 'r' or
+starts with 's' ends with 'h'
+
+select ename
+from emp
+where regexp_like(ename,'^a.*n$|^m.*r$|^s.*h$');
+==============================================
+autocommit var has default value 1 in MySQL
+
+
+commit
+rollback
+savepoint
+
+set autocommit=0
+insert into student
+values(null,'Sanjay',null,null)
+
+set autocommit=0;
+savepoint A;
+insert into student
+values(null,'aaaa',null,null);
+insert into student
+values(null,'bbbb',null,null);
+savepoint B;
+delete from student where name='aaaa';
+insert into student
+values(null,'cccc',null,null);
+savepoint C;
+insert into student
+values(null,'dddd',null,null);
+insert into student
+values(null,'eeee',null,null);
+
+rollback to B;
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          
+

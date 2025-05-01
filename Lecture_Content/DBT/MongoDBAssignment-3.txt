@@ -1,0 +1,36 @@
+ create a collection student
+save following documents in it
+
+1. name:Arti, dept:CS, marks array [67,90,78,93,47],fees 12000,course:Enginnering,gender:f,scholership:8000
+2. name:Pooja, dept:IT, marks array [77,80,63,70,47],fees 7000, course:Bsc.,gender:f,scholership:18000
+3. name:Prasad, dept:electronics, marks array [66,54,92,41,89],fees 10000, course:BCom., scholership:20000
+add 5 documents having dept as electronics.
+
+1.Write a query to increace marks by 10 of all subjects for students studing in electronics dept. 
+2. Find total fees of electronics dept.
+3. Find total female students.
+4. Sort data depending on fees 
+5. find the student paying highest fees
+6. find top 3 students getting maximum scholership arrange them according to the course.
+
+Aggregate Functions
+--------------------
+1.Find sum,avg price for collection.
+
+2. Display 5 topmost rated movies
+
+3. Display top most rated movies and arrange then in ascending order of name
+
+4. Display sum price and avg rating of all movies.
+
+5. Diplay sum price for all movies rating wise
+
+6. Display sum, min, max, avg, count for all movies rating wise with rating >3
+
+
+
+
+ 
+
+ 
+ 

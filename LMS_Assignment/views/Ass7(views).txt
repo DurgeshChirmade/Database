@@ -1,0 +1,11 @@
+Assignment-7
+----------------
+SHOW FULL TABLES
+    -> WHERE TABLE_TYPE = 'VIEW';
++------------------+------------+
+| Tables_in_knowit | Table_type |
++------------------+------------+
+| emp_v20          | VIEW       |
+| emp_view         | VIEW       |
+| new_emp_v20      | VIEW       |
++------------------+------------+

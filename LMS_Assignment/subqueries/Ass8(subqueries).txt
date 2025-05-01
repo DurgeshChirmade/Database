@@ -1,0 +1,168 @@
+Assignment-8
+--------------
+1.
+create table category(cid int,cname varchar(15) unique not null,description varchar(30),constraint pk_cid primary key(cid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc category;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| cid         | int         | NO   | PRI | NULL    |       |
+| cname       | varchar(15) | NO   | UNI | NULL    |       |
+| description | varchar(30) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+insert into category values(1,"chips","very crunchy"),(2,"chocolate","very chocolaty"),(3,"snacks","yummy"),(4,"cold drinks","thanda thanda cool cool");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+select * from category;
++-----+-------------+-------------------------+
+| cid | cname       | description             |
++-----+-------------+-------------------------+
+|   1 | chips       | very crunchy            |
+|   2 | chocolate   | very chocolaty          |
+|   3 | snacks      | yummy                   |
+|   4 | cold drinks | thanda thanda cool cool |
++-----+-------------+-------------------------+
+
+2.
+
+create table product(pid int,pname varchar(20),price float(6,2) default 20.00, qty int check(qty>0),cid int,sid int,constraint pk_pid primary key(pid),constraint fk_cids foreign key(cid) references category(cid) on delete set null,constraint fk_sid foreign key(sid) references salesmans(sid));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| pname | varchar(20) | YES  |     | NULL    |       |
+| price | float(6,2)  | YES  |     | 20.00   |       |
+| qty   | int         | YES  |     | NULL    |       |
+| cid   | int         | YES  | MUL | NULL    |       |
+| sid   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+insert into product values(123,"lays",30,30.00,1,12),(111,"pepsi",40,50.00,4,11),(134,"nachos",50,50.00,1,12),(124,"dairy milk",40,60.00,2,14),(125,"pringles",40,60.00,1,14),(213,"Sketch Pens",56,150.00,null,11),(167,"eraser",90,5.00,null,null);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++-----+-------------+-------+------+------+------+
+| pid | pname       | price | qty  | cid  | sid  |
++-----+-------------+-------+------+------+------+
+| 111 | pepsi       | 40.00 |   50 |    4 |   11 |
+| 123 | lays        | 30.00 |   30 |    1 |   12 |
+| 124 | dairy milk  | 40.00 |   60 |    2 |   14 |
+| 125 | pringles    | 40.00 |   60 |    1 |   14 |
+| 134 | nachos      | 50.00 |   50 |    1 |   12 |
+| 167 | eraser      | 90.00 |    5 | NULL | NULL |
+| 213 | Sketch Pens | 56.00 |  150 | NULL |   11 |
++-----+-------------+-------+------+------+------+
+
+
+3.
+create table salesmans(sid int,sname varchar(15) unique not null,city varchar(15),constraint pk_sid primary key(sid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc salesmans;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| sname | varchar(15) | NO   | UNI | NULL    |       |
+| city  | varchar(15) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+insert into salesmans values(11,"Rahul","Pune"),(12,"Kirti","Mumbai"),(13,"Prasad","Nashik"),(14,"Arnav","Amravati");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesmans;
++-----+--------+----------+
+| sid | sname  | city     |
++-----+--------+----------+
+|  11 | Rahul  | Pune     |
+|  12 | Kirti  | Mumbai   |
+|  13 | Prasad | Nashik   |
+|  14 | Arnav  | Amravati |
++-----+--------+----------+
+
+Q.1
+select pid,pname,cid,(select cname from category where category.cid=product.cid) cname from Product where cid=(select cid from category where cname="chips");
++-----+----------+------+-------+
+| pid | pname    | cid  | cname |
++-----+----------+------+-------+
+| 123 | lays     |    1 | chips |
+| 125 | pringles |    1 | chips |
+| 134 | nachos   |    1 | chips |
++-----+----------+------+-------+
+
+Q.3
+select * from salesmans where sid not in (select distinct sid from product where sid is not null);
++-----+--------+--------+
+| sid | sname  | city   |
++-----+--------+--------+
+|  13 | Prasad | Nashik |
++-----+--------+--------+
+
+Q.4
+select * from category where cid not in (select distinct cid from product where cid is not null);
++-----+--------+-------------+
+| cid | cname  | description |
++-----+--------+-------------+
+|   3 | snacks | yummy       |
++-----+--------+-------------+
+
+Q.5
+select * from product where cid is null;
++-----+-------------+-------+------+------+------+
+| pid | pname       | price | qty  | cid  | sid  |
++-----+-------------+-------+------+------+------+
+| 167 | eraser      | 90.00 |    5 | NULL | NULL |
+| 213 | Sketch Pens | 56.00 |  150 | NULL |   11 |
++-----+-------------+-------+------+------+------+
+
+Q.6
+select * from salesmans where regexp_like(city,"^[PN]");
++-----+--------+--------+
+| sid | sname  | city   |
++-----+--------+--------+
+|  11 | Rahul  | Pune   |
+|  13 | Prasad | Nashik |
++-----+--------+--------+
+
+Q.7
+alter table salesmans add column credit_limit int;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc salesmans;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| sid          | int         | NO   | PRI | NULL    |       |
+| sname        | varchar(15) | NO   | UNI | NULL    |       |
+| city         | varchar(15) | YES  |     | NULL    |       |
+| credit_limit | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> select * from salesmans;
++-----+--------+----------+--------------+
+| sid | sname  | city     | credit_limit |
++-----+--------+----------+--------------+
+|  11 | Rahul  | Pune     |         NULL |
+|  12 | Kirti  | Mumbai   |         NULL |
+|  13 | Prasad | Nashik   |         NULL |
+|  14 | Arnav  | Amravati |         NULL |
++-----+--------+----------+--------------+
+
+Q.8
+select * from depts where deptno not in (select distinct deptno from emps);
++--------+------------+--------+
+| DEPTNO | DNAME      | LOC    |
++--------+------------+--------+
+|     40 | OPERATIONS | BOSTON |
++--------+------------+--------+

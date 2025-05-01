@@ -1,0 +1,12 @@
+Assignment-1
+--------------
+select r.rid,r.rname,c.cid,c.cname from room r left join courses c on r.rid=c.rid;
++-----+--------+------+-------+
+| rid | rname  | cid  | cname |
++-----+--------+------+-------+
+| 100 | Jasmin |  121 | DBDA  |
+| 101 | Rose   |  131 | DAC   |
+| 103 | Mogra  | NULL | NULL  |
+| 105 | Lotus  |  151 | DOIT  |
++-----+--------+------+-------+
+

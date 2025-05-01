@@ -1,0 +1,30 @@
+Assignment-1
+--------------
+db.createCollection("dept",{capped:true,size:5})
+{ ok: 1 }
+
+ db.dept.insertMany([{eno:101,ename:"ABC"},{eno:102,ename:"BBB"},{eno:103,ename:"CCC"},{eno:104,ename:"DDD"},{eno:105,ename:"EEE"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67f902dad13df48d5dcb0ce2'),
+    '1': ObjectId('67f902dad13df48d5dcb0ce3'),
+    '2': ObjectId('67f902dad13df48d5dcb0ce4'),
+    '3': ObjectId('67f902dad13df48d5dcb0ce5'),
+    '4': ObjectId('67f902dad13df48d5dcb0ce6')
+  }
+}
+knowit> db.dept.insertOne({eno:111,ename:"QWE"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('67f902efd13df48d5dcb0ce7')
+}
+knowit> db.dept.insertOne({eno:113,ename:"ARG"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('67f902fbd13df48d5dcb0ce8')
+}
+knowit> db.dept.find()
+[
+  { _id: ObjectId('67f902fbd13df48d5dcb0ce8'), eno: 113, ename: 'ARG' }
+]

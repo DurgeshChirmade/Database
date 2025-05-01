@@ -1,0 +1,9 @@
+Assignment-4
+--------------
+select job,max(sal) "MAX_SALARY" from emp where job IN("manager","clerk","salesman") and deptno IN(10,20) group by job order by max(sal) desc;
++---------+------------+
+| job     | MAX_SALARY |
++---------+------------+
+| MANAGER |    3272.50 |
+| CLERK   |    1300.00 |
++---------+------------+

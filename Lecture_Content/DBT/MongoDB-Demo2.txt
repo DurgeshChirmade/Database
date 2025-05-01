@@ -1,0 +1,165 @@
+regular expressions
+-----------------
+^ : first letter
+$ : last letter
+\d : digits
+[0-9]:set
+[A-Z]:set
+// parretn
+.* set of chars
+
+movies with name A-amitabh
+db.movie.find({actor:/^[Aa]mitabh/}).pretty()
+
+movies sratting with digits
+db.movie.find({name:/^[0-9]/}).pretty()
+db.movie.find({name:/^\d/}).pretty()
+
+starting with digit and ending wt s
+db.movie.find({name:/^\d.*s$/}).pretty()
+
+starting with k and ensa ith i
+db.movie.find({name:/^[Kk].*i$/}).pretty()
+
+
+start with letter and ends with digit
+db.movie.find({name:/^[A-Za-z].*\d$/}).pretty()
+
+starting with s
+db.movie.find({name:/^S.*/}).pretty()
+
+
+display all actors at index 0
+
+db.movie.find({},{actor.0:1,name:1,_id:0})
+
+db.movie.find().pretty()
+
+updatemany
+
+db.movie.updateMany({price:{$gte:300}},{$set:{rating:8}})
+
+deleting key-value pair
+----------------------
+db.movie.updateMany({name:/kahani/},{$unset:{rating:""}},{multi:false})
+
+
+inc price by 50 if rating>6
+$inc
+$inc:50
+
+db.movie.updateMany({rating:{$gt:6}},{$inc:{price:50}})
+db.movie.updateMany({rating:{$gt:6}},{$inc:{price:-50}})
+
+
+$mul 
+----
+db.movie.updateMany({name:'newton'},{$mul:{price:1.05}})
+update rating to 6 if current rating >8
+
+$min
+db.movie.updateMany({price:400},{$min:{rating:6}})
+
+$max
+db.movie.updateMany({price:400},{$max:{rating:6}})
+
+
+Array Operations
+-----
+
+$push add newelement  the array
+$pull delete element from array
+$each to add multiple elements
+$pop deletes element
+
+db.movie.update({name:'3 idiots'},{$push:{actor:'aaa'}})
+
+$each
+-----
+db.movie.update({name:'3 idiots'},{$push:{actor:{$each:["yyy","zzz","xxx"]}}})
+
+db.movie.update({name:'3 idiots'},{$push:{actor:{$each:["pune","mumbai","nagpur"] ,$position:2}}})
+
+deleting elements from array
+-----------------------
+
+delete last value
+db.movie.update({name:'3 idiots'},{$pop:{actor:1}})
+
+delete first value
+db.movie.update({name:'3 idiots'},{$pop:{actor:-1}})
+
+
+delete any value
+db.movie.update({name:'3 idiots'},{$pull:{actor:'aaa'}})
+
+delete multiple values
+db.movie.update({name:'3 idiots'},{$pull:{actor:{$in:['pune','mumbai','nagpur']}}})
+
+ 
+
+aggregate functions ....piping
+==========================
+$project
+$sort
+$skip
+$limit
+$match
+$group
+
+syntax
+
+db.collection_name.aggregate({filter-1},{filter-2},{filter-3})
+
+find sum ratings
+--------------------
+display 5 topmost rated movies and arrange them namewise
+db.movie.aggregate({$sort:{rating:-1}},{$limit:5},{$project:{name:1,rating:1,price:1,_id:0}}) 
+ 
+
+find sum price of all movies 
+db.movie.aggregate({$group:{_id:null,total:{$sum:'$price'}}})
+over()
+
+find sum price of all movies ,avg,min,max
+db.movie.aggregate({$group:{_id:null,total:{$sum:'$price'},
+                                     average:{$avg:'$price'},
+                                     min:{$min:'$price'}}})
+
+
+avg price rating wise
+----------------------
+db.movie.aggregate([{$group:{_id:'$rating',avg_price:{$avg:'$price'}}}]) 
+
+avg price rating wise sort on rating desc
+------------------------------------------
+db.movie.aggregate([{$group:{_id:'$rating',avg_price:{$avg:'$price'}}},{$sort:{_id:-1}}]) 
+
+topmost rated movies and arrange them based on name
+----------------------------------------------
+db.movie.aggregate([{$sort:{rating:-1}},{$limit:5},{$sort:{name:1}},{$project:{name:1,rating:1,_id:0}}])
+
+sum price of all movies and avg rating of all movies
+--------------------------------------------------
+db.movie.aggregate([{$group:{_id:null,
+                     sump:{$sum:'$price'}}}])
+db.movie.aggregate([{$group:{_id:null,
+                     sump:{$sum:'$price'},avgp:{$avg:'$price'}}}])
+
+
+deleting document
+
+db.stud.deleteOne({name:'ajay'})
+db.stud.remove({name:'sumit'})
+
+
+
+
+
+
+
+
+
+
+
+

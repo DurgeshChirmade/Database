@@ -1,0 +1,42 @@
+Assignment-2
+--------------
+delimiter //
+create function email(a varchar(15),b varchar(15))
+returns varchar(20)
+begin
+	return concat(lower(substr(a,1,2)),lower(substr(b,-2,2)),'@knowit.com');
+end //
+delimiter ;
+
+select email(ename,job) mail from emps;
++-----------------+
+| mail            |
++-----------------+
+| smrk@knowit.com |
+| alan@knowit.com |
+| waan@knowit.com |
+| joer@knowit.com |
+| maan@knowit.com |
+| bler@knowit.com |
+| cler@knowit.com |
+| scst@knowit.com |
+| kint@knowit.com |
+| tuan@knowit.com |
+| adrk@knowit.com |
+| jark@knowit.com |
+| fost@knowit.com |
+| mirk@knowit.com |
+| NULL            |
+| rast@knowit.com |
+| ajer@knowit.com |
++-----------------+
+
+delimiter //
+create function email(a varchar(15),b varchar(15))
+returns varchar(20)
+begin
+	declare txt varchar(20);
+	set txt=concat(lower(substr(a,1,2)),lower(substr(b,-2,2)),'@knowit.com');
+	return txt;
+end //
+delimiter ;

@@ -1,0 +1,239 @@
+set global log_bin_trust_function_creators=1; 
+delimiter //
+create function total_sal(a decimal(7,2), b decimal(7,2)) returns decimal(7,2)
+begin
+  declare x decimal(7,2);
+  set x=ifnull(a,0)+b;
+  return x;
+end //
+delimiter ;
+
+select empno,ename,sal,comm,total_sal(comm,sal) "Tota Sal"
+from emp;
+
+
+
+>call check_no(8);
+
+delimiter //
+drop procedure if exists check_no;
+create procedure check_no(n int)
+begin
+  declare p int;
+  set p=isperfect(n);
+  if p=1
+  then 
+    select "Yes";
+  else
+    select "No";
+  end if;
+end //
+delimiter ;
+
+delimiter //
+create function isperfect(num int) returns int
+begin
+  declare i,sum int;
+  set sum =0;
+  set i =1;
+  while i<num
+  do
+    if mod(num,i)=0
+    then
+      set sum=sum + i;
+    end if;
+    set i=i+1;
+  end while;
+  if sum=num
+  then
+    return 1;
+  else 
+    return 0;
+  end if;
+end //
+delimiter ;
+
+mysql> call check_no(8);
++----+
+| No |
++----+
+| No |
++----+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call check_no(6);
++-----+
+| Yes |
++-----+
+| Yes |
++-----+
+1 row in set (0.00 sec)
+
+delimiter //
+drop procedure if exists job_send;
+create procedure job_send(in mjob varchar(15))
+begin
+   declare p decimal(7,2);
+   set p=find_max(mjob);
+   select p;
+end //
+delimiter ;
+
+delimiter //
+drop function if exists find_max;
+create function find_max(m varchar(15)) returns decimal(7,2)
+begin
+   declare x decimal(7,2);
+   select max(sal) into x
+   from emp
+   where job=m;
+   return x;
+end //
+delimiter ;
+
+
+SELECT  routine_schema,  
+        routine_name,  
+        routine_type 
+FROM information_schema.routines 
+WHERE routine_schema = 'knowit' 
+
+----------------------------------
+CURSORS in MySQL
+================
+
+DECLARE cursor --- after var declaration
+OPEN cursor
+FETCH data in cursor
+CLOSE cursor
+
+
+will fetch only 1 row
+---------------------
+delimiter //
+create procedure cursor_chk1()
+begin
+   declare i int;
+   declare n varchar(20);
+
+   declare cur cursor for
+      select empno,ename 
+      from emp;
+   open cur;
+   fetch cur into i,n;
+   select i,concat('Hello ',n);
+   close cur;
+end //
+delimiter ;
+
+--------------------------
+all rows
+
+handler is used
+
+delimiter //
+drop procedure if exists cursor_chk1;
+create procedure cursor_chk1()
+begin
+   declare i int;
+   declare n varchar(20);
+   declare f int default 0;
+
+   declare cur cursor for
+      select empno,ename 
+      from emp;
+
+   declare continue handler 
+   for NOT FOUND set f=1;
+
+   open cur;
+
+   print:loop
+      fetch cur into i,n;
+      if f=1
+      then
+         leave print;
+      end if;
+      select i,concat('Hello ',n);
+    end loop print;
+   close cur;
+end //
+delimiter ;
+=============================
+
+Trigger
+
+old 
+new
+
+Insert after
+-----------
+
+create table order_mst
+(oid int primary key auto_increment,
+ pname varchar(15),
+ qty int,
+ price int
+);
+
+create table order_log
+(oid int,
+ odate date,
+ amt int
+);
+
+delimiter //
+CREATE TRIGGER add_item
+after INSERT
+ON order_mst
+for each row
+begin
+  declare a int;
+  set a=new.qty*new.price;
+
+  insert into order_log
+  values(new.oid,curdate(),a);
+end //
+delimiter ;
+
+insert into order_mst(pname,qty,price)
+      values('eraser',100,5);
+            
+
+
+create table emp_log
+(empno int,
+ ename varchar(20),
+ job varchar(20),
+ sal decimal(7,2),
+ odate date,
+ njob varchar(20),
+ nsal decimal(7,2));
+
+create table emp1
+as
+ select * from emp;
+
+delimiter //
+create trigger old_data
+before update
+on emp1
+for each row
+begin
+  insert into emp_log
+  values(old.empno,old.ename,old.job,old.sal,curdate(),new.job,new.sal);
+end //
+delimiter ;
+
+
+
+
+
+
+
+
+
+
+

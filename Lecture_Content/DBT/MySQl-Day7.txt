@@ -1,0 +1,96 @@
+views in RDBMS
+=================
+
+create view x
+as
+  select ename,sal,comm
+  from emp;
+
+insert into x
+values('abcd',30000,1000);
+
+delete from x
+where ename='abcd';
+
+============
+create view dept20
+as
+  select * 
+  from emp
+  where deptno=20;
+
+ insert into dept20(ename,deptno)
+ values('tttt',20);
+
+ insert into dept20(ename,deptno)
+ values('RRRR',30);
+
+create view dept20_new
+as
+  select * 
+  from emp
+  where deptno=20
+  with check option;
+
+ insert into dept20(ename,deptno)
+ values('RRRR',30);
+
+
+create view z
+as
+select e.ename, e.deptno, d.dname
+from emp e
+join dept d
+on e.deptno=d.deptno;
+
+
+SHOW FULL TABLES IN database_name WHERE TABLE_TYPE LIKE 'BASE TABLE';
+SHOW FULL TABLES IN database_name WHERE TABLE_TYPE LIKE 'VIEW';
+SHOW FULL TABLES IN knowit WHERE TABLE_TYPE LIKE 'VIEW';
+
+============================
+index in RDBMS
+
+SHOW INDEXES FROM table_name
+SHOW INDEXES FROM emp;
+
+create index mgr_idx 
+on emp(mgr);
+
+drop index mgr_idx;
+=====================
+stored procedures
+
+delimiter //
+create procedure display()
+begin
+   select * 
+   from emp
+   where job='manager';
+end //
+
+delimiter ;
+
+
+delimiter //
+drop procedure if exists display2;
+create procedure display2()
+begin
+  insert into emp(empno,ename,job)
+  values(7777,'Mihir','Trainer');
+  select * from emp;
+end //
+delimiter ;
+
+
+
+
+
+
+
+
+
+
+
+
+

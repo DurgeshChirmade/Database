@@ -1,0 +1,19 @@
+Assignment-3
+--------------
+create view emp_v20 
+as
+	select empno,ename,deptno,job
+	from emps 
+	where deptno=20;
+
+select * from emp_v20;
++-------+-------+--------+---------+
+| empno | ename | deptno | job     |
++-------+-------+--------+---------+
+|  7369 | SMITH |     20 | CLERK   |
+|  7566 | JONES |     20 | MANAGER |
+|  7788 | SCOTT |     20 | ANALYST |
+|  7876 | ADAMS |     20 | CLERK   |
+|  7902 | FORD  |     20 | ANALYST |
+|  1111 | Geeta |     20 | NULL    |
++-------+-------+--------+---------+

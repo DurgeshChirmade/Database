@@ -1,0 +1,10 @@
+Assignment-7
+------------
+select deptno,sum(sal) "Total Salary",min(sal) "Minimum Salary" from emps where job="Manager" group by deptno,sal order by deptno;
++--------+--------------+----------------+
+| deptno | Total Salary | Minimum Salary |
++--------+--------------+----------------+
+|     10 |      2450.00 |        2450.00 |
+|     20 |      2975.00 |        2975.00 |
+|     30 |      2850.00 |        2850.00 |
++--------+--------------+----------------+

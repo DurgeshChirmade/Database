@@ -1,0 +1,41 @@
+Assignment-1
+-------------
+create table product_details(pid int,amt float);
+
+delimiter //
+create trigger first_trigger
+after update 
+on product
+for each row
+begin
+	if new.price <> old.price
+	then
+		INSERT INTO product_details (pid, amt)
+    	VALUES (NEW.pid, NEW.price * NEW.qty);
+	end if;
+end //
+delimiter ;
+
+update product set price=35.00 where pid=167;
+Query OK, 1 row affected (0.01 sec)
+
+select * from product;
++-----+-------------+--------+------+------+------+
+| pid | pname       | price  | qty  | cid  | sid  |
++-----+-------------+--------+------+------+------+
+| 111 | pepsi       |  50.00 |   40 |    4 |   11 |
+| 123 | lays        |  30.00 |   30 |    1 |   12 |
+| 124 | dairy milk  |  60.00 |   40 |    2 |   14 |
+| 125 | pringles    |  60.00 |   40 |    1 |   14 |
+| 134 | nachos      |  50.00 |   50 |    1 |   12 |
+| 167 | eraser      |  35.00 |   90 | NULL | NULL |
+| 213 | Sketch Pens | 150.00 |   56 | NULL |   11 |
++-----+-------------+--------+------+------+------+
+7 rows in set (0.00 sec)
+
+mysql> select * from product_details;
++------+------+
+| pid  | amt  |
++------+------+
+|  167 | 3150 |
++------+------+

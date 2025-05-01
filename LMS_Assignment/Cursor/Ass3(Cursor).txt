@@ -1,0 +1,55 @@
+Assignment-3
+-------------
+delimiter //
+create procedure third_cursor(in x varchar(15))
+begin
+	declare a int;
+	declare b varchar(15);
+	declare c varchar(15);
+	declare d int;
+	declare e date;
+	declare f decimal(7,2);
+	declare g decimal(7,2);
+	declare h int;
+	declare flag int default 0;
+	declare cur cursor for
+		select e.empno,e.ename,e.job,e.mgr,e.hiredate,e.sal,e.comm,e.deptno
+		from emp e
+		where e.job=x;
+	declare continue handler for NOT FOUND
+		set flag=1;
+	open cur;
+	print:loop
+		fetch cur into a,b,c,d,e,f,g,h;
+
+		if flag=1
+		then
+			leave print;
+		end if;
+
+		select a,b,c,d,e,f,g,h;
+	end loop print;
+	close cur;
+end //
+delimiter;
+
+call third_cursor('clerk');
++------+-------+-------+------+------------+---------+------+------+
+| a    | b     | c     | d    | e          | f       | g    | h    |
++------+-------+-------+------+------------+---------+------+------+
+| 7876 | ADAMS | CLERK | 7788 | 1983-01-12 | 1100.00 | NULL |   20 |
++------+-------+-------+------+------------+---------+------+------+
+1 row in set (0.00 sec)
+
++------+-------+-------+------+------------+--------+------+------+
+| a    | b     | c     | d    | e          | f      | g    | h    |
++------+-------+-------+------+------------+--------+------+------+
+| 7900 | JAMES | CLERK | 7698 | 1981-12-03 | 950.00 | NULL |   30 |
++------+-------+-------+------+------------+--------+------+------+
+1 row in set (0.01 sec)
+
++------+--------+-------+------+------------+---------+------+------+
+| a    | b      | c     | d    | e          | f       | g    | h    |
++------+--------+-------+------+------------+---------+------+------+
+| 7934 | MILLER | CLERK | 7782 | 1982-01-23 | 1300.00 | NULL |   10 |
++------+--------+-------+------+------------+---------+------+------+

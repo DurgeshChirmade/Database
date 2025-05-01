@@ -1,0 +1,415 @@
+Assingment-1
+---------------
+select * from emps where sal>(select sal from emps where ename="Smith");
++-------+--------+-----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |    NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950.00 |    NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+-----------+------+------------+---------+---------+--------+
+
+Assignment-2
+---------------
+select * from emps where deptno=(select deptno from emps where ename="Smith");
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800.00 | NULL |     20 |
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+Assignment-3
+--------------
+select * from emps where sal between (select sal from emps where ename="Adams") and (select sal from emps where ename="Scott");
++-------+--------+----------+------+------------+---------+---------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL     | COMM    | DEPTNO |
++-------+--------+----------+------+------------+---------+---------+--------+
+|  7499 | ALLEN  | SALESMAN | 7698 | 1981-02-20 | 1600.00 |  300.00 |     30 |
+|  7521 | WARD   | SALESMAN | 7698 | 1981-02-22 | 1250.00 |  500.00 |     30 |
+|  7566 | JONES  | MANAGER  | 7839 | 1981-04-02 | 2975.00 |    NULL |     20 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981-09-28 | 1250.00 | 1400.00 |     30 |
+|  7698 | BLAKE  | MANAGER  | 7839 | 1981-05-01 | 2850.00 |    NULL |     30 |
+|  7782 | CLARK  | MANAGER  | 7839 | 1981-06-09 | 2450.00 |    NULL |     10 |
+|  7788 | SCOTT  | ANALYST  | 7566 | 1982-12-09 | 3000.00 |    NULL |     20 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500.00 |    0.00 |     30 |
+|  7876 | ADAMS  | CLERK    | 7788 | 1983-01-12 | 1100.00 |    NULL |     20 |
+|  7902 | FORD   | ANALYST  | 7566 | 1981-12-03 | 3000.00 |    NULL |     20 |
+|  7934 | MILLER | CLERK    | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |
++-------+--------+----------+------+------------+---------+---------+--------+
+
+Assignment-4
+--------------
+select * from emps where sal>any(select sal from emps where ename IN('ward','blake'));
++-------+--------+-----------+------+------------+---------+--------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL     | COMM   | DEPTNO |
++-------+--------+-----------+------+------------+---------+--------+--------+
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600.00 | 300.00 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-04-02 | 2975.00 |   NULL |     20 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850.00 |   NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450.00 |   NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1982-12-09 | 3000.00 |   NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000.00 |   NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500.00 |   0.00 |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000.00 |   NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |   NULL |     10 |
++-------+--------+-----------+------+------------+---------+--------+--------+
+
+Assignment-5
+---------------
+select * from emps where sal>(select avg(sal) from emps where deptno=10);
++-------+-------+-----------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+-----------+------+------------+---------+------+--------+
+|  7566 | JONES | MANAGER   | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7788 | SCOTT | ANALYST   | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+|  7902 | FORD  | ANALYST   | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+-------+-----------+------+------------+---------+------+--------+
+
+Assignment-6
+-------------
+select * from emps where deptno=(select deptno from depts where dname="research");
++-------+-------+---------+------+------------+---------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
++-------+-------+---------+------+------------+---------+------+--------+
+|  7369 | SMITH | CLERK   | 7902 | 1980-12-17 |  800.00 | NULL |     20 |
+|  7566 | JONES | MANAGER | 7839 | 1981-04-02 | 2975.00 | NULL |     20 |
+|  7788 | SCOTT | ANALYST | 7566 | 1982-12-09 | 3000.00 | NULL |     20 |
+|  7876 | ADAMS | CLERK   | 7788 | 1983-01-12 | 1100.00 | NULL |     20 |
+|  7902 | FORD  | ANALYST | 7566 | 1981-12-03 | 3000.00 | NULL |     20 |
++-------+-------+---------+------+------------+---------+------+--------+
+
+Assignment-7
+------------
+select deptno,sum(sal) "Total Salary",min(sal) "Minimum Salary" from emps where job="Manager" group by deptno,sal order by deptno;
++--------+--------------+----------------+
+| deptno | Total Salary | Minimum Salary |
++--------+--------------+----------------+
+|     10 |      2450.00 |        2450.00 |
+|     20 |      2975.00 |        2975.00 |
+|     30 |      2850.00 |        2850.00 |
++--------+--------------+----------------+
+
+Assignment-8
+--------------
+1.
+create table category(cid int,cname varchar(15) unique not null,description varchar(30),constraint pk_cid primary key(cid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc category;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| cid         | int         | NO   | PRI | NULL    |       |
+| cname       | varchar(15) | NO   | UNI | NULL    |       |
+| description | varchar(30) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+insert into category values(1,"chips","very crunchy"),(2,"chocolate","very chocolaty"),(3,"snacks","yummy"),(4,"cold drinks","thanda thanda cool cool");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+select * from category;
++-----+-------------+-------------------------+
+| cid | cname       | description             |
++-----+-------------+-------------------------+
+|   1 | chips       | very crunchy            |
+|   2 | chocolate   | very chocolaty          |
+|   3 | snacks      | yummy                   |
+|   4 | cold drinks | thanda thanda cool cool |
++-----+-------------+-------------------------+
+
+2.
+
+create table product(pid int,pname varchar(20),price float(6,2) default 20.00, qty int check(qty>0),cid int,sid int,constraint pk_pid primary key(pid),constraint fk_cids foreign key(cid) references category(cid) on delete set null,constraint fk_sid foreign key(sid) references salesmans(sid));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| pname | varchar(20) | YES  |     | NULL    |       |
+| price | float(6,2)  | YES  |     | 20.00   |       |
+| qty   | int         | YES  |     | NULL    |       |
+| cid   | int         | YES  | MUL | NULL    |       |
+| sid   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+insert into product values(123,"lays",30,30.00,1,12),(111,"pepsi",40,50.00,4,11),(134,"nachos",50,50.00,1,12),(124,"dairy milk",40,60.00,2,14),(125,"pringles",40,60.00,1,14),(213,"Sketch Pens",56,150.00,null,11),(167,"eraser",90,5.00,null,null);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from product;
++-----+-------------+-------+------+------+------+
+| pid | pname       | price | qty  | cid  | sid  |
++-----+-------------+-------+------+------+------+
+| 111 | pepsi       | 40.00 |   50 |    4 |   11 |
+| 123 | lays        | 30.00 |   30 |    1 |   12 |
+| 124 | dairy milk  | 40.00 |   60 |    2 |   14 |
+| 125 | pringles    | 40.00 |   60 |    1 |   14 |
+| 134 | nachos      | 50.00 |   50 |    1 |   12 |
+| 167 | eraser      | 90.00 |    5 | NULL | NULL |
+| 213 | Sketch Pens | 56.00 |  150 | NULL |   11 |
++-----+-------------+-------+------+------+------+
+
+
+3.
+create table salesmans(sid int,sname varchar(15) unique not null,city varchar(15),constraint pk_sid primary key(sid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc salesmans;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| sname | varchar(15) | NO   | UNI | NULL    |       |
+| city  | varchar(15) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+insert into salesmans values(11,"Rahul","Pune"),(12,"Kirti","Mumbai"),(13,"Prasad","Nashik"),(14,"Arnav","Amravati");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesmans;
++-----+--------+----------+
+| sid | sname  | city     |
++-----+--------+----------+
+|  11 | Rahul  | Pune     |
+|  12 | Kirti  | Mumbai   |
+|  13 | Prasad | Nashik   |
+|  14 | Arnav  | Amravati |
++-----+--------+----------+
+
+Q.1
+select pid,pname,cid,(select cname from category where category.cid=product.cid) cname from Product where cid=(select cid from category where cname="chips");
++-----+----------+------+-------+
+| pid | pname    | cid  | cname |
++-----+----------+------+-------+
+| 123 | lays     |    1 | chips |
+| 125 | pringles |    1 | chips |
+| 134 | nachos   |    1 | chips |
++-----+----------+------+-------+
+
+Q.3
+select * from salesmans where sid not in (select distinct sid from product where sid is not null);
++-----+--------+--------+
+| sid | sname  | city   |
++-----+--------+--------+
+|  13 | Prasad | Nashik |
++-----+--------+--------+
+
+Q.4
+select * from category where cid not in (select distinct cid from product where cid is not null);
++-----+--------+-------------+
+| cid | cname  | description |
++-----+--------+-------------+
+|   3 | snacks | yummy       |
++-----+--------+-------------+
+
+Q.5
+select * from product where cid is null;
++-----+-------------+-------+------+------+------+
+| pid | pname       | price | qty  | cid  | sid  |
++-----+-------------+-------+------+------+------+
+| 167 | eraser      | 90.00 |    5 | NULL | NULL |
+| 213 | Sketch Pens | 56.00 |  150 | NULL |   11 |
++-----+-------------+-------+------+------+------+
+
+Q.6
+select * from salesmans where regexp_like(city,"^[PN]");
++-----+--------+--------+
+| sid | sname  | city   |
++-----+--------+--------+
+|  11 | Rahul  | Pune   |
+|  13 | Prasad | Nashik |
++-----+--------+--------+
+
+Q.7
+alter table salesmans add column credit_limit int;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc salesmans;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| sid          | int         | NO   | PRI | NULL    |       |
+| sname        | varchar(15) | NO   | UNI | NULL    |       |
+| city         | varchar(15) | YES  |     | NULL    |       |
+| credit_limit | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> select * from salesmans;
++-----+--------+----------+--------------+
+| sid | sname  | city     | credit_limit |
++-----+--------+----------+--------------+
+|  11 | Rahul  | Pune     |         NULL |
+|  12 | Kirti  | Mumbai   |         NULL |
+|  13 | Prasad | Nashik   |         NULL |
+|  14 | Arnav  | Amravati |         NULL |
++-----+--------+----------+--------------+
+
+Q.8
+select * from depts where deptno not in (select distinct deptno from emps);
++--------+------------+--------+
+| DEPTNO | DNAME      | LOC    |
++--------+------------+--------+
+|     40 | OPERATIONS | BOSTON |
++--------+------------+--------+
+
+Assignment-9
+----------------
+1.
+create table faculty(fid int,fname varchar(20) not null,sp_skill1 varchar(30),sp_kill varchar(30),constraint pk_fid primary key(fid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc faculty;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| fid       | int         | NO   | PRI | NULL    |       |
+| fname     | varchar(20) | NO   |     | NULL    |       |
+| sp_skill1 | varchar(30) | YES  |     | NULL    |       |
+| sp_kill   | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> insert into faculty values(10,"Amol","Database","Java"),(11,"Asha","Java","MySQL"),(12,"Kiran","CPP","database"),(13,"Seeta","MySQL","database");
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from faculty;
++-----+-------+-----------+----------+
+| fid | fname | sp_skill1 | sp_kill  |
++-----+-------+-----------+----------+
+|  10 | Amol  | Database  | Java     |
+|  11 | Asha  | Java      | MySQL    |
+|  12 | Kiran | CPP       | database |
+|  13 | Seeta | MySQL     | database |
++-----+-------+-----------+----------+
+
+2.
+create table room(rid int,rname varchar(15) not null,rloc varchar(20),constraint pk_rid primary key(rid));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc room;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rid   | int         | NO   | PRI | NULL    |       |
+| rname | varchar(15) | NO   |     | NULL    |       |
+| rloc  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into room values(100,"Jasmin","1st floor"),(101,"Rose","2nd floor"),(105,"Lotus","1st floor"),(103,"Mogra","1st floor");
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from room;
++-----+--------+-----------+
+| rid | rname  | rloc      |
++-----+--------+-----------+
+| 100 | Jasmin | 1st floor |
+| 101 | Rose   | 2nd floor |
+| 103 | Mogra  | 1st floor |
+| 105 | Lotus  | 1st floor |
++-----+--------+-----------+
+
+3.
+create table courses (cid int,cname varchar(15) not null,rid int,fid int,constraint pk_cid primary key(cid),constraint fk_rid foreign key(rid) references room(rid),constraint fk_fid foreign key(fid) references faculty(fid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into courses values(121,"DBDA",100,10),(131,"DAC",101,null),(141,"DTISS",null,null),(151,"DOIT",105,12);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from courses;
++-----+-------+------+------+
+| cid | cname | rid  | fid  |
++-----+-------+------+------+
+| 121 | DBDA  |  100 |   10 |
+| 131 | DAC   |  101 | NULL |
+| 141 | DTISS | NULL | NULL |
+| 151 | DOIT  |  105 |   12 |
++-----+-------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> desc courses;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cid   | int         | NO   | PRI | NULL    |       |
+| cname | varchar(15) | NO   |     | NULL    |       |
+| rid   | int         | YES  | MUL | NULL    |       |
+| fid   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+Q.1
+select * from room where rid not in (select distinct rid from courses where rid is not null);
++-----+-------+-----------+
+| rid | rname | rloc      |
++-----+-------+-----------+
+| 103 | Mogra | 1st floor |
++-----+-------+-----------+
+
+Q.2
+select r.rid,r.rname,r.rloc, 
+case when c.rid is not null then "Allocated" 
+	 else "not allocated" end allocation_status 
+from room r 
+left join courses c 
+on c.rid=r.rid;
++-----+--------+-----------+-------------------+
+| rid | rname  | rloc      | allocation_status |
++-----+--------+-----------+-------------------+
+| 100 | Jasmin | 1st floor | Allocated         |
+| 101 | Rose   | 2nd floor | Allocated         |
+| 103 | Mogra  | 1st floor | not allocated     |
+| 105 | Lotus  | 1st floor | Allocated         |
++-----+--------+-----------+-------------------+
+
+Q.3
+select c.cname,f.fname from courses c join faculty f on c.fid=f.fid where f.sp_kill='database';
++-------+-------+
+| cname | fname |
++-------+-------+
+| DOIT  | Kiran |
++-------+-------+
+
+Q.4
+select c.cid,c.cname,c.rid,c.fid,r.rid,r.rname,r.rloc,f.fid,f.fname,f.sp_skill1,f.sp_kill from courses c join room r on c.rid=r.rid join faculty f on c.fid=f.fid;
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| cid | cname | rid  | fid  | rid | rname  | rloc      | fid | fname | sp_skill1 | sp_kill  |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| 121 | DBDA  |  100 |   10 | 100 | Jasmin | 1st floor |  10 | Amol  | Database  | Java     |
+| 151 | DOIT  |  105 |   12 | 105 | Lotus  | 1st floor |  12 | Kiran | CPP       | database |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+
+do this using where clause like --> 
+select c.cid,c.cname,c.rid,c.fid,r.rid,r.rname,r.rloc,f.fid,f.fname,f.sp_skill1,f.sp_kill from courses c,faculty f,room r where c.rid=r.rid and c.fid=f.fid;
+
+select c.cid,c.cname,c.rid,c.fid,r.rid,r.rname,r.rloc,f.fid,f.fname,f.sp_skill1,f.sp_kill from courses c,faculty f,room r where c.rid=r.rid and c.fid=f.fid;
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| cid | cname | rid  | fid  | rid | rname  | rloc      | fid | fname | sp_skill1 | sp_kill  |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+| 121 | DBDA  |  100 |   10 | 100 | Jasmin | 1st floor |  10 | Amol  | Database  | Java     |
+| 151 | DOIT  |  105 |   12 | 105 | Lotus  | 1st floor |  12 | Kiran | CPP       | database |
++-----+-------+------+------+-----+--------+-----------+-----+-------+-----------+----------+
+

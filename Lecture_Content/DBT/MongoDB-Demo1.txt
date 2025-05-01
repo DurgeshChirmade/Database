@@ -1,0 +1,76 @@
+use knowit
+
+db.emp.insert({eno:1,ename:'Geeta',deptno:10})
+
+db.collection_name.insertMany([{},{},{}])
+
+db.emp.insertMany([{eno:1,ename:'Seeta',deptno:20,job:'analyst'},
+                  {eno:34,deptno:20,dname:'R&D'},
+                  {depno:90,loc:'Pune'}])
+ 
+db.emp.insertMany([{eno:3,ename:'Seema',deptno:40,job:'analyst'},
+                  {eno:34,deptno:40,dname:'Sales'},
+                  {depno:10,loc:'Pune'}])
+display documents
+
+db.emp.find()
+
+db.emp.findOne()
+
+-----------------
+delete collection
+db.collection_name.drop()
+
+delete database
+db.dropDatabase()
+-----------------------
+
+db.emp.find({deptno:20}).pretty()
+
+find({query},{projection})
+
+> db.emp.find({deptno:20}).pretty()
+{
+        "_id" : ObjectId("67d158e6dec2dc3b138b9895"),
+        "eno" : 1,
+        "ename" : "Seeta",
+        "deptno" : 20,
+        "job" : "analyst"
+}
+{
+        "_id" : ObjectId("67d158e6dec2dc3b138b9896"),
+        "eno" : 34,
+        "deptno" : 20,
+        "dname" : "R&D"
+}
+> db.emp.find({deptno:20},{eno:1,deptno:1,_id:0}).pretty()
+{ "eno" : 1, "deptno" : 20 }
+{ "eno" : 34, "deptno" : 20 }
+
+db.emp.find({deptno:20},{eno:1,deptno:1,_id:0}).pretty()
+
+db.emp.find({ename:'Geeta'})
+db.emp.find({},{eno:1,deptno:1,_id:0})
+
+all Amitabh movies
+
+db.movie.find({actor:'Amitabh'})
+
+db.movie.find().limit(3).skip(2)
+
+db.movie.find().sort({price:1}).pretty()
+
+db.movie.find().sort({price:-1}).pretty()
+
+
+>mongoimport --db database_name --collection collection_name --file "path\movie.json"
+
+
+
+
+
+
+
+
+
+

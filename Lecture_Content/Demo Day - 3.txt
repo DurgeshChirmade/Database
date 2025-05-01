@@ -1,0 +1,497 @@
+-built in functions
+Single row(scalar functions)
+Number functions
+>round(no)
+select round(1234.1111);
+mysql> select round(1234.5);
++---------------+
+| round(1234.5) |
++---------------+
+|          1235 |
++---------------+
+1 row in set (0.00 sec)
+
+>truncate(1234.1111,2)
+mysql> select truncate(1234.98381,0);
++------------------------+
+| truncate(1234.98381,0) |
++------------------------+
+|                   1234 |
++------------------------+
+1 row in set (0.00 sec)
+
+>mysql> select ceil(123.01);
++--------------+
+| ceil(123.01) |
++--------------+
+|          124 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(123.9);
++--------------+
+| floor(123.9) |
++--------------+
+|          123 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select abs(-7);
++---------+
+| abs(-7) |
++---------+
+|       7 |
++---------+
+1 row in set (0.00 sec)
+
+power(m,n)
+
+mysql> select power(3,3);
++------------+
+| power(3,3) |
++------------+
+|         27 |
++------------+
+1 row in set (0.00 sec)
+
+sqrt
+mysql> select sqrt(25);
++----------+
+| sqrt(25) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(12,2);
++-----------+
+| mod(12,2) |
++-----------+
+|         0 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(12,5);
++-----------+
+| mod(12,5) |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.00 sec)
+
+string functions
+------------------
+length
+select ename,length(ename) from emp;
+
+mysql> select length('knowit');
++------------------+
+| length('knowit') |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.00 sec)
+
+select lower(ename) from emp;
+
+select upper(lower(ename)) from emp;
+
+ASCII(string)
+select ascii('Amit');
+-----------------------------------
+cancat(str)
+select concat(ename,deptno) from emp;
+
+select concat(ename,':',deptno) from emp;
+select concat(ename,':',deptno,':'job) from emp;
+
+concat_ws(separator,column_list)
+select concat_ws(':',ename,deptno,job,sal,comm) from emp;
+-------------------------------------------------
+
+substr(str,pos,no of chars)
+
+select substr('This is Knowit',3,6)
+
+mysql> select ename,substr(ename,-4,2) from emp;
++--------+--------------------+
+| ename  | substr(ename,-4,2) |
++--------+--------------------+
+| SMITH  | MI                 |
+| ALLEN  | LL                 |
+
+-generate email
+first 2 letters of name+@knowit.com
+select ename,concat(substr(ename,1,2),'@knowit.com')
+from emp;
+
+--last 2 letters of name in lower case+ first 3 letters of job+deptno+@knowit.com
+
+lower(substr(ename,-2,2))+ substr(job,1,3)+deptno+'@knowit.com'
+
+select ename,job,deptno, concat(lower(substr(ename,-2,2)),substr(job,1,3),deptno,'@knowit.com') email
+from emp;
+
+select ename,job,deptno, concat(lower(substr(ename,-2,2)),substr(job,1,3),comm,'@knowit.com') email
+from emp;
+select ename,job,deptno, concat(lower(substr(ename,-2,2)),substr(job,1,3),comm,'@knowit.com') email
+from emp;
+
+mysql> select reverse(ename),ename from emp;
++----------------+--------+
+| reverse(ename) | ename  |
++----------------+--------+
+| HTIMS          | SMITH  |
+| NELLA          | ALLEN  |
+| DRAW           | WARD   |
+| SENOJ          | JONES  
+
+
+lpad(str,no of char,chr)
+
+select ename,lpad(ename,8,'#') from emp;
+
+rpad(str,no of char,chr)
+select ename,rpad(ename,8,'#') from emp;
+
+ltrim(str)
+-trim the space from lhs
+
+mysql> select ename,length(ename),trim(ename),length(trim(ename)) from emp;
+
+replace(str,from string,new string)
+
+select replace('India is Beautiful country','Beautiful','my');
+
++--------------------------------------------------------+
+| replace('India is Beautiful country','Beautiful','my') |
++--------------------------------------------------------+
+| India is my country                                    |
++--------------------------------------------------------+
+1 row in set (0.00 sec)
+
+======================================================================
+
+date time functions
+
+curdate()
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2025-04-03 |
++------------+
+1 row in set (0.00 sec)
+
+current_date()
+mysql> select current_date();
++----------------+
+| current_date() |
++----------------+
+| 2025-04-03     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2025-04-03 10:06:01 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select sysdate();
++---------------------+
+| sysdate()           |
++---------------------+
+| 2025-04-03 10:06:52 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2025-4-3',"%Y");
++------------------------------+
+| date_format('2025-4-3',"%Y") |
++------------------------------+
+| 2025                         |
++------------------------------+
+1 row in set (0.01 sec)
+
+select ename,hiredate
+from emp
+where date_format(hiredate,"%Y")=1982;
+
+mysql> select ename,hiredate
+    -> from emp
+    -> where date_format(hiredate,"%Y")=1982;
++--------+------------+
+| ename  | hiredate   |
++--------+------------+
+| SCOTT  | 1982-12-09 |
+| MILLER | 1982-01-23 |
++--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select date_format('2025-4-3',"%y");
++------------------------------+
+| date_format('2025-4-3',"%y") |
++------------------------------+
+| 25                           |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2025-4-3',"%M");
++------------------------------+
+| date_format('2025-4-3',"%M") |
++------------------------------+
+| April                        |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2025-4-3',"%m");
++------------------------------+
+| date_format('2025-4-3',"%m") |
++------------------------------+
+| 04                           |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2025-4-3',"%D");
++------------------------------+
+| date_format('2025-4-3',"%D") |
++------------------------------+
+| 3rd                          |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format('2025-4-3',"%d");
++------------------------------+
+| date_format('2025-4-3',"%d") |
++------------------------------+
+| 03                           |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(hiredate,"%d/%m/%y") from emp;
++----------------------------------+
+| date_format(hiredate,"%d/%m/%y") |
++----------------------------------+
+| 17/12/80                         |
+| 20/02/81                         |
+| 22/02/81                         |
+| 02/04/81                         |
+
+
+select  select floor(datediff(curdate(),hiredate)/365) from emp; from emp;
+
+select ename,hiredate,floor(datediff(curdate(),hiredate)/365) "years"
+from emp
+where floor(datediff(curdate(),hiredate)/365) >=43;
+
+
+mysql> select curtime();
++-----------+
+| curtime() |
++-----------+
+| 10:51:56  |
++-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select date(now());
++-------------+
+| date(now()) |
++-------------+
+| 2025-04-03  |
++-------------+
+1 row in set (0.00 sec)
+
+extract
+
+select extract(year from hiredate)
+from emp;
+select extract(year from now());
+
+select extract(month from now());
+
+disp all employees joined in the month of feb
+select ename,hiredate
+from emp
+where extract(month from hiredate)=11;
+
+select extract(day from now());
+
+ 
+mysql> select hour(now());
++-------------+
+| hour(now()) |
++-------------+
+|          11 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select year(now());
++-------------+
+| year(now()) |
++-------------+
+|        2025 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select day(now());
++------------+
+| day(now()) |
++------------+
+|          3 |
++------------+
+1 row in set (0.00 sec)
+----------------------------------
+Aggregate functions(group functions)
+sum()
+avg()
+max()
+min()
+count()
+
+select sum(sal)
+from emp;
+mysql> select sum(sal)
+    -> from emp;
++----------+
+| sum(sal) |
++----------+
+| 29025.00 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(sal) from emp;
++----------+
+| min(sal) |
++----------+
+|   800.00 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(sal),max(sal),avg(sal) from emp;
++----------+----------+-------------+
+| min(sal) | max(sal) | avg(sal)    |
++----------+----------+-------------+
+|   800.00 |  5000.00 | 2073.214286 |
++----------+----------+-------------+
+1 row in set (0.00 sec)
+
+select deptno,avg(sal)
+from emp;
+
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'knowit.emp.DEPTNO'; this is incompatible with sql_mode=only_full_group_by
+
+select max(sal)
+from emp
+where deptno=30;
+
+mysql> select max(sal)
+    -> from emp
+    -> where deptno=30;
++----------+
+| max(sal) |
++----------+
+|  2850.00 |
++----------+
+1 row in set (0.00 sec)
+
+select deptno,max(sal),min(sal),avg(sal)
+from emp
+where deptno=30;
+
+select job,max(sal)
+from emp
+where job='manager';
+
+mysql> select job,max(sal)
+    -> from emp
+    -> where job='manager';
++---------+----------+
+| job     | max(sal) |
++---------+----------+
+| MANAGER |  2975.00 |
++---------+----------+
+1 row in set (0.00 sec)
+
+
+select deptno,avg(sal)
+from emp
+where deptno=20;
+
+
+==============================
+-diplay empno,ename,deptno,dname
+
+select e.empno,e.ename,e.deptno,d.deptno,d.dname
+from emp e, dept d;
+gives cross poduct
+
+select e.empno,e.ename,e.deptno,d.deptno,d.dname
+from emp e, dept d
+where e.deptno=d.deptno;
+
+select e.empno,e.ename,e.deptno,d.dname,e.sal,s.grade
+from emp e, dept d, salgrade s
+where e.deptno=d.deptno and e.sal between s.losal and s.hisal;
+
+cat(cid,cname)
+create table cat
+(cid int,
+ cname varchar(12)
+);
+
+product(pid,pname,cid)
+create table product
+(pid int,
+ pname varchar(25),
+ cid int
+);
+
+prod_det(pid,qty,price)
+create table prod_det
+(pid int,
+ qty int,
+ price float(9,2));
+
+insert into cat
+values(100,'Food'),
+      (200,'Clothes'),
+      (300,'Stationary'),
+       (400,'Electronics');
+
+insert into product
+values(1,'Dairy Milk',100),
+      (2,'charger',400),
+      (3,'jeans',200),
+      (4,'pen',300);
+
+insert into prod_det
+values(1,56,40),
+      (2,15,500),
+      (3,34,1200);
+
+--disp pid,pname,cid,cname,qty,price
+
+select p.pid,p.pname,p.cid,c.cname,pd.qty,pd.price
+from product p, cat c, prod_det pd
+where p.cid=c.cid and p.pid=pd.pid;
+=======================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

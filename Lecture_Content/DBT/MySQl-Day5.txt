@@ -1,0 +1,275 @@
+create table dept11
+(dno int auto_increment,
+ dname varchar(20) not null,
+ constraint pk_dno primary key(dno)
+);
+
+insert into dept11(dname)
+values('R&D'),
+      ('sales'),
+      ('mkt');
+
+insert into dept11(dname)
+values ('mkt'),
+       ('purchase'),
+       ('finance');
+
+create table emp11
+(
+  eno int auto_increment,
+  ename varchar(15) not null,
+  deptno int,
+  constraint pk_eno primary key(eno),
+  constraint fk_deptno foreign key(deptno) references dept11(dno)
+   on delete set null 
+);
+
+insert into emp11(ename,deptno)
+values('Seeta',1),
+      ('Geeta',2),
+      ('Shyam',1),
+      ('Tina',3),
+      ('Suraj',3);
+
+insert into emp11(ename,deptno)
+values ('Tina',1),
+      ('Suraj',6),
+       ('Amit',4),
+      ('Raj',2),
+      ('Sam',6);
+
+
+insert into emp11(ename,deptno)
+values ('Tina',3),
+      ('Suraj',3);
+
+delete from dept11
+where dno=3;
+
+==========================================
+
+create table dept11
+(dno int auto_increment,
+ dname varchar(20) not null,
+ constraint pk_dno primary key(dno)
+);
+
+insert into dept11(dname)
+values('R&D'),
+      ('sales'),
+      ('mkt'), 
+    ('purchase'), ('finance');
+
+create table emp11
+(
+  eno int auto_increment,
+  ename varchar(15) not null,
+  deptno int,
+  constraint pk_eno primary key(eno),
+  constraint fk_deptno foreign key(deptno) references dept11(dno)
+   on delete cascade
+);
+
+insert into emp11(ename,deptno)
+values('Seeta',1),
+      ('Geeta',2),
+      ('Shyam',1),
+      ('Tina',3),
+      ('Suraj',3),('Tina',1),
+      ('Suraj',5),
+       ('Amit',4),
+      ('Raj',2),
+      ('Sam',5);
+
+delete from dept11
+where dno=1;
+
+===================================================
+
+create table dept11
+(dno int auto_increment,
+ dname varchar(20) not null,
+ constraint pk_dno primary key(dno)
+);
+
+insert into dept11(dname)
+values('R&D'),
+      ('sales'),
+      ('mkt'), 
+    ('purchase'), ('finance');
+
+create table emp11
+(
+  eno int auto_increment,
+  ename varchar(15) not null,
+  deptno int,
+  constraint pk_eno primary key(eno),
+  constraint fk_deptno foreign key(deptno) references dept11(dno)
+   on update cascade
+);
+
+insert into emp11(ename,deptno)
+values('Seeta',1),
+      ('Geeta',2),
+      ('Shyam',1),
+      ('Tina',3),
+      ('Suraj',3),('Tina',1),
+      ('Suraj',5),
+       ('Amit',4),
+      ('Raj',2),
+      ('Sam',5);
+
+delete from dept11
+where dno=1;
+
+============================
+
+partition by
+
+select ename, min(sal)
+from emp;
+
+select ename,sal,deptno,job, min(sal) over()
+from emp;
+
+select ename,sal, avg(sal) over()
+from emp;
+
+select ename,sal,deptno, avg(sal) over(partition by deptno)
+from emp;
+
+select ename,sal,deptno,avg(sal) over(partition by deptno),max(sal) over(partition by deptno)
+from emp;
+
+
+select ename,sal,deptno,avg(sal) over(partition by deptno) as avg_sal,max(sal)  over(partition by deptno) as max_sal,job, min(sal)over(partition by job) as min_sal
+from emp
+where deptno!=10;
+
+================================
+autocommit=0
+commit;
+rollback;
+
+all DML transactions can be roll backed
+
+
+set autocommit=0;
+
+
+
+insert into emp11(ename,deptno)
+values('smita',1);
+
+delete from emp11
+where ename='suraj';
+
+ 
+
+drop table t1;
+
+rolback;
+
+savepoint a;
+insert into emp11(ename,deptno)
+values('aaaa',1);
+delete from emp11
+where ename='smita';
+ 
+savepoint b;
+insert into emp11(ename,deptno)
+values('bbbb',1);
+insert into emp11(ename,deptno)
+values('cccc',1);
+insert into emp11(ename,deptno)
+values('dddd',1);
+savepoint c;
+insert into emp11(ename,deptno)
+values('eeee',1);
+insert into emp11(ename,deptno)
+values('ffff',1);
+savepoint d;
+insert into emp11(ename,deptno)
+values('gggg',1);
+
+TCL ---- rollback
+         commit
+         savepoint
+
+===================================
+subquery
+
+select *
+from emp
+where sal>(select avg(sal)
+           from emp);
+
+select *
+from emp 
+where sal >any(select sal
+            from emp
+            where ename in('scott','turner'));
+
+select *
+from emp 
+where sal >=any(select sal
+            from emp
+            where ename in('scott','turner'));
+
+
+select *
+from emp 
+where sal in(select sal
+            from emp
+            where ename in('scott','turner'));
+
+
+delete 
+from tab
+where deptno=(select deptno
+              from tab
+	      where ename='smith');
+
+
+delete 
+from tab
+where deptno=(select deptno
+              from(select deptno
+                   from tab
+	           where ename='smith')x);
+
+==============================================================
+
+select * 
+from emp e
+where e.deptno not in (select d.deptno
+                   from dept d
+                  );
+
+select * 
+from emp e
+where e.deptno in (select d.deptno
+                   from dept d
+                  );
+
+
+select d.deptno
+from dept d 
+where d.deptno not in (select e.deptno 
+	               from emp e
+                       where e.deptno is not null);
+                 
+
+
+
+select *
+from dept d 
+where d.deptno in (select e.deptno 
+	               from emp e
+                        );
+                 
+
+
+
+
+

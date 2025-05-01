@@ -1,0 +1,75 @@
+Assignment-1
+-------------
+set global log_bin_trust_function_creators=1;
+
+delimiter //
+create function total_sal(s decimal(7,2),c decimal(7,2)) 
+returns decimal(7,2)
+begin
+	declare tot_sal decimal(7,2);
+
+	if c is null
+	then
+		set tot_sal=s;
+	else
+		set tot_sal=s + c;
+	end if;
+
+	return tot_sal;
+
+end //
+delimiter ;
+
+select total_sal(sal,comm) "Total Sal" from emps;
++-----------+
+| Total Sal |
++-----------+
+|    800.00 |
+|   1900.00 |
+|   1750.00 |
+|   2975.00 |
+|   2650.00 |
+|   2850.00 |
+|   2450.00 |
+|   3000.00 |
+|   5000.00 |
+|   1500.00 |
+|   1100.00 |
+|    950.00 |
+|   3000.00 |
+|   1300.00 |
+|  10300.00 |
+|      NULL |
+|      NULL |
++-----------+
+
+delimiter //
+create function tota_sal(s decimal(7,2),c decimal(7,2)) 
+returns decimal(7,2)
+begin
+	return s+ifnull(c,0);
+end //
+delimiter ;
+
+select tota_sal(sal,comm) "Total Sal" from emps;
++-----------+
+| Total Sal |
++-----------+
+|    800.00 |
+|   1900.00 |
+|   1750.00 |
+|   2975.00 |
+|   2650.00 |
+|   2850.00 |
+|   2450.00 |
+|   3000.00 |
+|   5000.00 |
+|   1500.00 |
+|   1100.00 |
+|    950.00 |
+|   3000.00 |
+|   1300.00 |
+|  10300.00 |
+|      NULL |
+|      NULL |
++-----------+

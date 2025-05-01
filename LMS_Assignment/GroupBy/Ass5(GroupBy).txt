@@ -1,0 +1,11 @@
+Assignment-5
+-------------
+select job,deptno,count(deptno) "count_Dept" from emp group by job,deptno having sum(sal)>3000;
++-----------+--------+------------+
+| job       | deptno | count_Dept |
++-----------+--------+------------+
+| SALESMAN  |     30 |          4 |
+| MANAGER   |     20 |          1 |
+| ANALYST   |     20 |          2 |
+| PRESIDENT |     10 |          1 |
++-----------+--------+------------+

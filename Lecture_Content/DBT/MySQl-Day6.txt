@@ -1,0 +1,191 @@
+display dept where emps are working
+
+select *
+from dept d
+where exists(select e.deptno
+             from emp e
+             where d.deptno=e.deptno);
+
+mysql> select * from dept;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
+|     40 | OPERATIONS | BOSTON   |
++--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select *
+    -> from dept d
+    -> where exists(select e.deptno
+    ->              from emp e
+    ->              where d.deptno=e.deptno);
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | ACCOUNTING | NEW YORK |
+|     20 | RESEARCH   | DALLAS   |
+|     30 | SALES      | CHICAGO  |
++--------+------------+----------+
+3 rows in set (0.01 sec)
+
+select *
+from dept d
+where d.deptno in (select e.deptno
+                   from emp e);
+
+
+display dept where emps are not working
+
+select *
+from dept d
+where not exists(select e.deptno
+             from emp e
+             where d.deptno=e.deptno);
+              
+
+mysql> select *
+    -> from dept d
+    -> where not exists(select e.deptno
+    ->              from emp e
+    ->              where d.deptno=e.deptno);
++--------+------------+--------+
+| DEPTNO | DNAME      | LOC    |
++--------+------------+--------+
+|     40 | OPERATIONS | BOSTON |
++--------+------------+--------+
+1 row in set (0.00 sec)
+
+select *
+from dept d
+where d.deptno not in (select e.deptno
+                       from emp e);
+
+select *
+from emp e1
+where e1.sal>(select avg(e2.sal)
+              from emp e2
+              where e1.deptno=e2.deptno);
+
+
+===============================
+
+joins in RDBMS
+
+inner join
+
+inner equi join
+-----------------
+select e.ename,e.deptno,d.dname
+from dept d
+join emp e
+on e.deptno=d.deptno;
+
+mysql> select e.ename,e.deptno,d.dname
+    -> from dept d
+    -> join emp e
+    -> on e.deptno=d.deptno;
++--------+--------+------------+
+| ename  | deptno | dname      |
++--------+--------+------------+
+| SMITH  |     20 | RESEARCH   |
+| ALLEN  |     30 | SALES      |
+| WARD   |     30 | SALES      |
+| JONES  |     20 | RESEARCH   |
+| MARTIN |     30 | SALES      |
+| BLAKE  |     30 | SALES      |
+| CLARK  |     10 | ACCOUNTING |
+| SCOTT  |     20 | RESEARCH   |
+| KING   |     10 | ACCOUNTING |
+| TURNER |     30 | SALES      |
+| ADAMS  |     20 | RESEARCH   |
+| JAMES  |     30 | SALES      |
+| FORD   |     20 | RESEARCH   |
+| MILLER |     10 | ACCOUNTING |
++--------+--------+------------+
+14 rows in set (0.00 sec)
+
+select e.ename,e.deptno,d.dname
+from dept d,emp e
+where e.deptno=d.deptno;
+
+
+select e.ename,e.deptno,e.sal,s.grade
+from emp e
+join salgrade s
+on e.sal between s.losal and s.hisal;
+
+self join
+--------
+
+select e.empno,e.ename,e.mgr,m.ename
+from emp e
+join emp m
+on e.mgr=m.empno;
+
+left outer join
+--------------
+select e.empno,e.ename,d.deptno,d.dname
+from dept d
+left join emp e
+on e.deptno=d.deptno;
+
+mysql> select e.empno,e.ename,d.deptno,d.dname
+    -> from dept d
+    -> left join emp e
+    -> on e.deptno=d.deptno;
++-------+--------+--------+------------+
+| empno | ename  | deptno | dname      |
++-------+--------+--------+------------+
+|  7934 | MILLER |     10 | ACCOUNTING |
+|  7839 | KING   |     10 | ACCOUNTING |
+|  7782 | CLARK  |     10 | ACCOUNTING |
+|  7902 | FORD   |     20 | RESEARCH   |
+|  7876 | ADAMS  |     20 | RESEARCH   |
+|  7788 | SCOTT  |     20 | RESEARCH   |
+|  7566 | JONES  |     20 | RESEARCH   |
+|  7369 | SMITH  |     20 | RESEARCH   |
+|  7900 | JAMES  |     30 | SALES      |
+|  7844 | TURNER |     30 | SALES      |
+|  7698 | BLAKE  |     30 | SALES      |
+|  7654 | MARTIN |     30 | SALES      |
+|  7521 | WARD   |     30 | SALES      |
+|  7499 | ALLEN  |     30 | SALES      |
+|  NULL | NULL   |     40 | OPERATIONS |
++-------+--------+--------+------------+
+15 rows in set (0.00 sec)
+
+
+right outer join
+--------------
+select e.empno,e.ename,e.deptno,d.dname
+from dept d
+right join emp e
+on e.deptno=d.deptno;
+ 
+
+
+select e.empno,e.ename,e.deptno,e.job,d.dname
+from dept d
+right join emp e
+on e.deptno=d.deptno
+where e.job='salesman';
+
+
+full join
+------------
+select e.empno,e.ename,d.deptno,d.dname
+from dept d
+left join emp e
+on e.deptno=d.deptno
+union
+select e.empno,e.ename,e.deptno,d.dname
+from dept d
+right join emp e
+on e.deptno=d.deptno;
+ 
+
+ 
+

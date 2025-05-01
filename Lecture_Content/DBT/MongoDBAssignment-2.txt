@@ -1,0 +1,36 @@
+1.Change rating of movie Kesari to 2  
+
+2.increase the price of all tickits by Rs 20 for Amitabh's movie. 
+
+3.Delete key rating for movie Kesari
+
+4.Increase price by 50 and change rating to 7 for movie 3 idiots.
+
+5.Add new actor in movie Sholay
+
+6.Add multipla actors in any movie of your choice.
+
+7.Add actors at a perticular position
+
+8.Delete first value from array
+
+9.delete last value from array
+
+10.display 5 topmost rated movies and arrange them according to names.
+db.movie.update({$sort:{rating:-1}},{$limit:5},{$sort:{name:1}},{$project:{name:1,rating:1,_id:0}}])
+
+11.For movie "kahani 2" change rating to 5.
+ 
+12.Change price =400 and increase rating by 2 for all movies with name Kahani in it.
+
+13.Decrease price of all movies by Rs.40.
+
+14.Increase the price by 10% of price to display all movies with amitabh acted in it and is at 1 st index position in array
+db.movie.find({'actor':/^[Aa]mitabh'}).skip(4).limit(3)
+
+15.Create a capped collection of size 5 by name dept.Store dno,  dname,location.Test this capped collection by adding new documents.
+
+
+
+
+ 

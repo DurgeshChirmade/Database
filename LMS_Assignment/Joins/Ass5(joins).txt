@@ -1,0 +1,11 @@
+Assignment-5
+---------------
+select d.deptno,d.dname,count(e.empno) count_employees from depts d left join emps e on e.deptno=d.deptno group by d.deptno,d.dname;
++--------+------------+-----------------+
+| deptno | dname      | count_employees |
++--------+------------+-----------------+
+|     10 | ACCOUNTING |               3 |
+|     20 | RESEARCH   |               5 |
+|     30 | SALES      |               6 |
+|     40 | OPERATIONS |               0 |
++--------+------------+-----------------+
